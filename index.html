@@ -850,6 +850,8 @@ button.pill.mis:hover{border-color:#e8c766}
 .pmis .pm small{grid-column:1/-1;opacity:.75}
 .pmis .pm.fatta span{color:#9fc27a}.pmis .pm.fallita span{color:#d27a62}
 #vtPhone,#pvPhone{z-index:120}
+.dicecall .dcrow{display:flex;gap:14px;justify-content:center}
+.dicecall .dcrow{gap:10px;max-width:100%;flex-wrap:wrap}.dicecall .dcrow .dcdie{zoom:.7}
 </style>
 <style id="cssRole">#cambiaRuolo.tb{border-color:var(--gold-lo,#9c7a3c);color:var(--gold-hi,#f3d793)}
 .rolechip{margin-left:auto;margin-right:8px;padding:6px 12px;border:1px solid var(--gold-lo,#9c7a3c);border-radius:999px;background:rgba(217,180,106,.08);color:var(--gold-hi,#f3d793);font:inherit;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
@@ -1895,8 +1897,8 @@ function music(on) {
 const NT = k => (NARR[k] ? NARR[k].t : ""), NP = k => NT(k).split("\n\n").map(p => `<p>${esc(p)}</p>`).join("");
 const AUD = { cache: {}, mus: null, musKey: null, voice: null, talking: false, force: null };
 const MUSVOL = .5;
-const TRACKS = { 4: { battle: "m_aurea_battaglia", calm: "m_aurea_quiete", boss: "m_epica", choice: "m_processo", vote: "m_processo" }, 1: { battle: "m_epica", calm: "m_locanda", boss: "m_epica" }, 2: { battle: "m_selva_battaglia", calm: "m_selva_quiete", boss: "m_epica", choice: "m_violino" },
-  3: { battle: "m_mare_battaglia", calm: "m_mare_quiete", boss: "m_epica", choice: "m_violino_goccia", vote: "m_coro" } };
+const TRACKS = { 4: { battle: "m_aurea_battaglia", calm: "m_aurea_quiete", boss: "m_guardiano", choice: "m_processo", vote: "m_processo" }, 1: { battle: "m_crocevento_battaglia", calm: "m_locanda", boss: "m_guardiano" }, 2: { battle: "m_selva_battaglia", calm: "m_selva_quiete", boss: "m_guardiano", choice: "m_violino" },
+  3: { battle: "m_mare_battaglia", calm: "m_mare_quiete", boss: "m_guardiano", choice: "m_violino_goccia", vote: "m_coro" } };
 function audURL(name) {
   if (!(name in AUD.cache)) AUD.cache[name] = (async () => { try { const r = await fetch(`aud/${name}.mp3`); if (!r.ok) return null; return URL.createObjectURL(await r.blob()); } catch (e) { return null; } })();
   return AUD.cache[name];
@@ -2011,7 +2013,11 @@ async function check(who, label, need, m, dmg) {
     await sleep(450); SFX.dice();
     const n = crit ? 2 : 1, rolls = Array.from({ length: n }, () => roll(dmg.die));
     if (crit) box.querySelector(".dres").innerHTML += `<div class="critline">20 naturale: doppio tiro di danni</div>`;
-    for (let i = 0; i < n; i++) if (window.DICE_HOOK && !FAST) { const v = await DICE_HOOK(who, dmg.die, (dmg.what || "danni") + (n > 1 ? ` · dado ${i + 1} di ${n}` : "")); if (v >= 1 && v <= dmg.die) rolls[i] = v; }
+    if (window.DICE_HOOK && !FAST) {
+      const v = await DICE_HOOK(who, dmg.die, (dmg.what || "danni") + (n > 1 ? " · 20 naturale: tira due dadi" : ""), n);
+      const vs = Array.isArray(v) ? v : [v];
+      vs.forEach((x, i) => { if (i < n && x >= 1 && x <= dmg.die) rolls[i] = x; });
+    }
     total = Math.max(1, rolls.reduce((a, b) => a + b, 0) + (dmg.plus || 0));
     await spin(box.querySelector("#dB"), dmg.die, rolls[0]);
     box.querySelector(".dres").innerHTML += `<div class="dmgline">${n > 1 ? `${n}d${dmg.die}` : `d${dmg.die}`}: ${rolls.join(" + ")}${dmg.plus ? ` ${dmg.plus > 0 ? "+" : "−"} ${Math.abs(dmg.plus)}` : ""} = <b>${total}</b> ${esc(dmg.what || "danni")}</div>`;
@@ -4607,7 +4613,7 @@ function setActions(h) { $("#actions").hidden = !h; $("#actIn").innerHTML = h ||
 function render() {
   if (window.SERATE && SERATE.mode !== "crea") return;
   keep();
-  MUSICA.mute(!S.sound); if (S.step >= 1 || S.screen === "host") MUSICA.play("m_creazione", .42); // la colonna sonora della creazione
+  MUSICA.mute(!S.sound); if (S.step >= 3) MUSICA.stop(900); else if (S.step >= 1 || S.screen === "host") MUSICA.play("m_creazione", .42); // la colonna sonora della creazione si ferma alla scelta del dio
   const app = $("#app");
   document.querySelectorAll(".modal:not(.vision)").forEach(m => m.remove());
   if (S.screen === "login") return MP.renderLogin();
@@ -4923,16 +4929,16 @@ const SERATE = (() => {
   }
   // Il giocatore tira il suo dado dal telefono: il Tavolo aspetta il risultato (al massimo 25 secondi)
   let DICE = null, diceOff = get("serate.dadiTV") === "1";
-  window.DICE_HOOK = (who, k, label) => {
+  window.DICE_HOOK = (who, k, label, n = 1) => {
     if (mode !== "game" || demo || !MP.db || diceOff || !S) return null;
     const h = S.heroes.find(x => first(x) === who); if (!h || !h.user) return null;
     return new Promise(res => {
       const seq = String(Date.now());
       const box = document.createElement("div"); box.className = "ov dice dwait";
-      box.innerHTML = `<div class="ovbox"><div class="dlab">${esc(who)} · ${esc(label)}</div><div class="drow"><div class="dbox"><div class="poly d${k}"><span>?</span><em>d${k}</em></div></div></div><div class="dres">Tira il d${k} dal tuo telefono…</div><button class="linkbtn">Tira dalla TV</button></div>`;
+      box.innerHTML = `<div class="ovbox"><div class="dlab">${esc(who)} · ${esc(label)}</div><div class="drow"><div class="dbox"><div class="poly d${k}"><span>?</span><em>d${k}</em></div></div></div><div class="dres">${n > 1 ? `Tira i ${n} d${k} dal tuo telefono…` : `Tira il d${k} dal tuo telefono…`}</div><button class="linkbtn">Tira dalla TV</button></div>`;
       document.body.appendChild(box);
       const done = v => { if (!DICE || DICE.seq !== seq) return; clearTimeout(t); DICE = null; box.remove(); publishNow(); res(v); };
-      DICE = { seq, hid: h.id, user: h.user, k, label, done };
+      DICE = { seq, hid: h.id, user: h.user, k, n, label, done };
       const t = setTimeout(() => done(null), 25000);
       box.querySelector("button").onclick = () => done(null);
       publishNow();
@@ -4991,7 +4997,7 @@ const SERATE = (() => {
     if (c.t === "prova") { const [sq, v] = String(c.v).split(":"); if (PDIO && PDIO.user === user && PDIO.seq === sq) PDIO.done(v === "si" ? "si" : "no"); return; }
     if (c.t === "emote") { const h = S && S.heroes.find(x => x.user === user), e = EMO[+c.v]; if (!h || !e || mode !== "game" || Date.now() - (emoT[user] || 0) < 2500) return; emoT[user] = Date.now();
       popAt(h.id, `${first(h)}: ${e}`, "emo"); tone(880, .08, "triangle", .03); return; }
-    if (c.t === "dado") { if (DICE && DICE.user === user && DICE.seq === String(c.s)) DICE.done(+c.v); return; }
+    if (c.t === "dado") { if (DICE && DICE.user === user && DICE.seq === String(c.s)) { const vs = String(c.v).split(",").map(Number); DICE.done(DICE.n > 1 ? vs : vs[0]); } return; }
     if (mode !== "game" || demo || !S) return;
     if (["equip", "unequip", "give"].includes(c.t) && (cmdBusy || BUSY)) { c.tries = (c.tries || 0) + 1; if (c.tries < 80) setTimeout(() => runCommand(user, c), 700); return; } // lo zaino aspetta che finisca l'azione in corso
     const gioco = ["act", "foe", "tile", "hero", "cancel", "end"].includes(c.t);
@@ -5070,7 +5076,7 @@ const SERATE = (() => {
     const strip = t => String(t).replace(/<[^>]*>/g, "");
     const body = { pid: S.pid || 0, ch: S.ch, giro: S.giro, zona: (TILES[S.pos] && TILES[S.pos].n) || "", fase: S.phase, turno: curId() || "", oro: S.oro, tesoriere: S.tesoriere || "",
       sabotato: !!(S.flags && S.flags.sabotato), cittadini: !!S.cittadini, brace: S.brace, braceSpenta: !!(S.flags && S.flags.braceSpenta), purificato: !!S.purified, seme: S.seme || "", marea: S.marea || "", gorgo: S.gorgo || 0, sigillo: S.sigillo || "", goccia: S.goccia || "", coro: !!(S.flags && S.flags.coro), log: (S.log || []).slice(0, 4).map(strip),
-      scena: scena(), dado: DICE ? { hid: DICE.hid, k: DICE.k, label: DICE.label, seq: DICE.seq } : null, iniz: INIZ ? { seq: INIZ.seq, ids: INIZ.wait } : null,
+      scena: scena(), dado: DICE ? { hid: DICE.hid, k: DICE.k, n: DICE.n || 1, label: DICE.label, seq: DICE.seq } : null, iniz: INIZ ? { seq: INIZ.seq, ids: INIZ.wait } : null,
       busy: !!(BUSY || cmdBusy || document.querySelector(".ov")), modo: S.mode || "", azioni: cur() ? azioni(cur()) : [], bersagli: cur() ? bersagli(cur()) : [],
       mappa: GRID.map(row => row.map(k => { const t = S.tiles[k], T = TILES[k], seen = t.rev || t.peek;
         return { k, n: seen ? T.n : "", rev: !!t.rev, img: seen ? T.img || "" : "", rot: !!rotten(k), sub: !!submerged(k), qui: k === S.pos, nem: S.foes.some(f => f.tile === k && f.hp > 0 && t.rev) }; })),
@@ -5260,16 +5266,19 @@ const SERATE = (() => {
     if (LIVE.rolled === d.seq) return;
     buzz([60, 40, 60]);
     const m = document.createElement("div"); m.className = "dicecall"; m.dataset.seq = d.seq;
-    m.innerHTML = `<div class="dcbox"><div class="lab">${esc(d.label)}</div><button class="dcdie" type="button"><span id="dcd"><div class="poly d${d.k}"><span>?</span><em>d${d.k}</em></div></span></button><b>Tocca per tirare il d${d.k}</b><small>Il risultato vale sulla TV</small></div>`;
+    const nd = Math.max(1, d.n || 1), got = [];
+    m.innerHTML = `<div class="dcbox"><div class="lab">${esc(d.label)}</div><div class="dcrow">${Array.from({ length: nd }, (_, i) => `<button class="dcdie" type="button" data-i="${i}"><span id="dcd${i}"><div class="poly d${d.k}"><span>?</span><em>d${d.k}</em></div></span></button>`).join("")}</div><b>${nd > 1 ? `Tocca i ${nd} dadi, uno alla volta` : `Tocca per tirare il d${d.k}`}</b><small>Il risultato vale sulla TV</small></div>`;
     document.body.appendChild(m);
-    m.querySelector(".dcdie").onclick = async () => {
-      if (m.dataset.tirato) return; m.dataset.tirato = "1"; LIVE.rolled = d.seq;
-      const v = roll(d.k); try { SFX.dice(); } catch (e) {} buzz(40);
-      await spin(m.querySelector("#dcd"), d.k, v);
-      m.querySelector("b").textContent = `Hai fatto ${v}!`; m.querySelector("small").textContent = "Guarda la TV";
-      try { await MP.db.doc(`partite/${CR.S.sess.code}/comandi/${CR.S.sess.user}`).set({ seq: Date.now(), t: d.ini ? "iniz" : "dado", v: String(v), s: d.ini || d.seq }); } catch (e) {}
+    m.querySelectorAll(".dcdie").forEach(btn => btn.onclick = async () => {
+      if (m.dataset.tirato || btn.dataset.ok) return; btn.dataset.ok = "1";
+      const v = roll(d.k); got.push(v); try { SFX.dice(); } catch (e) {} buzz(40);
+      await spin(m.querySelector("#dcd" + btn.dataset.i), d.k, v);
+      if (got.length < nd) { m.querySelector("b").textContent = `${v}! Ora l'altro dado`; return; }
+      m.dataset.tirato = "1"; LIVE.rolled = d.seq;
+      m.querySelector("b").textContent = nd > 1 ? `Hai fatto ${got.join(" + ")} = ${got.reduce((a, b) => a + b, 0)}!` : `Hai fatto ${v}!`; m.querySelector("small").textContent = "Guarda la TV";
+      try { await MP.db.doc(`partite/${CR.S.sess.code}/comandi/${CR.S.sess.user}`).set({ seq: Date.now(), t: d.ini ? "iniz" : "dado", v: got.join(","), s: d.ini || d.seq }); } catch (e) {}
       setTimeout(() => m.remove(), 1600);
-    };
+    });
   }
 
   // ---------- Zaino ----------

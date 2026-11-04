@@ -1483,8 +1483,8 @@ function music(on) {
 const NT = k => (NARR[k] ? NARR[k].t : ""), NP = k => NT(k).split("\n\n").map(p => `<p>${esc(p)}</p>`).join("");
 const AUD = { cache: {}, mus: null, musKey: null, voice: null, talking: false, force: null };
 const MUSVOL = .5;
-const TRACKS = { 4: { battle: "m_aurea_battaglia", calm: "m_aurea_quiete", boss: "m_epica", choice: "m_processo", vote: "m_processo" }, 1: { battle: "m_epica", calm: "m_locanda", boss: "m_epica" }, 2: { battle: "m_selva_battaglia", calm: "m_selva_quiete", boss: "m_epica", choice: "m_violino" },
-  3: { battle: "m_mare_battaglia", calm: "m_mare_quiete", boss: "m_epica", choice: "m_violino_goccia", vote: "m_coro" } };
+const TRACKS = { 4: { battle: "m_aurea_battaglia", calm: "m_aurea_quiete", boss: "m_guardiano", choice: "m_processo", vote: "m_processo" }, 1: { battle: "m_crocevento_battaglia", calm: "m_locanda", boss: "m_guardiano" }, 2: { battle: "m_selva_battaglia", calm: "m_selva_quiete", boss: "m_guardiano", choice: "m_violino" },
+  3: { battle: "m_mare_battaglia", calm: "m_mare_quiete", boss: "m_guardiano", choice: "m_violino_goccia", vote: "m_coro" } };
 function audURL(name) {
   if (!(name in AUD.cache)) AUD.cache[name] = (async () => { try { const r = await fetch(`aud/${name}.mp3`); if (!r.ok) return null; return URL.createObjectURL(await r.blob()); } catch (e) { return null; } })();
   return AUD.cache[name];
@@ -1599,7 +1599,11 @@ async function check(who, label, need, m, dmg) {
     await sleep(450); SFX.dice();
     const n = crit ? 2 : 1, rolls = Array.from({ length: n }, () => roll(dmg.die));
     if (crit) box.querySelector(".dres").innerHTML += `<div class="critline">20 naturale: doppio tiro di danni</div>`;
-    for (let i = 0; i < n; i++) if (window.DICE_HOOK && !FAST) { const v = await DICE_HOOK(who, dmg.die, (dmg.what || "danni") + (n > 1 ? ` · dado ${i + 1} di ${n}` : "")); if (v >= 1 && v <= dmg.die) rolls[i] = v; }
+    if (window.DICE_HOOK && !FAST) {
+      const v = await DICE_HOOK(who, dmg.die, (dmg.what || "danni") + (n > 1 ? " · 20 naturale: tira due dadi" : ""), n);
+      const vs = Array.isArray(v) ? v : [v];
+      vs.forEach((x, i) => { if (i < n && x >= 1 && x <= dmg.die) rolls[i] = x; });
+    }
     total = Math.max(1, rolls.reduce((a, b) => a + b, 0) + (dmg.plus || 0));
     await spin(box.querySelector("#dB"), dmg.die, rolls[0]);
     box.querySelector(".dres").innerHTML += `<div class="dmgline">${n > 1 ? `${n}d${dmg.die}` : `d${dmg.die}`}: ${rolls.join(" + ")}${dmg.plus ? ` ${dmg.plus > 0 ? "+" : "−"} ${Math.abs(dmg.plus)}` : ""} = <b>${total}</b> ${esc(dmg.what || "danni")}</div>`;
