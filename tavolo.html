@@ -641,6 +641,8 @@ button.pill.mis:hover{border-color:#e8c766}
 .bil-big .bp::before{content:"";position:absolute;inset:0 auto 0 0;width:var(--w);opacity:.35}
 .bil-big .col::before{background:#b8604a}.bil-big .mer::before{background:#8fae6a}
 .bil-big b,.bil-big em{position:relative}.bil-big em{font-size:1.6em;font-style:normal}
+.lvnew{font-style:normal;color:var(--gold-hi);font-weight:600}
+.ov.spec .voter{flex-direction:column;text-align:center}.ov.spec .voter img{width:84px;height:110px}
 /* ===== Schermata iniziale ===== */
 .tt{position:fixed;inset:0;z-index:200;overflow:hidden;background:#05070d;color:#f3e6c4;font-family:"Cinzel","Trajan Pro",Georgia,serif;cursor:pointer}
 .tt-art{position:absolute;inset:-4%;opacity:0;filter:brightness(.35) saturate(.8);transform:scale(1.12);transition:opacity 2.2s ease,filter 3.5s ease,transform 18s cubic-bezier(.2,.6,.2,1)}
@@ -1024,7 +1026,8 @@ const FOES = {
   cervo:     { n: "Il Cervo Marcio", img: "mon_cervo", hp: 100, lvl: 4, def: 16, atk: 6, die: 8, plus: 0, init: 2, boss: true, choice: true, multi: true, desc: "Il cervo bianco di Sylvara, piegato dalla fame." },
 };
 if (window.__FOE) Object.entries(window.__FOE).forEach(([k, v]) => Object.assign(FOES[k], v)); // simulatore: ritocchi dei numeri
-const defOf = f => (f.def ?? FOES[f.type].def) + (f.type === "vasthor" && S.foes.some(x => x.type === "tentacolo" && x.hp > 0 && x.tile === f.tile) ? 2 : 0)
+let PIERCE = false;
+const defOf = f => (f.def ?? FOES[f.type].def) - (f.crepa ? 1 : 0) - (PIERCE && ((f.type === "vasthor" && S.foes.some(x => x.type === "tentacolo" && x.hp > 0 && x.tile === f.tile)) || (f.type === "aurelio" && S.foes.some(x => x.type === "guardiad" && x.hp > 0 && x.tile === f.tile))) ? 2 : 0) + (f.type === "vasthor" && S.foes.some(x => x.type === "tentacolo" && x.hp > 0 && x.tile === f.tile) ? 2 : 0)
   + (f.type === "aurelio" ? (S.foes.some(x => x.type === "guardiad" && x.hp > 0 && x.tile === f.tile) ? 2 : 0) + (S.flags.pende === "meriti" ? -2 : 0) : 0); // il Corpo è protetto finché vive un tentacolo
 const DIFF = {
   facile:  { n: "Facile",  hp: .75,  atk: -1, elite: 0, leg: 1, pur: 11 },
@@ -1251,6 +1254,30 @@ const ABIL2 = {
   paladino: { n: "Imposizione delle mani", t: "Curi d8+2 a un compagno o a te stesso, e lo liberi da radici e paura." },
   druido: { n: "Rovi", t: "I rovi avvolgono un nemico: d6 danni e salta il suo prossimo turno (un boss no)." },
 };
+// Livello 5: la prima abilità evolve. Livello 6: l'attacco speciale della classe, una volta per capitolo
+const EVO = {
+  guerriero: { n: "Colpo devastante", t: "Attacco con +4 danni; il nemico ha −1 alla Classe Armatura fino a fine scontro. Niente più guardia scoperta." },
+  barbaro: { n: "Furia ancestrale", t: "Per un combattimento +3 danni e −2 danni da ogni colpo; se vai a terra in Furia resti in piedi con 1 Vita (una volta)." },
+  mago: { n: "Sfera dell'arcimago", t: "d8+3 danni a tutti i nemici nella zona. La magia non sfugge più al controllo." },
+  ladro: { n: "Colpo letale", t: "+5 danni se un compagno combatte con te; con un 20 naturale, 2d6 danni in più." },
+  chierico: { n: "Benedizione maggiore", t: "Cura d8+4 a un compagno, oppure lo rialza, e lo libera da Sentenza, radici e paura." },
+  ranger: { n: "Occhio di falco", t: "Attacco con +2 al tiro e +2 danni, che ignora la protezione delle scorte del boss." },
+  bardo: { n: "Inno degli eroi", t: "Tutta la compagnia ha +1 a ogni tiro fino alla fine dello scontro." },
+  paladino: { n: "Egida radiosa", t: "Proteggi un compagno: prendi tu i suoi danni, dimezzati, e chi l'ha colpito subisce 2 danni di luce." },
+  druido: { n: "Spirito della Selva", t: "Per un combattimento la forma selvaggia dà +2 danni, e trasformarti cura d6 Vita." },
+};
+const SPEC = {
+  guerriero: { n: "Tempesta d'acciaio", t: "Un attacco contro ogni nemico nella zona." },
+  barbaro: { n: "Terremoto", t: "d8 danni a tutti i nemici nella zona, che perdono il prossimo attacco (un boss ha −3)." },
+  mago: { n: "Meteora", t: "3d8 danni a un nemico e d6 a tutti gli altri nella zona." },
+  ladro: { n: "Mille lame", t: "Tre attacchi di fila, anche contro nemici diversi." },
+  chierico: { n: "Miracolo", t: "Tutta la compagnia si rialza e torna almeno a metà della sua Vita." },
+  ranger: { n: "Freccia del cacciatore", t: "Colpisce sempre: 3d6 danni. Contro un boss gli toglie un'azione leggendaria in questo giro." },
+  bardo: { n: "Canzone senza fine", t: "Al loro prossimo turno tutti i compagni hanno un'azione in più." },
+  paladino: { n: "Giudizio", t: "d10+5 danni a un nemico, il doppio contro un boss o un'élite." },
+  druido: { n: "Ira della natura", t: "Radici in tutta la zona: d6 danni a ogni nemico, che salta il turno (un boss ha −3)." },
+};
+const abilN = h => h.lvl >= 5 ? EVO[h.classe].n : CL(h.classe).att.n, abilT = h => h.lvl >= 5 ? EVO[h.classe].t : CL(h.classe).att.t;
 const ATK = { guerriero: "for", barbaro: "for", paladino: "for", ladro: "agi", ranger: "agi", mago: "ing", druido: "ing", chierico: "fas", bardo: "fas" };
 
 // ---------- Stato ----------
@@ -1265,7 +1292,7 @@ function makeHero(p, ch, top) {
   const r = R(p.razza), c = CL(p.classe), st = {};
   STATS.forEach(s => st[s.k] = clamp((c.base[s.k] || 0) + (r.mod[s.k] || 0)));
   let max = c.vita + r.vita;
-  const lv = Math.max(1, ch) + (ch >= 2 && top === p.id ? 1 : 0); // un livello per capitolo; chi ha inflitto più danni ne ha uno in più
+  const lv = (window.__LVL || Math.max(1, ch)) + (ch >= 2 && top === p.id ? 1 : 0); // un livello per capitolo; chi ha inflitto più danni ne ha uno in più
   for (let i = 2; i <= lv; i++) { max += LV2[p.classe]; st[ATK[p.classe]] = clamp(st[ATK[p.classe]] + 1); }
   if (ch >= 5 && CARRY && CARRY.camp && CARRY.camp.peso === p.id) max -= 2; // ha preso il posto di Seraphel al processo di Aurea
   const patto = ch >= 2 && CARRY && CARRY.patto ? CARRY.patto[p.id] || 0 : 0; // dono di Nhazgor al traditore che ha compiuto il suo obiettivo
@@ -1595,6 +1622,7 @@ async function dieOnly(who, label, k, plus = 0) {
 function rollBonus(h) {
   let m = 0;
   if (h.fx.song) { m += 1; h.fx.song = false; }
+  if (h.fx.inno) m += 1; // Inno degli eroi: per tutto lo scontro
   if (h.items.includes("moneta") && !h.fx.coinUsed) { m += 2; h.fx.coinUsed = true; }
   if (h.fx.stone) { m += 1; h.fx.stone = false; }
   if (h.fx.shaken) { m -= 2; h.fx.shaken = false; }
@@ -1630,6 +1658,7 @@ function canDo(k) {
     case "bomb": if (submerged(S.pos)) return [false, "Sott'acqua le bombe non esplodono"]; return [h.items.includes("bomba") && fs.length > 0, fs.length ? "Nessuna bomba" : "Nessun nemico qui"];
     case "seme": return [S.ch >= 3 && (S.camp || {}).seme === "verde" && !S.flags.semeUsato && S.heroes.some(x => x.ko || x.hp < x.max), S.flags.semeUsato ? "Già usato nel capitolo" : "Nessuno da curare"];
     case "lantern": return [S.lanterna > 0 && fs.length > 0, "Nessun nemico qui"];
+    case "special": { const heal = ["chierico", "bardo"].includes(h.classe); return [h.lvl >= 6 && !h.spec && (heal ? (h.classe === "bardo" ? fs.length > 0 : S.heroes.some(x => x.ko || x.hp < x.max / 2)) : fs.length > 0) && (!["guerriero", "ladro"].includes(h.classe) || h.atks < maxAtk(h)), h.spec ? "Già usato nel capitolo" : h.classe === "chierico" ? "Nessuno è in pericolo" : "Nessun nemico qui"]; }
     case "zona": { const Z = zona4(); return [!!Z && Z.ok, Z ? Z.why : ""]; }
   }
   return [false, ""];
@@ -1651,6 +1680,7 @@ async function act(k) {
   try {
     if (k === "ability") await ability(h, c);
     if (k === "ability2") await ability2(h);
+    if (k === "special") await special(h);
     if (k === "bless") await blessing(h);
     if (k === "search") { const it = TILES[S.pos].item; S.tiles[S.pos].looted = true; h.items.push(it); log(`${first(h)} trova: ${ITEMS[it].n}.`); SFX.heal(); spend(h); }
     if (k === "bomb") await bomb(h);
@@ -1683,12 +1713,14 @@ function spend(h, n = 1) { h.acts = Math.max(0, h.acts - n); }
 // Danni: d6 dell'arma + metà del modificatore (+ effetti attivi)
 function dmgPlus(h, extra = 0) {
   let p = Math.max(0, Math.floor(mod(h.st[ATK[h.classe]]) / 2)) + extra;
-  if (h.fx.rage) p += 2; if (h.fx.fire) p += 2; if (h.fx.beast) p += 1;
+  if (h.fx.rage) p += h.fx.rage === 2 ? 3 : 2; if (h.fx.fire) p += 2; if (h.fx.beast) p += h.fx.beast === 2 ? 2 : 1;
   if (h.fx.oil) { p += d6(); h.fx.oil = false; }
   p += gearSum(h, "dmg") + ((h.dono && h.dono.dmg) || 0);
   return p;
 }
+let LASTCRIT = false;
 async function attack(h, f, extra = 0, hitBonus = 0, label = "Attacco") {
+  LASTCRIT = false;
   const F = FOES[f.type];
   const m = mod(h.st[ATK[h.classe]]) + hitBonus + rollBonus(h) + gearSum(h, "hit") + (h.fx.sciabola ? 1 : 0) + (has(h, "balestra") && !h.fx.balUsata ? 2 : 0);
   h.fx.sciabola = false; h.atks++; h.atkG = S.giro;
@@ -1704,7 +1736,7 @@ async function attack(h, f, extra = 0, hitBonus = 0, label = "Attacco") {
   if (F.half) d = Math.max(1, Math.floor(d / 2));
   if (has(h, "arco") && !h.fx.arcoUsato) { h.fx.arcoUsato = true; f.trip = true; log(`L'arco di radice intralcia ${F.n.split(",")[0]}: −1 al suo prossimo attacco.`); }
   if (has(h, "corona") && !h.fx.coronaUsata) { h.fx.coronaUsata = true; const g = Math.ceil(d / 2); h.fx.coronaHeal = g; }
-  if (res.crit) log(`Colpo critico di ${first(h)}!`);
+  if (res.crit) log(`Colpo critico di ${first(h)}!`); LASTCRIT = !!res.crit;
   DUELING++; hurtFoe(f, d, h); DUELING--;
   render(); await duel(h, f, `−${d}`, "good", res.crit);
   if (h.fx.coronaHeal) { const g = h.fx.coronaHeal; h.fx.coronaHeal = 0; heal(h, g, true); log(`La Corona di Palchi beve: ${first(h)} recupera ${g} Vita.`); }
@@ -1745,6 +1777,20 @@ function dropLoot(h) {
 }
 async function ability(h, c) {
   const fs = here(); h.abil = true;
+  if (h.lvl >= 5) { banner(EVO[h.classe].n, "good"); edge("gold");
+    switch (c.id) {
+      case "guerriero": { const f = target(fs); const d = await attack(h, f, 4, 0, EVO.guerriero.n); if (d && f.hp > 0) { f.crepa = true; log(`L'armatura di ${FOES[f.type].n.split(",")[0]} si incrina: −1 alla CA fino a fine scontro.`); } break; }
+      case "barbaro": h.fx.rage = 2; log(`${first(h)} entra nella Furia ancestrale: +3 danni, −2 danni subiti.`); SFX.boss(); break;
+      case "mago": { const v = await dieOnly(first(h), EVO.mago.n + " · danni a tutti", 8, 3 + gearSum(h, "spell")); fs.forEach(f => hurtFoe(f, FOES[f.type].half ? Math.max(1, Math.floor(v / 2)) : v, h)); break; }
+      case "ladro": { const f = target(fs), d = await attack(h, f, alive().length > 1 ? 5 : 0, 0, EVO.ladro.n); if (d && LASTCRIT && f.hp > 0) { const x = roll(6) + roll(6); hurtFoe(f, x, h); log(`Il Colpo letale affonda: +${x}.`); } break; }
+      case "ranger": PIERCE = true; try { await attack(h, target(fs), 2, 2, EVO.ranger.n); } finally { PIERCE = false; } break;
+      case "bardo": S.heroes.forEach(x => x.fx.inno = true); log(`L'Inno degli eroi di ${first(h)}: tutta la compagnia ha +1 a ogni tiro fino alla fine dello scontro.`); SFX.heal(); break;
+      case "paladino": { const a = alive().filter(x => x !== h).sort((a, b) => a.hp - b.hp)[0] || h; a.fx.aegis = h.id; a.fx.aegisR = true; log(`${first(h)} protegge ${first(a)} con l'Egida radiosa.`); break; }
+      case "druido": { h.fx.beast = 2; HEALER = h; heal(h, d6()); HEALER = null; log(`${first(h)} si fa Spirito della Selva: +2 danni per lo scontro.`); break; }
+      case "chierico": { const a = S.heroes.filter(x => x.ko)[0] || alive().sort((a, b) => a.hp / a.max - b.hp / b.max)[0]; a.fx.stun = false; a.fx.shaken = false; a.fx.drag = false; const v = await dieOnly(first(h), EVO.chierico.n + " · cura", 8, 4); HEALER = h; heal(a, v); HEALER = null; break; }
+    }
+    spend(h); return;
+  }
   switch (c.id) {
     case "guerriero": await attack(h, target(fs), 2, 0, "Colpo possente"); h.fx.exposed = true; break;
     case "barbaro": h.fx.rage = true; log(`${first(h)} entra in Ira: +2 danni e pelle di ferro fino a fine scontro.`); SFX.boss(); break;
@@ -1755,6 +1801,25 @@ async function ability(h, c) {
     case "paladino": { const a = alive().filter(x => x !== h).sort((a, b) => a.hp - b.hp)[0] || h; a.fx.aegis = h.id; log(`${first(h)} protegge ${first(a)} con l'Egida di luce.`); break; }
     case "druido": h.fx.beast = true; log(`${first(h)} assume la forma dell'orso.`); break;
     case "chierico": { const a = S.heroes.filter(x => x.ko)[0] || alive().sort((a, b) => a.hp / a.max - b.hp / b.max)[0]; const v = await dieOnly(first(h), "Benedizione · cura", 8, 2); HEALER = h; heal(a, v); HEALER = null; break; }
+  }
+  spend(h);
+}
+async function special(h) {
+  const A = SPEC[h.classe], fs = () => here(); h.spec = true;
+  SFX.boss(); shake(); edge("gold"); vib(h, [80, 40, 80, 40, 200]);
+  if (!FAST) await overlay(`<div class="ovk">Attacco speciale · ${esc(classeN(h.classe, genOf(h)))}</div><h3>${esc(A.n)}</h3><div class="voter"><img src="${ritratto(h.razza, h.genere)}" alt=""><span><b>${esc(first(h))}</b> <small>${esc(A.t)}</small></span></div><button class="btn main" data-v="ok">Scatenalo</button>`, "cut spec");
+  log(`${first(h)} scatena l'attacco speciale: ${A.n}.`);
+  const roll3 = async (k, lab) => { let t = 0; for (let i = 0; i < 3; i++) t += await dieOnly(first(h), `${lab} · ${i + 1} di 3`, k); return t; };
+  switch (h.classe) {
+    case "guerriero": for (const f of [...fs()]) if (f.hp > 0) await attack(h, f, 0, 0, A.n); break;
+    case "barbaro": { const v = await dieOnly(first(h), A.n + " · danni a tutti", 8); fs().forEach(f => { hurtFoe(f, v, h); if (f.hp > 0) { if (FOES[f.type].boss) f.weak = true; else f.skip = true; } }); break; }
+    case "mago": { const t = target(fs()), boss = fs().find(f => FOES[f.type].boss) || t, v = await roll3(8, A.n), w = await dieOnly(first(h), A.n + " · schegge sugli altri", 6); hurtFoe(boss, v, h); fs().forEach(f => { if (f !== boss) hurtFoe(f, w, h); }); break; }
+    case "ladro": for (let i = 0; i < 3; i++) { const f = target(fs()); if (!f) break; await attack(h, f, 0, 0, `${A.n} · ${i + 1} di 3`); } break;
+    case "chierico": HEALER = h; S.heroes.forEach(x => { const need = Math.ceil(x.max / 2) - (x.ko ? 0 : x.hp); if (x.ko || need > 0) heal(x, Math.max(1, need), true); x.fx.stun = false; }); HEALER = null; log(`Il Miracolo di ${first(h)}: tutta la compagnia si rialza.`); SFX.heal(); break;
+    case "ranger": { const f = fs().find(x => FOES[x.type].boss) || target(fs()); hurtFoe(f, await roll3(6, A.n), h); if (FOES[f.type].boss && S.leg > 0) { S.leg--; log("La freccia inchioda il guardiano: un'azione leggendaria in meno in questo giro."); } break; }
+    case "bardo": S.heroes.forEach(x => { if (x !== h && !x.ko) x.fx.extraAct = true; }); log(`La Canzone senza fine di ${first(h)}: al prossimo turno ogni compagno ha un'azione in più.`); SFX.heal(); break;
+    case "paladino": { const f = fs().find(x => FOES[x.type].boss) || fs().find(x => FOES[x.type].elite) || target(fs()), F = FOES[f.type]; let v = await dieOnly(first(h), A.n, 10, 5); if (F.boss || F.elite) v *= 2; hurtFoe(f, v, h); break; }
+    case "druido": { const v = await dieOnly(first(h), A.n + " · danni a tutti", 6); fs().forEach(f => { hurtFoe(f, v, h); if (f.hp > 0) { if (FOES[f.type].boss) f.weak = true; else f.skip = true; } }); break; }
   }
   spend(h);
 }
@@ -1792,8 +1857,9 @@ let HEALER = null;
 function heal(h, v, quiet) { if (HEALER && HEALER.eq && has(HEALER, "incensiere")) v += 1; const was = h.ko; if (h.ko) { h.ko = false; h.hp = 0; log(`${first(h)} si rialza.`); } const g = Math.min(v, h.max - h.hp); h.hp += g; if (HEALER && HEALER.sx) { HEALER.sx.heal += g; if (was && HEALER !== h) HEALER.sx.saves++; } if (g) popAt(h.id, `+${g}`, "heal"); if (!quiet && g) log(`${first(h)} recupera ${g} Vita.`); SFX.heal(); }
 function hurtHero(h, d, by) {
   if (h.ko) return;
-  if (h.fx.aegis) { const p = hero(h.fx.aegis); h.fx.aegis = null; if (p && !p.ko) { log(`${first(p)} para il colpo destinato a ${first(h)}.`); h = p; d = Math.ceil(d / 2); } }
-  if (h.fx.rage) d = Math.max(1, d - 1);
+  if (h.fx.aegis) { const p = hero(h.fx.aegis), rad = h.fx.aegisR; h.fx.aegis = null; h.fx.aegisR = false; if (p && !p.ko) { log(`${first(p)} para il colpo destinato a ${first(h)}.`); h = p; d = Math.ceil(d / 2);
+    const att = rad && foe(curId()); if (att && att.hp > 0) { hurtFoe(att, 2, p); log(`L'Egida radiosa brucia chi ha colpito: 2 danni di luce.`); } } }
+  if (h.fx.rage) d = Math.max(1, d - (h.fx.rage === 2 ? 2 : 1));
   if (h.fx.exposed) { d += 1; h.fx.exposed = false; }
   if (has(h, "mantello") && /spore|fiamme|esplo/i.test(by)) d = Math.max(1, Math.ceil(d / 2));
   if (has(h, "madreperla") && /anguilla|gorgo|vortice/i.test(by)) d = Math.max(1, Math.ceil(d / 2));
@@ -1806,6 +1872,7 @@ function hurtHero(h, d, by) {
   if (!h.hp) {
     const lac = !S.flags.lacrima && S.heroes.find(x => !x.ko && has(x, "lacrima"));
     if (lac) { S.flags.lacrima = true; h.hp = 1; log(`La Lacrima di Albecorno brilla: ${first(h)} resta in piedi con 1 Vita.`); banner(`La Lacrima salva ${first(h)}`, "good"); edge("gold"); return; }
+    if (h.fx.rage === 2 && !h.fx.furiaUsata) { h.fx.furiaUsata = true; h.hp = 1; log(`La Furia ancestrale tiene in piedi ${first(h)} con 1 Vita.`); banner(`${first(h)} non cade`, "good"); return; }
     if (h.dono && h.dono.ultimo) { h.dono.ultimo = false; h.hp = 1; log(`Il Traghettatore rifiuta ${first(h)}: resta in piedi con 1 Vita.`); banner(`Oruun respinge ${first(h)}`, "good"); return; }
     if (h.dio === "oruun" && !h.bless) { h.bless = true; h.hp = Math.ceil(h.max / 2); log(`Oruun respinge ${first(h)} dalla Soglia: torna in piedi con ${h.hp} Vita.`); return; }
     if (has(h, "occhio")) { h.eq.talismano = null; recalcCA(h); log(`${first(h)} cade e il mare si riprende l'Occhio del Leviatano.`); }
@@ -1892,7 +1959,7 @@ async function checkClear() {
   const t = S.tiles[S.pos], T = TILES[S.pos];
   if (here().length || t.cleared || S.phase !== "play") return;
   t.cleared = true;
-  S.heroes.forEach(h => { h.abil = false; h.abil2 = false; h.fx.rage = h.fx.fire = h.fx.beast = false; h.fx.taunt = h.fx.hidden = false; h.fx.arcoUsato = h.fx.coronaUsata = h.fx.togaUsata = false; h.fx.occhioUsato = h.fx.balUsata = false; });
+  S.heroes.forEach(h => { h.abil = false; h.abil2 = false; h.fx.rage = h.fx.fire = h.fx.beast = false; h.fx.taunt = h.fx.hidden = false; h.fx.arcoUsato = h.fx.coronaUsata = h.fx.togaUsata = false; h.fx.inno = false; h.fx.furiaUsata = false; h.fx.occhioUsato = h.fx.balUsata = false; });
   const fought = S.foes.some(f => f.tile === S.pos);
   if (fought) {
     const hurt = alive().filter(h => h.hp < h.max);
@@ -1929,7 +1996,7 @@ async function nextTurn() {
       if (h.fx.stun) { h.fx.stun = false; log(`${first(h)} ${h.fx.stunMsg || gx(h, "è ancora avvolto dalle radici", "è ancora avvolta dalle radici")}: salta il turno.`); h.fx.stunMsg = null; popAt(h.id, "Bloccato", "miss"); render(); await sleep(600); continue; }
       if (S.ch === 1 && here().length && !guidaFatta("tut_azioni")) { BUSY = true; render(); try { await guida("tut_azioni"); } finally { BUSY = false; } }
       if (provaPronta(h)) { BUSY = true; render(); try { await provaDio(h); } finally { BUSY = false; } if (h.ko) continue; }
-      h.acts = h.fx.drag ? 1 : 2; if (h.fx.drag) { h.fx.drag = false; log(`${first(h)} lotta con l'acqua: una sola azione in questo turno.`); } h.atks = 0; SFX.turn(); vib(h, [40, 80, 40]); resetTimer(); render(); if (window.__BOT && __BOT.turn) setTimeout(() => __BOT.turn(), 0); return;
+      h.acts = (h.fx.drag ? 1 : 2) + (h.fx.extraAct ? 1 : 0); if (h.fx.extraAct) { h.fx.extraAct = false; log(`La Canzone senza fine dà a ${first(h)} un'azione in più.`); } if (h.fx.drag) { h.fx.drag = false; log(`${first(h)} lotta con l'acqua: una sola azione in questo turno.`); } h.atks = 0; SFX.turn(); vib(h, [40, 80, 40]); resetTimer(); render(); if (window.__BOT && __BOT.turn) setTimeout(() => __BOT.turn(), 0); return;
     }
     const f = foe(id); if (!f || f.hp <= 0) continue;
     if (f.skip) { f.skip = false; log(`${FOES[f.type].n} non riesce ad agire.`); popAt(f.uid, "Fermo", "miss"); render(); await sleep(500); continue; }
@@ -3157,8 +3224,9 @@ function heroPanel(h) {
     <div class="actgrid">
       ${B("attack", maxAtk(h) > 1 ? `Attacca (${maxAtk(h) - h.atks} rimasti)` : "Attacca", `d20 + ${STATS.find(s => s.k === ATK[h.classe]).n}, danni d6`)}
       ${(() => { const C = here().length ? comboOf(h) : null; return C ? B("combo", `Mossa di coppia: ${C.n}`, `Con ${first(C.p)} · +${C.hit} al tiro, +d6${C.plus ? "+" + C.plus : ""} danni${C.cura ? ", cura d4 a entrambi" : ""}`) : ""; })()}
-      ${B("ability", c.att.n, "Una volta per scontro")}
+      ${B("ability", abilN(h), h.lvl >= 5 ? "Abilità evoluta · una volta per scontro" : "Una volta per scontro")}
       ${h.lvl >= 2 ? B("ability2", ABIL2[h.classe].n, "Abilità di livello 2 · una volta per scontro") : ""}
+      ${h.lvl >= 6 ? B("special", SPEC[h.classe].n, "Attacco speciale · una volta per capitolo") : ""}
       ${B("bless", g.benedizione.n, `Benedizione di ${g.n}`)}
       ${B("move", "Muovi", "Esplora una zona vicina")}
       ${B("search", "Cerca", "Fruga la zona")}
@@ -3260,8 +3328,9 @@ function renderPhone() {
       ${cur() === h && S.phase !== "end" ? `<div class="yourturn">È il tuo turno · ${h.acts} azioni</div>` : ""}
       <div class="pdice"><button class="btn main" data-roll="20">d20</button><button class="btn main" data-roll="6">d6</button><button class="btn main" data-roll="8">d8</button></div><div class="dicehelp">d20 per riuscire · d6 per i danni delle armi · d8 per magia e cure</div><div class="pdie" id="pDie"></div>
       <div class="pstats">${STATS.map(s => `<div><span>${s.i}</span><b>${h.st[s.k]}</b><small>${s.n} ${mod(h.st[s.k]) >= 0 ? "+" : ""}${mod(h.st[s.k])}</small></div>`).join("")}</div><div class="caline">Classe Armatura <b>${h.ca}</b> · Attacchi per turno <b>${maxAtk(h)}</b></div>
-      <div class="pcard"><div class="lab">Abilità · ${h.abil ? "usata" : "pronta"}</div><b>${esc(c.att.n)}</b><p>${esc(c.att.t)}</p></div>
+      <div class="pcard"><div class="lab">Abilità${h.lvl >= 5 ? " evoluta" : ""} · ${h.abil ? "usata" : "pronta"}</div><b>${esc(abilN(h))}</b><p>${esc(abilT(h))}</p></div>
       ${h.lvl >= 2 ? `<div class="pcard"><div class="lab">Abilità di livello 2 · ${h.abil2 ? "usata" : "pronta"}</div><b>${esc(ABIL2[h.classe].n)}</b><p>${esc(ABIL2[h.classe].t)}</p></div>` : ""}
+      ${h.lvl >= 6 ? `<div class="pcard"><div class="lab">Attacco speciale · ${h.spec ? "usato nel capitolo" : "pronto"}</div><b>${esc(SPEC[h.classe].n)}</b><p>${esc(SPEC[h.classe].t)}</p></div>` : ""}
       <div class="pcard"><div class="lab">Benedizione di ${esc(g.n)} · ${h.bless ? "usata" : "1 carica"}</div><b>${esc(g.benedizione.n)}</b><p>${esc(g.benedizione.t)}</p></div>
       <div class="pcard"><div class="lab">Passiva</div><b>${esc(c.pas.n)}</b><p>${esc(c.pas.t)}</p></div>
       <div class="pcard"><div class="lab">Zaino · monete tue ${h.oro || 0} mo${S.ch >= 2 ? ` · borsa della compagnia ◈ ${S.oro} mo` : ""}</div><p>${[...c.zaino, ...(h.collana && S.ch === 3 ? ["Collana del Respiro"] : []), ...h.items.map(i => ITEMS[i].n)].map(esc).join(" · ")}</p></div>
@@ -3488,10 +3557,14 @@ async function start(ch = 1) {
   BUSY = false; render();
   if (window.__BOT && __BOT.turn) setTimeout(() => __BOT.turn(), 0);
 }
+const nuovi = h => { const prev = h.lvl - (h.lvl > S.ch ? 2 : 1), t = []; // poteri sbloccati in questo capitolo
+  if (h.lvl >= 5 && prev < 5) t.push(`<br><em class="lvnew">Evolve: ${esc(CL(h.classe).att.n)} → ${esc(EVO[h.classe].n)}</em>`);
+  if (h.lvl >= 6 && prev < 6) t.push(`<br><em class="lvnew">Attacco speciale: ${esc(SPEC[h.classe].n)}</em>`);
+  return t.join(""); };
 async function levelUp() {
   if (FAST) return;
   if (S.ch >= 3) {
-    await overlay(`<div class="ovk">La compagnia cresce</div><h3>Livello ${S.ch}</h3><div class="lvup">${S.heroes.map(h => { const extra = h.lvl > S.ch; return `<div class="lvrow ${extra ? "l3" : ""}"><img src="${ritratto(h.razza, h.genere)}" alt=""><b>${esc(first(h))}</b><span>Livello ${h.lvl} · +${LV2[h.classe] * (extra ? 2 : 1)} Vita · ${esc(STATS.find(s => s.k === ATK[h.classe]).n)} +${extra ? 2 : 1}</span></div>`; }).join("")}</div>${S.topWhy ? `<p class="small">Un livello in più per chi ha inflitto più danni nel capitolo precedente. ${esc(S.topWhy)}</p>` : ""}<p class="small">Nessuna nuova abilità: la terza arriva al livello 4.</p><button class="btn main" data-v="ok">Avanti</button>`, "cut");
+    await overlay(`<div class="ovk">La compagnia cresce</div><h3>Livello ${S.ch}</h3><div class="lvup">${S.heroes.map(h => { const extra = h.lvl > S.ch; return `<div class="lvrow ${extra ? "l3" : ""}"><img src="${ritratto(h.razza, h.genere)}" alt=""><b>${esc(first(h))}</b><span>Livello ${h.lvl} · +${LV2[h.classe] * (extra ? 2 : 1)} Vita · ${esc(STATS.find(s => s.k === ATK[h.classe]).n)} +${extra ? 2 : 1}${nuovi(h)}</span></div>`; }).join("")}</div>${S.topWhy ? `<p class="small">Un livello in più per chi ha inflitto più danni nel capitolo precedente. ${esc(S.topWhy)}</p>` : ""}<p class="small">${S.heroes.some(h => h.lvl >= 5) ? "Al livello 5 la prima abilità evolve; al livello 6 arriva l'attacco speciale della classe, una volta per capitolo." : "Al livello 5 la prima abilità di ogni classe evolverà in una versione più forte."}</p><button class="btn main" data-v="ok">Avanti</button>`, "cut");
     return;
   }
   const t = S.heroes.find(h => h.lvl === 3);
