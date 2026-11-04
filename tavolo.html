@@ -1358,7 +1358,7 @@ const PARTY_T3 = Object.assign({
 // Capitolo 4: Aurea, tarato a parte (sim/sim4.py)
 const PARTY_T4 = Object.assign({
   3: { hp: 0.78, boss: 0.97, dmg: 0.82, tgt: 1, leg: 0 },
-  5: { hp: 1.12, boss: 1.65, dmg: 1.25, tgt: 2, leg: 0 },
+  5: { hp: 1.11, boss: 1.58, dmg: 1.21, tgt: 2, leg: 0 },
   6: { hp: 1.15, boss: 1.35, dmg: 1.15, tgt: 3, leg: 0 },
   7: { hp: 1.2, boss: 1.4, dmg: 1.25, tgt: 3, leg: 0 },
 }, window.__PT4 || {});
@@ -2059,7 +2059,7 @@ async function endRound() {
       S.campTick = (S.campTick || 0) + 1;
       if (S.flags.lirio === "scorta" && here().length && d6() === 1) { S.lirioV--; banner(S.lirioV > 0 ? `Lirio è ferito · ${S.lirioV} cuori` : "Lirio è catturato", "bad");
         if (S.lirioV <= 0) { S.flags.lirio = "perso"; missione("lirio", "fallita"); log("Le guardie trascinano via Lirio: il poeta non uscirà da Aurea."); } else log(`Un colpo raggiunge Lirio: gli restano ${S.lirioV} cuori.`); }
-      if (S.campTick >= CAMPANA_EVERY) { S.campTick = 0; await campana(); }
+      if (S.campTick >= campEvery()) { S.campTick = 0; await campana(); }
       if (S.flags.processoDue) await processoForzato();
     } else if (S.phase === "boss" && S.flags.fase2) await fameDoro();
     S.leg = legMax();
@@ -2616,7 +2616,7 @@ function buildCarry(from) {
     gear: Object.fromEntries(S.heroes.map(h => [h.id, { eq: h.eq, bag: h.bag }])), catena: S.catena, cittadini: camp.cittadini, borsa: S.oro, tesoriere: S.tesoriere, camp };
 }
 // ---------- Capitolo 4 · Aurea: campane, Colpe e Meriti, missioni, processo, il Giudice Ingordo e l'Ago ----------
-const CAMPANA_EVERY = 3;
+const campEvery = () => partyN() >= 5 ? 4 : 3; // con una compagnia numerosa (5 o più) l'esplorazione è più lenta: le campane aspettano un giro in più
 function colpa(n, why) { S.colpe = (S.colpe || 0) + n; banner(`+${n} ${n === 1 ? "Colpa" : "Colpe"} · ${why}`, "bad"); log(`La bilancia di Aurea: +${n} ${n === 1 ? "Colpa" : "Colpe"} (${why}).`); }
 function merito(n, why) { S.meriti = (S.meriti || 0) + n; banner(`+${n} ${n === 1 ? "Merito" : "Meriti"} · ${why}`, "good"); log(`La bilancia di Aurea: +${n} ${n === 1 ? "Merito" : "Meriti"} (${why}).`); }
 const prezzo = k => k === "pozione" && S.ch === 4 && S.flags.dazio ? 8 : ITEMS[k].price;
@@ -2648,6 +2648,7 @@ function initCap4(tiles) {
     S.heroes.forEach(h => { h.bag.push(...Object.values(h.eq).filter(Boolean)); h.eq = { arma: null, armatura: null, talismano: null }; recalcCA(h); });
     spawn("prigioni"); log("In catene, per sacrilegio contro il Patto: +2 Colpe. Le armi sono nel deposito delle Prigioni.");
   } else { S.flags.sorvegliato = true; log("L'inquisitore Corvo Lanzeri vi segue: ogni scontro in strada pesa una Colpa in più."); }
+  if (partyN() >= 5) log("La compagnia è numerosa: ad Aurea le campane del Verdetto suoneranno ogni 4 giri.");
   if ((S.camp || {}).goccia === "limpida") { S.heroes.forEach(h => h.fx.reroll = true); S.flags.gocciaLimp = true; log("La Goccia limpida: ognuno può ritirare un dado in questo capitolo."); }
   log("La compagnia raggiunge Aurea, la Città della Bilancia.");
 }
@@ -3124,7 +3125,7 @@ function pillsBase() {
   const T2 = S.ch === 2, t = S.tesoriere && hero(S.tesoriere);
   if (S.ch === 4) { const m = Object.values(S.missioni || {}), fatte = m.filter(x => x === "fatta").length, pend = S.meriti > S.colpe ? "meriti" : S.colpe > S.meriti ? "colpe" : "";
     return `<span class="pill">Giro <b>${S.giro}</b></span>
-    <span class="pill campp ${S.campane >= 4 ? "warn" : ""}" title="Le campane del Verdetto suonano ogni ${CAMPANA_EVERY} giri. Al quinto rintocco comincia il processo.">Campane <span class="seg5">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= S.campane ? "on" : ""}"></i>`).join("")}</span>${S.phase === "play" && S.campane < 5 ? ` <small>· ${CAMPANA_EVERY - (S.campTick || 0)} ${CAMPANA_EVERY - (S.campTick || 0) === 1 ? "giro" : "giri"}</small>` : ""}</span>
+    <span class="pill campp ${S.campane >= 4 ? "warn" : ""}" title="Le campane del Verdetto suonano ogni ${campEvery()} giri. Al quinto rintocco comincia il processo.">Campane <span class="seg5">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= S.campane ? "on" : ""}"></i>`).join("")}</span>${S.phase === "play" && S.campane < 5 ? ` <small>· ${campEvery() - (S.campTick || 0)} ${campEvery() - (S.campTick || 0) === 1 ? "giro" : "giri"}</small>` : ""}</span>
     <span class="pill bil ${pend}" title="La bilancia di Aurea: al processo decide la sorte di Seraphel e la forza del Giudice">⚖ Colpe <b>${S.colpe}</b> · Meriti <b>${S.meriti}</b></span>
     <span class="pill" title="Tenuta della Catena">⛓ <b>${S.catena}</b>/7</span>
     <span class="pill gold" title="Borsa della compagnia${t ? ` · tesoriere: ${esc(first(t))}` : ""}">◈ <b>${S.oro}</b> mo${t ? ` · ${esc(first(t))}` : ""}</span>
@@ -3538,6 +3539,7 @@ async function start(ch = 1) {
     await quaderno(4);
     await narrate("c4_seraphel");
     await narrate("c4_regole");
+    if (partyN() >= 5) toast("Compagnia numerosa: le campane suonano ogni 4 giri invece di 3");
     if (sg !== "spezza") { await narrate("c4_saggiatore"); await dazio(); await openShop(); BUSY = false; render(); if (window.__BOT && __BOT.turn) setTimeout(() => __BOT.turn(), 0); return; }
     BUSY = false; render(); // in catene: si comincia nelle Prigioni, con le guardie
     if (here().length) { BUSY = true; rollInit(await tiraIniziativa()); BUSY = false; render(); if (S.order[0] && S.order[0][0] !== "h") { S.turn = -1; await nextTurn(); } }
