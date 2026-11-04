@@ -2061,7 +2061,7 @@ async function provaDio(h) {
   if (window.AUTO_INIT && AUTO_INIT(h)) v = Math.random() < .5 ? "si" : "no";       // i compagni automatici decidono da soli
   else if (window.PROVA_HOOK) v = await PROVA_HOOK(h, P, g);                           // nelle serate risponde il telefono
   if (v == null) {                                                                    // schermo condiviso: prima il velo, poi la carta
-    await overlay(`<div class="pv-veil">${g.simbolo}</div><div class="ovk">Un sussurro</div><h3>${esc(g.n)} parla a ${esc(first(h))}</h3><p>Solo ${esc(first(h))} guardi lo schermo: gli altri distolgano lo sguardo.</p><button class="btn main" data-v="ok">Sono ${esc(first(h))}, mostrami</button>`, "prova");
+    await overlay(`<div class="pv-veil">${g.simbolo}</div><div class="ovk">Un sussurro</div><h3>${esc(g.n)} parla ${esc(aD(first(h)))}</h3><p>Solo ${esc(first(h))} guardi lo schermo: gli altri distolgano lo sguardo.</p><button class="btn main" data-v="ok">Sono ${esc(first(h))}, mostrami</button>`, "prova");
     v = await overlay(`<img class="ovimg" src="${IMG[h.dio]}" alt=""><div class="ovk">${g.simbolo} ${esc(g.n)} · solo per ${esc(first(h))}</div><h3>${P.t}</h3><p class="pv-q">${P.q}</p>
       <div class="pv-row"><p><b>Il prezzo</b>${P.costo}</p>${P.dono ? `<p><b>Il dono</b>${P.dono}</p>` : ""}</div><p class="small">Nessuno saprà cosa hai scelto, ma tutti vedranno cosa succede.</p>
       <div class="choicerow"><button class="btn main" data-v="si">Obbedisci</button><button class="btn ghost" data-v="no">Rifiuta</button></div>`, "prova");
@@ -2735,7 +2735,7 @@ async function processoForzato() {
   await aurelioArrives(true, true);
 }
 // Il processo di Seraphel
-const VERD = { difendi: "Difenderla", condanna: "Condannarla", posto: "Prendere il suo posto" };
+const VERD = { difendi: "Difenderla", condanna: "Condannarla", posto: "Al suo posto" };
 async function processo() {
   S.flags.processo = true; S.flags.processoDue = false; S.flags.sigilloOpen = true; render();
   if (!S.flags.confessione) await confessione();
@@ -2759,8 +2759,8 @@ async function processo() {
   if (FAST) heroes.forEach(h => votes[h.id] = h.traditore ? "condanna" : (window.__POLICY && __POLICY.verdetto) || (S.meriti > S.colpe ? "difendi" : "posto"));
   else for (const h of heroes) {
     if (window.AUTO_INIT && AUTO_INIT(h)) { votes[h.id] = h.traditore ? "condanna" : S.meriti > S.colpe ? "difendi" : pick(["difendi", "posto"]); continue; }
-    votes[h.id] = await overlay(`<div class="ovk">La sentenza</div><h3>Che cosa fate di Seraphel?</h3><div class="voter">${ptImg(h)}<span>Vota <b>${esc(first(h))}</b> <small>${GD(h.dio).simbolo} ${esc(GD(h.dio).n)}</small></span></div>
-      <div class="cands sig">${Object.entries(VERD).map(([k, n]) => `<button class="cand" data-v="${k}"><b>${n}</b><small>${k === "difendi" ? "Assolta solo se i Meriti superano le Colpe." : k === "condanna" ? "Resta nelle Prigioni. La lanterna resta con lei." : `${esc(first(h))} si fa pesare al suo posto: −2 Vita massima per sempre.`}</small></button>`).join("")}</div><p class="small">Si vota davanti a tutti.</p>`, "vote");
+    votes[h.id] = await overlay(`<div class="ovk">La sentenza</div><h3>Che cosa fate di Seraphel?</h3><div class="voter"><img src="${ritratto(h.razza, h.genere)}" alt=""><span>Vota <b>${esc(first(h))}</b> <small>${GD(h.dio).simbolo} ${esc(GD(h.dio).n)}</small></span></div>
+      <div class="cands sig">${Object.entries(VERD).map(([k, n]) => `<button class="cand" data-v="${k}"><b>${k === "posto" ? "Prendere il suo posto" : n}</b><small>${k === "difendi" ? "Assolta solo se i Meriti superano le Colpe." : k === "condanna" ? "Resta nelle Prigioni. La lanterna resta con lei." : `${esc(first(h))} si fa pesare al suo posto: −2 Vita massima per sempre.`}</small></button>`).join("")}</div><p class="small">Si vota davanti a tutti.</p>`, "vote");
   }
   const tally = {}; Object.values(votes).forEach(k => tally[k] = (tally[k] || 0) + 1);
   const top = Math.max(...Object.values(tally)), win = Object.keys(tally).filter(k => tally[k] === top);
@@ -2836,7 +2836,7 @@ async function agoScene() {
     votes = {};
     for (const h of H) {
       if (window.AUTO_INIT && AUTO_INIT(h)) { votes[h.id] = [...H].sort((a, b) => Math.max(b.st.ing, b.st.fas) - Math.max(a.st.ing, a.st.fas))[0].id; continue; }
-      await overlay(`<div class="pv-veil">⚖</div><div class="ovk">Voto segreto</div><h3>Tocca a ${esc(first(h))}</h3><p>Solo ${esc(first(h))} guardi lo schermo: gli altri distolgano lo sguardo.</p><button class="btn main" data-v="ok">Sono ${esc(first(h))}</button>`, "prova");
+      await overlay(`<div class="pv-veil">⚖</div><div class="ovk">Voto segreto</div><h3>Tocca ${esc(aD(first(h)))}</h3><p>Solo ${esc(first(h))} guardi lo schermo: gli altri distolgano lo sguardo.</p><button class="btn main" data-v="ok">Sono ${esc(first(h))}</button>`, "prova");
       votes[h.id] = await overlay(`<div class="ovk">⚖ Voto segreto · ${esc(first(h))}</div><h3>A chi affidi l'Ago?</h3>
         <div class="acc-grid">${H.map(x => `<button class="acc-c" data-v="${x.id}">${ptImg(x)}<b>${esc(first(x))}</b><small>Ing ${mod(x.st.ing) >= 0 ? "+" : ""}${mod(x.st.ing)} · Fas ${mod(x.st.fas) >= 0 ? "+" : ""}${mod(x.st.fas)}</small></button>`).join("")}</div><p class="small">Nessuno saprà chi hai scelto.</p>`, "accusa vote");
     }
@@ -2845,7 +2845,7 @@ async function agoScene() {
   const top = Math.max(...Object.values(tally)), pari = Object.keys(tally).filter(id => tally[id] === top);
   const ch = hero(pari.length > 1 ? pick(pari) : pari[0]) || H[0];
   log(pari.length > 1 ? `Parità nel voto segreto: un d20 sceglie ${first(ch)}.` : `Il voto segreto affida l'Ago a ${first(ch)}.`);
-  await overlay(`<div class="ovk">Il voto segreto</div><h3>L'Ago a ${esc(first(ch))}</h3><div class="voter">${ptImg(ch)}<span><b>${esc(first(ch))}</b> <small>${tally[ch.id]} ${tally[ch.id] === 1 ? "voto" : "voti"} su ${H.length}${pari.length > 1 ? " · scelto dal d20" : ""}</small></span></div><button class="btn main" data-v="ok">Raddrizzate l'Ago</button>`, "cut");
+  await overlay(`<div class="ovk">Il voto segreto</div><h3>L'Ago a ${esc(first(ch))}</h3><div class="voter"><img src="${ritratto(ch.razza, ch.genere)}" alt=""><span><b>${esc(first(ch))}</b> <small>${tally[ch.id]} ${tally[ch.id] === 1 ? "voto" : "voti"} su ${H.length}${pari.length > 1 ? " · scelto dal d20" : ""}</small></span></div><button class="btn main" data-v="ok">Raddrizzate l'Ago</button>`, "cut");
   let ok = 0, ko = 0, sab = ch.traditore && S.sabotaAgo && !S.flags.sabotatoAgo;
   const m = Math.max(mod(ch.st.ing), mod(ch.st.fas)) + rollBonus(ch) + (ch.dio === "varenna" ? 1 : 0);
   while (ok < 3 && ko < 3) {
@@ -3232,7 +3232,8 @@ function bindTV() {
   on("#bNew", () => start(S.ch)); on("#bNew2", () => start(S.ch)); on("#bNext", () => chapterIntro(S.ch + 1)); on("#bCron", () => cronaca());
   on("#b3d", () => { PREF.d3 = !PREF.d3; if (PREF.d3 && !(window.B3D && B3D.has(S.pos))) toast("Questa zona non è ancora in 3D: resta la mappa."); render(); });
 }
-function toast(t) { if (FAST) return; const d = document.createElement("div"); d.className = "toast"; d.textContent = t; document.body.appendChild(d); setTimeout(() => d.remove(), 2600); }
+const aD = n => (/^[aeiouàèéìòù]/i.test(String(n)) ? "ad " : "a ") + n; // «ad Aelindra», «a Shirra»
+function toast(t) { if (FAST) return; const n = document.querySelectorAll(".toast").length; const d = document.createElement("div"); d.className = "toast"; d.style.bottom = (70 + n * 52) + "px"; d.textContent = t; document.body.appendChild(d); setTimeout(() => d.remove(), 2600); } // più avvisi insieme si impilano invece di sovrapporsi
 
 // ---------- Interfaccia: Telefono ----------
 function renderPhone() {
@@ -3409,6 +3410,8 @@ const MAPPA = [
 function worldMap(ch, view) {
   if (FAST) return Promise.resolve();
   return new Promise(res => {
+    const sv = S; // prima di un nuovo capitolo lo stato è ancora quello vecchio: reliquie e catena si leggono da ciò che passa da un capitolo all'altro
+    if (!view && CARRY && CARRY.from === ch - 1) S = { ...(S || {}), camp: { ...(CARRY.camp || {}) }, catena: CARRY.catena ?? 7, ago: null, seme: null, goccia: null };
     const done = MAPPA.filter(p => p.ch < ch), nx = MAPPA.find(p => p.ch === ch) || MAPPA[MAPPA.length - 1];
     const pts = a => a.map(p => `${p.x},${p.y}`).join(" ");
     const nRel = Object.keys(RELIQ).filter(k => RELIQ[k][1]()).length;
@@ -3423,7 +3426,7 @@ function worldMap(ch, view) {
         <svg viewBox="0 0 100 100" preserveAspectRatio="none"><polyline class="wm-fut" points="${pts(MAPPA)}"/><polyline class="wm-done" points="${pts([...done, nx])}"/></svg>
         ${MAPPA.map(mark).join("")}</div>
       <button class="btn main" type="button">${view ? "Chiudi" : "Prosegui il viaggio"}</button></div>`;
-    document.body.appendChild(m); requestAnimationFrame(() => m.classList.add("on"));
+    S = sv; document.body.appendChild(m); requestAnimationFrame(() => m.classList.add("on"));
     if (!view) setTimeout(() => { tone(392, 1.2, "sine", .04); tone(587, 1.6, "sine", .03, 0, .35); }, 600);
     m.querySelector("button").onclick = () => { m.classList.add("out"); setTimeout(() => { m.remove(); res(); }, 400); };
   });
