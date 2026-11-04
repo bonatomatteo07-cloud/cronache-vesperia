@@ -24,16 +24,26 @@
       let u = await new Promise(r => { const un = auth.onAuthStateChanged(x => { un(); r(x); }); });
       if (!u) u = (await auth.signInAnonymously()).user;
       const fs = firebase.firestore();
+      // iPhone e iPad: Safari perde spesso il canale in streaming di Firestore; il long polling è più lento a partire ma non si blocca
+      const iOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+      fs.settings(iOS ? { experimentalForceLongPolling: true, ignoreUndefinedProperties: true } : { experimentalAutoDetectLongPolling: true, ignoreUndefinedProperties: true });
+      // Quando il telefono torna in primo piano (o ritrova la rete) riapro la connessione e rileggo subito lo stato
+      const LIS = new Set(); let lastWake = 0;
+      const wake = async () => { if (document.visibilityState !== "visible" || Date.now() - lastWake < 2500) return; lastWake = Date.now();
+        try { await fs.disableNetwork(); await fs.enableNetwork(); } catch (e) {}
+        LIS.forEach(l => l.ref.get().then(x => l.cb(l.doc ? W(x) : Q(x))).catch(() => {})); };
+      document.addEventListener("visibilitychange", wake); addEventListener("pageshow", wake); addEventListener("online", wake); addEventListener("focus", wake);
+      const listen = (ref, doc, cb, er) => { const l = { ref, doc, cb }; LIS.add(l); const un = ref.onSnapshot(x => cb(doc ? W(x) : Q(x)), er || (() => {})); return () => { LIS.delete(l); un(); }; };
       const doc = p => { const d = fs.doc(p); return {
         get: async () => W(await d.get()),
         set: x => d.set(enc(x)),
         update: x => d.set(enc(x), { merge: true }),       // come il database di Claude: unisce anche i campi annidati
         delete: () => d.delete(),
-        onSnapshot: (cb, er) => d.onSnapshot(s => cb(W(s)), er || (() => {})) }; };
+        onSnapshot: (cb, er) => listen(d, true, cb, er) }; };
       const collection = p => { const c = fs.collection(p); return {
         get: async () => Q(await c.get()),
         doc: id => doc(p + "/" + id),
-        onSnapshot: (cb, er) => c.onSnapshot(q => cb(Q(q)), er || (() => {})) }; };
+        onSnapshot: (cb, er) => listen(c, false, cb, er) }; };
       return { db: { doc, collection }, uid: u.uid };
     })();
     return boot;
@@ -4895,6 +4905,9 @@ const SERATE = (() => {
     if (c.t === "dado") { if (DICE && DICE.user === user && DICE.seq === String(c.s)) DICE.done(+c.v); return; }
     if (mode !== "game" || demo || !S) return;
     if (["equip", "unequip", "give"].includes(c.t) && (cmdBusy || BUSY)) { c.tries = (c.tries || 0) + 1; if (c.tries < 80) setTimeout(() => runCommand(user, c), 700); return; } // lo zaino aspetta che finisca l'azione in corso
+    const gioco = ["act", "foe", "tile", "hero", "cancel", "end"].includes(c.t);
+    if (gioco && (cmdBusy || BUSY || document.querySelector(".ov"))) { // la TV è occupata (animazione, scena aperta): il comando aspetta invece di andare perso
+      c.tries = (c.tries || 0) + 1; if (c.tries < 50 && cmdSeen && cmdSeen[user] === c.seq) setTimeout(() => runCommand(user, c), 400); return; }
     if (cmdBusy) return;
     if (["equip", "unequip", "give"].includes(c.t)) { // lo zaino: ogni giocatore dal proprio telefono
       const me = S.heroes.find(x => x.user === user); if (!me) return;
@@ -4902,8 +4915,7 @@ const SERATE = (() => {
       if (c.t === "equip") msg = equipGear(me, c.v); else if (c.t === "unequip") msg = unequipGear(me, c.v); else { const [id, to] = String(c.v).split("|"); msg = giveGear(me, id, to); }
       MSG[user] = { t: msg || "", n: c.seq }; render(); return;
     }
-    const h = cur(); if (!h || h.user !== user) return; // solo chi è di turno
-    if (document.querySelector(".ov")) return; // c'è una scena aperta sulla TV
+    const h = cur(); if (!h || h.user !== user) { MSG[user] = { t: "Non è il tuo turno: guarda la TV", n: c.seq }; publishNow(); return; } // solo chi è di turno
     cmdBusy = true;
     try {
       if (c.t === "act") await act(c.v);
