@@ -1433,8 +1433,8 @@ const FOES = {
   famelico4: { n: "Famelico di Melodoro", img: "mon_famelico4", hp: 16, lvl: 4, def: 13, atk: 6, die: 6, plus: 1, init: 1, pack: true, sp: "Branco: +1 per ogni altro Famelico" },
   banchiere: { n: "Banchiere Ingordo", img: "mon_banchiere", hp: 34, lvl: 5, def: 16, atk: 7, die: 6, plus: 3, init: -1, elite: true, keep: true, twice: true, steal: true, sp: "Avidità: attacca due volte e ruba monete" },
   nella:     { n: "Nella Ingorda", img: "mon_nella", hp: 30, lvl: 5, def: 14, atk: 7, die: 8, plus: 1, init: 1, elite: true, keep: true, steal: true, sp: "Fame d'oro: non si può salvare" },
-  guardiad:  { n: "Guardia dorata", img: "mon_guardiadorata", hp: 10, lvl: 5, def: 14, atk: 5, die: 6, plus: 0, init: 1, sp: "Scorta: finché ne vive una, Aurelio ha +2 CA" },
-  aurelio:   { n: "Aurelio, il Giudice Ingordo", img: "mon_aurelio", hp: 80, lvl: 6, def: 17, atk: 7, die: 8, plus: 2, init: 1, boss: true, multi: true, giudice: true, desc: "Il Gran Giudice di Aurea, che ha mangiato il pane dorato e ingoiato l'Ago." },
+  guardiad:  { n: "Guardia dorata", img: "mon_guardiadorata", hp: 14, lvl: 5, def: 14, atk: 5, die: 6, plus: 0, init: 1, sp: "Scorta: finché ne vive una, Aurelio ha +2 CA" },
+  aurelio:   { n: "Aurelio, il Giudice Ingordo", img: "mon_aurelio", hp: 88, lvl: 6, def: 17, atk: 7, die: 8, plus: 2, init: 1, boss: true, multi: true, giudice: true, desc: "Il Gran Giudice di Aurea, che ha mangiato il pane dorato e ingoiato l'Ago." },
   cervo:     { n: "Il Cervo Marcio", img: "mon_cervo", hp: 100, lvl: 4, def: 16, atk: 6, die: 8, plus: 0, init: 2, boss: true, choice: true, multi: true, desc: "Il cervo bianco di Sylvara, piegato dalla fame." },
 };
 if (window.__FOE) Object.entries(window.__FOE).forEach(([k, v]) => Object.assign(FOES[k], v)); // simulatore: ritocchi dei numeri
@@ -1769,7 +1769,7 @@ const PARTY_T3 = Object.assign({
 }, window.__PT3 || {});
 // Capitolo 4: Aurea, tarato a parte (sim/sim4.py)
 const PARTY_T4 = Object.assign({
-  3: { hp: 0.8, boss: 1.1, dmg: 0.85, tgt: 1, leg: 0 },
+  3: { hp: 0.78, boss: 0.97, dmg: 0.82, tgt: 1, leg: 0 },
   5: { hp: 1.12, boss: 1.65, dmg: 1.25, tgt: 2, leg: 0 },
   6: { hp: 1.15, boss: 1.35, dmg: 1.15, tgt: 3, leg: 0 },
   7: { hp: 1.2, boss: 1.4, dmg: 1.25, tgt: 3, leg: 0 },
@@ -2189,7 +2189,7 @@ function dropLoot(h) {
 }
 async function ability(h, c) {
   const fs = here(); h.abil = true;
-  if (h.lvl >= 5) { banner(EVO[h.classe].n, "good"); edge("gold");
+  if (h.lvl >= 5 && !window.__NOEVO) { banner(EVO[h.classe].n, "good"); edge("gold");
     switch (c.id) {
       case "guerriero": { const f = target(fs); const d = await attack(h, f, 4, 0, EVO.guerriero.n); if (d && f.hp > 0) { f.crepa = true; log(`L'armatura di ${FOES[f.type].n.split(",")[0]} si incrina: −1 alla CA fino a fine scontro.`); } break; }
       case "barbaro": h.fx.rage = 2; log(`${first(h)} entra nella Furia ancestrale: +3 danni, −2 danni subiti.`); SFX.boss(); break;
@@ -3282,9 +3282,9 @@ async function legAurelio() {
   }
 }
 async function aurelioFase2() {
-  S.flags.fase2 = true; const a = S.foes.find(f => f.type === "aurelio" && f.hp > 0); if (!a) return; SFX.boss(); a.def = 15;
+  S.flags.fase2 = true; const a = S.foes.find(f => f.type === "aurelio" && f.hp > 0); if (!a) return; SFX.boss(); a.def = 16;
   const alleati = S.flags.ospiti || S.flags.lanzeri;
-  await overlay(`<img class="ovimg wide" src="${IMG.mon_aurelio}" alt=""><div class="ovk">Seconda fase</div><h3>La Fame d'oro</h3>${NP("aurelio_fase2")}<p class="small">A ogni giro Aurelio divora le monete di chi ne ha di più e recupera 1 Vita ogni 2 monete (fino a 10 monete). L'oro della statua gli cola di dosso: CA 15. Spendete, o difendete il tesoriere.${alleati ? " Lanzeri e le guardie della Bilancia entrano nell'aula: per un giro, un'azione leggendaria in meno." : ""}</p><button class="btn main" data-v="ok">Avanti</button>`, "boss", "aurelio_fase2");
+  await overlay(`<img class="ovimg wide" src="${IMG.mon_aurelio}" alt=""><div class="ovk">Seconda fase</div><h3>La Fame d'oro</h3>${NP("aurelio_fase2")}<p class="small">A ogni giro Aurelio divora le monete di chi ne ha di più e recupera 1 Vita ogni 2 monete (fino a 10 monete). L'oro della statua gli cola di dosso: CA 16. Spendete, o difendete il tesoriere.${alleati ? " Lanzeri e le guardie della Bilancia entrano nell'aula: per un giro, un'azione leggendaria in meno." : ""}</p><button class="btn main" data-v="ok">Avanti</button>`, "boss", "aurelio_fase2");
   log("Aurelio vacilla, poi guarda le vostre borse: comincia la Fame d'oro.");
   if (alleati) { S.flags.alleatiGiro = true; S.leg = Math.max(0, S.leg - 1); log("Corvo Lanzeri entra nell'aula con le guardie della Bilancia."); }
 }
@@ -3684,7 +3684,7 @@ function endPanel() {
 }
 function dmgRank() {
   const l = [...S.heroes].sort((a, b) => (b.dmg || 0) - (a.dmg || 0));
-  return `<div class="rank"><div class="lab">Danni inflitti</div>${l.map((h, i) => `<div class="rrow ${i ? "" : "top"}"><img src="${ritratto(h.razza, h.genere)}" alt=""><b>${esc(first(h))}</b><span class="tbar"><i style="width:${Math.round((h.dmg || 0) / Math.max(1, l[0].dmg || 0) * 100)}%"></i></span><em>${h.dmg || 0}</em></div>`).join("")}${S.ch < 3 && S.phase === "end" && S.result !== "sconfitta" ? `<p class="small">${esc(first(l[0]))} inizierà il capitolo ${S.ch + 1} un livello più avanti.</p>` : ""}</div>`;
+  return `<div class="rank"><div class="lab">Danni inflitti</div>${l.map((h, i) => `<div class="rrow ${i ? "" : "top"}"><img src="${ritratto(h.razza, h.genere)}" alt=""><b>${esc(first(h))}</b><span class="tbar"><i style="width:${Math.round((h.dmg || 0) / Math.max(1, l[0].dmg || 0) * 100)}%"></i></span><em>${h.dmg || 0}</em></div>`).join("")}${S.phase === "end" && S.result !== "sconfitta" ? `<p class="small">${esc(first(l[0]))} inizierà il capitolo ${S.ch + 1} un livello più avanti.</p>` : ""}</div>`;
 }
 function stripCard(h) {
   const isCur = cur() === h, g = GD(h.dio), pk = (S.mode === "help" && cur() !== h) || ((S.mode === "potion" || S.mode === "seme") && (h.ko || h.hp < h.max));
@@ -3801,7 +3801,18 @@ async function resume(d) {
   render();
   await narrate(recapKeys(), { full: true, img: TILES[S.pos].img, kicker: `Capitolo ${S.ch} · ${CHAP[S.ch].t}`, title: "Nella puntata precedente" });
   AUD.force = null; BUSY = false; render();
+  if (await riprendiScena()) return;
   if (S.phase !== "end" && !cur()) { S.turn = -1; await nextTurn(); }
+}
+// Una partita salvata a metà di una scena finale (processo, Ago, Goccia, scelta del Cervo) riparte dall'inizio di quella scena invece di restare ferma
+async function riprendiScena() {
+  if (S.phase === "end") return false;
+  if (S.ch === 4 && S.flags.aurelioMorto && !S.ago) { S.flags.agoFatto = false; await agoScene(); render(); return true; }
+  if (S.ch === 4 && S.pos === "palazzo" && !S.foes.some(f => f.type === "aurelio" && f.hp > 0)) { if (!S.seraphel) S.flags.processo = false; S.phase = "play"; S.flags.sigilloOpen = false; await aurelioArrives(false); return true; }
+  if (S.ch === 3 && S.flags.vasthorMorto && !S.goccia) { S.flags.gocciaFatta = false; await gocciaScene(); render(); return true; }
+  if (S.ch === 3 && S.flags.sigilloOpen && !S.sigillo) { S.flags.sigilloOpen = false; await sigilloScene(); render(); return true; }
+  if (S.ch === 2 && S.flags.scelta && S.flags.sceltaFatta) { S.flags.sceltaFatta = false; await sceltaCervo(); render(); return true; }
+  return false;
 }
 
 // ---------- Cronaca di fine capitolo ----------
