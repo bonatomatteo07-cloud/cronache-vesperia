@@ -474,21 +474,21 @@ body.shakefx .tv{animation:bshake .42s}
 .kov.foam .embers i{background:#cfefff;box-shadow:0 0 8px 2px rgba(140,210,250,.8);border-radius:50%}
 .tv.ch3 .bar{background:linear-gradient(90deg,rgba(10,30,44,.92),rgba(8,14,24,.92))}
 /* Il duello: chi attacca e chi riceve, uno alla volta */
-.duel{position:fixed;left:50%;top:38%;z-index:36;display:grid;grid-template-columns:150px 120px 150px;align-items:center;gap:8px;padding:18px 22px;transform:translate(-50%,-50%) scale(.92);opacity:0;pointer-events:none;
+.duel{position:fixed;left:50%;top:calc(10px + env(safe-area-inset-top,0px));z-index:36;display:grid;grid-template-columns:120px 76px 120px;align-items:center;gap:6px;padding:10px 14px;transform:translate(-50%,-14px) scale(.92);opacity:0;pointer-events:none;
   background:linear-gradient(180deg,rgba(18,23,36,.96),rgba(10,13,22,.96));border:1px solid var(--gold-lo);border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.7);transition:opacity .25s,transform .25s}
-.duel.in{opacity:1;transform:translate(-50%,-50%) scale(1)}
-.duel.out{opacity:0;transform:translate(-50%,-56%) scale(.96)}
+.duel.in{opacity:1;transform:translate(-50%,0) scale(1)}
+.duel.out{opacity:0;transform:translate(-50%,-18px) scale(.96)}
 .duel .dside{display:grid;justify-items:center;gap:4px;text-align:center}
-.duel .dside img{width:110px;height:146px;object-fit:cover;object-position:50% 20%;border-radius:6px;border:2px solid var(--gold-lo)}
-.duel .dside b{font-family:var(--title);font-size:17px;color:var(--gold-hi);letter-spacing:.04em}
+.duel .dside img{width:64px;height:84px;object-fit:cover;object-position:50% 20%;border-radius:6px;border:2px solid var(--gold-lo)}
+.duel .dside b{font-family:var(--title);font-size:14px;color:var(--gold-hi);letter-spacing:.04em}
 .duel .dside small{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
 .duel .dside.a{transform:translateX(-30px);opacity:.4;transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .3s}
 .duel.in .dside.a{transform:none;opacity:1}
 .duel .dmid{display:grid;justify-items:center;gap:6px}
-.duel .dsw{font-size:42px;color:var(--gold-hi);transform:translateX(-24px) scale(.6);opacity:0;transition:transform .35s .25s,opacity .25s .25s;text-shadow:0 0 18px rgba(243,215,147,.6)}
+.duel .dsw{font-size:30px;color:var(--gold-hi);transform:translateX(-24px) scale(.6);opacity:0;transition:transform .35s .25s,opacity .25s .25s;text-shadow:0 0 18px rgba(243,215,147,.6)}
 .duel.in .dsw{transform:translateX(0) scale(1);opacity:1}
 .duel .dmid em{font-style:normal;font-family:var(--title);font-weight:800;color:#ffd27a;letter-spacing:.1em;text-transform:uppercase;font-size:14px}
-.duel .dres{font-family:var(--title);font-weight:800;font-size:30px;opacity:0;transform:scale(.6);transition:transform .25s,opacity .2s}
+.duel .dres{font-family:var(--title);font-weight:800;font-size:22px;opacity:0;transform:scale(.6);transition:transform .25s,opacity .2s}
 .duel.hit .dres{opacity:1;transform:scale(1)}
 .duel.hit:not(.miss) .dside.t img{animation:duelhit .45s}
 @keyframes duelhit{0%,100%{transform:none;filter:none}20%{transform:translateX(8px) rotate(2deg);filter:brightness(1.8) saturate(.4)}45%{transform:translateX(-6px)}70%{transform:translateX(3px)}}
@@ -497,10 +497,10 @@ body.shakefx .tv{animation:bshake .42s}
 .duel.fromfoe .dres{color:#ff6b5a}
 .duel.fromhero .dside.t img{border-color:var(--bad)}
 .duel.fromhero .dres{color:#ffd27a}
-.duel.miss .dres{color:#c9cfdb;font-size:20px;letter-spacing:.12em;text-transform:uppercase}
+.duel.miss .dres{color:#c9cfdb;font-size:15px;letter-spacing:.12em;text-transform:uppercase}
 .duel.miss .dsw{color:#c9cfdb;text-shadow:none}
 .duel.crit{box-shadow:0 0 0 1px #ffd27a,0 0 50px rgba(255,190,90,.45),0 20px 60px rgba(0,0,0,.7)}
-@media (max-width:640px){.duel{grid-template-columns:100px 60px 100px;padding:12px}.duel .dside img{width:84px;height:112px}.duel .dsw{font-size:30px}}
+@media (max-width:640px){.duel{grid-template-columns:90px 50px 90px;padding:8px}.duel .dside img{width:52px;height:68px}.duel .dsw{font-size:24px}}
 /* Tiro di iniziativa dei giocatori */
 .ov.iniz .ovbox{max-width:640px}
 .inrows{display:grid;gap:8px;margin:14px 0 10px}
