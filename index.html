@@ -2234,12 +2234,12 @@ async function fumble(h) {
   const d = roll(4); log(`Colpo maldestro: ${first(h)} si ferisce con la propria arma (−${d} Vita).`); banner(`1 naturale · ${first(h)} si ferisce`, "bad"); hurtHero(h, d, "Il colpo maldestro");
   if (!FAST) await sleep(900);
 }
-function hurtFoe(f, d, h) {
+function hurtFoe(f, d, h, who) {
   if (!f || f.hp <= 0) return;
   const F = FOES[f.type]; if (h) { h.dmg = (h.dmg || 0) + Math.min(d, f.hp); if (d > h.sx.best) { h.sx.best = d; h.sx.bestVs = F.n.split(",")[0]; } if (d >= f.hp) { h.sx.kills++; if (has(h, "mannaia") && !h.ko && h.hp < h.max) { h.hp++; popAt(h.id, "+1", "heal"); } if (has(h, "sciabola")) h.fx.sciabola = true; } } f.hp = Math.max(0, f.hp - d); caricaDanno(f, d); if (h) f.colpo = { g: S.giro, h: h.id }; SFX.hit(); flash(f.uid);
   popAt(f.uid, `−${d}`, "dmg"); edge("gold");
-  banner(`${h ? first(h) : "Il colpo"} colpisce ${F.n.split(",")[0]}  −${d}`, "good");
-  log(`${h ? first(h) : "Il colpo"} infligge ${d} ${d === 1 ? "danno" : "danni"} a ${F.n}${f.hp ? ` (${f.hp}/${f.max})` : ""}.`);
+  banner(who ? `${who} · ${F.n.split(",")[0]}  −${d}` : `${h ? first(h) : "Il colpo"} colpisce ${F.n.split(",")[0]}  −${d}`, "good");
+  if (!who) log(`${h ? first(h) : "Il colpo"} infligge ${d} ${d === 1 ? "danno" : "danni"} a ${F.n}${f.hp ? ` (${f.hp}/${f.max})` : ""}.`);
   if ((F.choice || F.levi || F.giudice) && f.hp && !S.flags.fase2 && f.hp <= f.max / 2) S.flags.fase2Due = true;
   if (f.hp) return;
   S.order = S.order.filter(x => x !== f.uid);
@@ -2534,7 +2534,7 @@ async function foeAct(f) {
     }
     else { SFX.miss(); popAt(h.id, "Schivato", "miss"); banner(`${first(h)} schiva ${F.n.split(",")[0]}`, "miss"); log(`${F.n} attacca ${first(h)} ma manca.`); }
     DUELING--; render(); await duel(f, h, hit ? (h.hp < hp0 ? `−${hp0 - h.hp}` : "Parato") : "Schivato", hit ? "bad" : "miss", hit && r === 20);
-    if (!hit && r === 1 && h.fx.guard && !h.ko && f.hp > 0) { await contrattacco(h, f); if (f.hp <= 0) break; }
+    if (!hit && r === 1 && f.hp > 0) { await (h.fx.guard && !h.ko ? contrattacco(h, f) : maldestro(f)); if (f.hp <= 0) break; }
   }
   if (F.regen) { const v = Math.min(d8(), f.max - f.hp); if (v) { f.hp += v; log(`Vorgath divora la cenere e si rigenera: +${v}.`); } }
   BUSY = false;
@@ -3821,6 +3821,10 @@ async function contrattacco(h, f) {
   BUSY = true; const v = await dieOnly(first(h), `Contrattacco contro ${F.n.split(",")[0]}`, 6, dmgPlus(h)); BUSY = false;
   DUELING++; hurtFoe(f, v, h); DUELING--; render(); await duel(h, f, `−${v}`, "good", false); BUSY = true;
 }
+// 1 naturale di un nemico: come per gli eroi, il colpo va storto (d4 a sé stesso). Contro chi è in guardia diventa un contrattacco
+async function maldestro(f) {
+  const F = FOES[f.type], d = roll(4); DUELING++; hurtFoe(f, d, null, "Colpo maldestro"); log(`1 naturale: ${F.n.split(",")[0]} sbaglia il colpo e si ferisce (−${d}${f.hp ? `, ${f.hp}/${f.max}` : ""}).`); DUELING--; render(); if (!FAST) await sleep(700);
+}
 // ---------- Il colpo annunciato ----------
 const caricaNeed = f => Math.max(4, Math.round(f.max * (FOES[f.type].boss ? .12 : .2)));
 function caricaDanno(f, d) { if (!f.carica_on) return; f.cdmg = (f.cdmg || 0) + d; if (f.cdmg >= caricaNeed(f) && f.hp > 0) { f.carica_on = false; banner(`Carica spezzata · ${FOES[f.type].carica}`, "good"); log(`La compagnia spezza la ${FOES[f.type].carica.toLowerCase()} di ${FOES[f.type].n.split(",")[0]}.`); } }
@@ -3832,7 +3836,7 @@ async function caricaTurno(f) { // true se il nemico ha usato il turno per caric
     banner(`${F.n.split(",")[0]} scatena: ${F.carica}`, "bad"); shake(); SFX.boom(); log(`${F.n} scatena ${F.carica}!`);
     let atk = F.atk + (S.ch >= 2 ? 2 + dif().atk : 0); // nel prologo il colpo annunciato è più clemente
     for (const h of [...alive()]) { if (h.ko) continue; const r = d20(), hit = r === 20 || (r !== 1 && r + atk >= h.ca + (h.fx.riparo ? 2 : 0));
-      if (hit) { let d = (S.ch >= 2 ? F.plus || 0 : 0) + roll(F.die); d = Math.max(1, Math.round(d * partyDmg())); hurtHero(h, d, `${F.carica} di ${F.n.split(",")[0]}`); } else { popAt(h.id, "Schivato", "miss"); log(`${first(h)} evita ${F.carica}.`); if (r === 1 && h.fx.guard && f.hp > 0) await contrattacco(h, f); } }
+      if (hit) { let d = (S.ch >= 2 ? F.plus || 0 : 0) + roll(F.die); d = Math.max(1, Math.round(d * partyDmg())); hurtHero(h, d, `${F.carica} di ${F.n.split(",")[0]}`); } else { popAt(h.id, "Schivato", "miss"); log(`${first(h)} evita ${F.carica}.`); if (r === 1 && f.hp > 0) await (h.fx.guard ? contrattacco(h, f) : maldestro(f)); if (f.hp <= 0) break; } }
     render(); await sleep(900); BUSY = false; return true;
   }
   if (f.cc % 3 === 2) {
