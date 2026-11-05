@@ -2105,6 +2105,7 @@ async function foeAct(f) {
     }
     else { SFX.miss(); popAt(h.id, "Schivato", "miss"); banner(`${first(h)} schiva ${F.n.split(",")[0]}`, "miss"); log(`${F.n} attacca ${first(h)} ma manca.`); }
     DUELING--; render(); await duel(f, h, hit ? (h.hp < hp0 ? `−${hp0 - h.hp}` : "Parato") : "Schivato", hit ? "bad" : "miss", hit && r === 20);
+    if (!hit && r === 1 && h.fx.guard && !h.ko && f.hp > 0) { await contrattacco(h, f); if (f.hp <= 0) break; }
   }
   if (F.regen) { const v = Math.min(d8(), f.max - f.hp); if (v) { f.hp += v; log(`Vorgath divora la cenere e si rigenera: +${v}.`); } }
   BUSY = false;
@@ -3384,6 +3385,13 @@ async function usaAmb(h) {
   else if (A.k === "riparo") { alive().forEach(x => x.fx.riparo = true); banner(`${A.n}: +2 CA fino a fine giro`, "good"); }
 }
 
+// ---------- Il contrattacco: chi è in guardia punisce il nemico che fa 1 naturale ----------
+async function contrattacco(h, f) {
+  const F = FOES[f.type]; banner(`Contrattacco di ${first(h)}`, "good"); edge("gold");
+  log(`${F.n.split(",")[0]} fa 1 naturale contro ${first(h)}, che è in guardia: contrattacco!`);
+  BUSY = true; const v = await dieOnly(first(h), `Contrattacco contro ${F.n.split(",")[0]}`, 6, dmgPlus(h)); BUSY = false;
+  DUELING++; hurtFoe(f, v, h); DUELING--; render(); await duel(h, f, `−${v}`, "good", false); BUSY = true;
+}
 // ---------- Il colpo annunciato ----------
 const caricaNeed = f => Math.max(4, Math.round(f.max * (FOES[f.type].boss ? .12 : .2)));
 function caricaDanno(f, d) { if (!f.carica_on) return; f.cdmg = (f.cdmg || 0) + d; if (f.cdmg >= caricaNeed(f) && f.hp > 0) { f.carica_on = false; banner(`Carica spezzata · ${FOES[f.type].carica}`, "good"); log(`La compagnia spezza la ${FOES[f.type].carica.toLowerCase()} di ${FOES[f.type].n.split(",")[0]}.`); } }
@@ -3395,7 +3403,7 @@ async function caricaTurno(f) { // true se il nemico ha usato il turno per caric
     banner(`${F.n.split(",")[0]} scatena: ${F.carica}`, "bad"); shake(); SFX.boom(); log(`${F.n} scatena ${F.carica}!`);
     let atk = F.atk + (S.ch >= 2 ? 2 + dif().atk : 0); // nel prologo il colpo annunciato è più clemente
     for (const h of [...alive()]) { if (h.ko) continue; const r = d20(), hit = r === 20 || (r !== 1 && r + atk >= h.ca + (h.fx.riparo ? 2 : 0));
-      if (hit) { let d = (S.ch >= 2 ? F.plus || 0 : 0) + roll(F.die); d = Math.max(1, Math.round(d * partyDmg())); hurtHero(h, d, `${F.carica} di ${F.n.split(",")[0]}`); } else { popAt(h.id, "Schivato", "miss"); log(`${first(h)} evita ${F.carica}.`); } }
+      if (hit) { let d = (S.ch >= 2 ? F.plus || 0 : 0) + roll(F.die); d = Math.max(1, Math.round(d * partyDmg())); hurtHero(h, d, `${F.carica} di ${F.n.split(",")[0]}`); } else { popAt(h.id, "Schivato", "miss"); log(`${first(h)} evita ${F.carica}.`); if (r === 1 && h.fx.guard && f.hp > 0) await contrattacco(h, f); } }
     render(); await sleep(900); BUSY = false; return true;
   }
   if (f.cc % 3 === 2) {
@@ -3694,7 +3702,7 @@ function heroPanel(h) {
       ${h.lvl >= 2 ? B("ability2", ABIL2[h.classe].n, "Abilità di livello 2 · una volta per scontro") : ""}
       ${h.lvl >= 6 ? B("special", SPEC[h.classe].n, "Attacco speciale · una volta per capitolo") : ""}
       ${B("bless", g.benedizione.n, `Benedizione di ${g.n}`)}
-      ${here().length ? B("guard", "In guardia", "Dimezzi i danni fino al tuo prossimo turno") : ""}
+      ${here().length ? B("guard", "In guardia", "Dimezzi i danni fino al tuo turno · se il nemico fa 1, contrattacchi") : ""}
       ${TILES[S.pos].amb && here().length ? B("amb", TILES[S.pos].amb.n, `${TILES[S.pos].amb.t} · una volta`) : ""}
       ${objQui() && objQui().k === "recupera" ? B("obj", `Afferra: ${objQui().n}`, `Agilità CD ${9 + S.ch}`) : ""}
       ${B("move", "Muovi", "Proponi una strada: decide il voto")}
