@@ -753,57 +753,57 @@ const RACES = [
     motto: "Viviamo poco. Per questo abbiamo fretta di fare la storia.",
     desc: "La stirpe più numerosa e irrequieta delle terre conosciute. Fondano regni, li perdono e li rifondano con la stessa testarda ambizione.",
     mod: { fas: 1, sor: 1 }, vita: 0,
-    dono: { n: "Ambizione", t: "Una volta per capitolo, dopo aver visto il risultato di un tiro, puoi aggiungere +2." },
-    difetto: { n: "Carne mortale", t: "Nessuna resistenza innata: il riposo ti fa recuperare 1 Vita in meno rispetto alle altre stirpi." },
+    dono: { n: "Ambizione", t: "Una volta per capitolo, se manchi un tiro di 1 o 2, puoi aggiungere +2 e farlo riuscire." },
+    difetto: { n: "Carne mortale", t: "Nessuna resistenza innata: le pozioni ti curano 1 Vita in meno." },
     nomi: ["Aldric Valmont", "Elena Corvane", "Marek Dunhal", "Livia Ashford", "Tomas Brennar", "Iris Delacorte"] },
   { id: "nano", n: "Nani", s: "Nano", stirpe: "Figli della Roccia",
     motto: "La montagna non dimentica. E nemmeno noi, purtroppo per voi.",
     desc: "Fabbri e guerrieri delle grandi rocche sotterranee. Lenti a fidarsi, ancora più lenti a perdonare, ma incrollabili come la pietra.",
     mod: { for: 1, agi: -1 }, vita: 3,
-    dono: { n: "Sangue di pietra", t: "Immune ai veleni. Sottoterra subisci 1 danno in meno da ogni colpo." },
-    difetto: { n: "Passo pesante", t: "–2 ai tiri per muoverti di nascosto e per nuotare: l'armatura non galleggia." },
+    dono: { n: "Sangue di pietra", t: "Immune a veleni e spore. Nelle zone sotterranee (gallerie, Fonderie, Prigioni) subisci 1 danno in meno da ogni colpo." },
+    difetto: { n: "Passo pesante", t: "–2 quando la compagnia prova a passare di nascosto e quando nuoti: l'armatura non galleggia." },
     nomi: ["Durgan Forgiaferro", "Hilda Pietrascura", "Borin Martelcupo", "Kelda Ramerossa", "Thrain Scudovivo"] },
   { id: "elfo", n: "Elfi", s: "Elfo", stirpe: "Antichi della Foresta",
     motto: "Abbiamo visto cadere imperi. Il vostro non ci preoccupa.",
     desc: "Custodi millenari dei boschi profondi. La loro grazia è leggendaria, quanto la loro difficoltà a considerare gli altri popoli dei pari.",
     mod: { agi: 1, ing: 1 }, vita: -1,
-    dono: { n: "Sguardo stellare", t: "Vedi al buio e scopri trappole e passaggi segreti con 5 o 6, invece che solo con 6." },
-    difetto: { n: "Maledizione del ferro freddo", t: "Le armi di ferro battuto a freddo ti infliggono 1 danno in più." },
+    dono: { n: "Sguardo stellare", t: "Vedi al buio: quando la compagnia entra in una zona nuova scopri una zona coperta, e un'imboscata non ti coglie mai di sorpresa." },
+    difetto: { n: "Maledizione del ferro freddo", t: "Le armi di ferro battuto a freddo delle guardie di Aurea ti infliggono 1 danno in più." },
     nomi: ["Aelindra Venthiel", "Caelir Lunargento", "Thalien Ombrafoglia", "Sylwen Aurenil", "Ilyos Ventochiaro"] },
   { id: "orco", n: "Orchi", s: "Orco", stirpe: "Clan delle Steppe",
     motto: "Ci chiamate barbari. Noi vi chiamiamo «quelli che perdono».",
     desc: "Nomadi fieri delle praterie senza confini. Onorano la forza e la parola data, ma secoli di guerre li hanno resi temuti in ogni città.",
     mod: { for: 2, ing: -1 }, vita: 2,
     dono: { n: "Furia del sangue", t: "Quando sei sotto metà della tua Vita, ogni tuo attacco fa +1 danno." },
-    difetto: { n: "Antico rancore", t: "Nelle città guardie e mercanti diffidano di te: –1 Fascino e prezzi più alti." },
+    difetto: { n: "Antico rancore", t: "Nelle città (Crocevento e Aurea) hai –1 alle prove di Fascino, e da Sbrindello quello che compri per te costa 1 moneta in più." },
     nomi: ["Grosh Zannarotta", "Urzha Ventorosso", "Morak del Clan Lupo", "Shara Lamascura", "Tuvok Ossidura"] },
   { id: "mezzuomo", n: "Mezzuomini", s: "Mezzuomo", stirpe: "Popolo delle Colline",
     motto: "Nessuna grande impresa è mai cominciata a stomaco vuoto.",
     desc: "Piccoli, pratici e sorprendentemente coraggiosi quando serve. La fortuna sembra avere un debole per loro, e loro per le seconde colazioni.",
     mod: { sor: 2, agi: 1, for: -1 }, vita: -1,
-    dono: { n: "Fortuna dei piccoli", t: "Una volta per combattimento puoi ritirare un dado che ha fatto 1." },
-    difetto: { n: "Statura minuta", t: "Non puoi usare armi a due mani e spingere o trattenere i nemici grandi ti riesce con –2." },
+    dono: { n: "Fortuna dei piccoli", t: "Una volta per combattimento, se il d20 fa 1, lo ritiri." },
+    difetto: { n: "Statura minuta", t: "Non puoi usare armi a due mani (Mannaia, Martello, Balestra) e hai –2 alle prove di Forza." },
     nomi: ["Pervinca Melodoro", "Bartolo Collealto", "Rosmarina Tralci", "Fosco Pandimiele", "Gemma Siepeverde"] },
   { id: "gnomo", n: "Gnomi", s: "Gnomo", stirpe: "Artefici del Sottobosco",
     motto: "Ogni problema ha una soluzione. Alcune esplodono solo un po'.",
     desc: "Inventori e studiosi instancabili, uniscono meccanica e magia in congegni che nessun altro capisce, a volte nemmeno loro.",
     mod: { ing: 2, for: -1 }, vita: 0,
-    dono: { n: "Congegno arcano", t: "All'inizio di ogni capitolo costruisci un congegno: rampino, lanterna rivelatrice, bomba fumogena o scudo d'energia." },
-    difetto: { n: "Prototipo instabile", t: "Se usi un congegno e il dado fa 1, va in pezzi e ti infligge 2 danni." },
+    dono: { n: "Congegno arcano", t: "All'inizio di ogni capitolo costruisci un congegno da usare una volta: rampino, lanterna rivelatrice, bomba fumogena o scudo d'energia." },
+    difetto: { n: "Prototipo instabile", t: "Quando usi un congegno tiri un d6: con 1 va in pezzi senza effetto e ti infligge 2 danni." },
     nomi: ["Nyx Ingranavolta", "Fizzwick Lucebrina", "Tilda Molladoro", "Bimble Cuprofino", "Wren Scintillano"] },
   { id: "felinidi", n: "Felinidi", s: "Felinide", stirpe: "Popolo del Vespro",
     motto: "Non ti seguo. Sto solo andando nella tua stessa direzione.",
     desc: "Agili cacciatori dei tetti e delle dune, dagli occhi d'ambra e dal passo silenzioso. Fedeli agli amici, ma solo quando decidono loro.",
     mod: { agi: 2, fas: 1, for: -1 }, vita: -1,
-    dono: { n: "Riflessi felini", t: "+1 all'iniziativa e non subisci danni dalle cadute. Una volta per combattimento schivi un attacco." },
-    difetto: { n: "Avversione all'acqua", t: "–2 a tutti i tiri in acqua; se ti bagni hai –1 Agilità fino al prossimo riposo." },
+    dono: { n: "Riflessi felini", t: "+1 all'iniziativa e niente danni da rocce e frane. Una volta per combattimento schivi un colpo da 4 danni o più." },
+    difetto: { n: "Avversione all'acqua", t: "–2 a tutti i tiri sott'acqua; dopo una nuotata hai –1 Agilità fino alla fine del capitolo." },
     nomi: ["Shirra Passodombra", "Kael Zampadoro", "Mirah Occhiodambra", "Tazhir del Vespro", "Nalia Codalunga"] },
   { id: "acquatici", n: "Acquatici", s: "Acquatico", stirpe: "Popolo delle Maree",
     motto: "La marea arriva sempre. Basta saper aspettare.",
     desc: "Discendenti delle città sommerse, salgono in superficie per commerciare e esplorare. Calmi come il mare piatto e altrettanto imprevedibili.",
     mod: { ing: 1, for: 1, agi: -1 }, vita: 1,
-    dono: { n: "Respiro delle maree", t: "Respiri sott'acqua e nuoti veloce. Vicino a fiumi, laghi o mare il riposo ti cura 1 Vita in più." },
-    difetto: { n: "Pelle d'acqua", t: "In luoghi aridi o se resti senz'acqua per un capitolo intero, –1 a tutti i tiri finché non ti bagni." },
+    dono: { n: "Respiro delle maree", t: "Respiri sott'acqua e guidi la compagnia tra le correnti. Nelle zone d'acqua ogni cura ti dà 1 Vita in più." },
+    difetto: { n: "Pelle d'acqua", t: "Nelle zone aride di Aurea (Porta d'Oro, Sabbiaoro, Fonderie, Piatti Vuoti) hai –1 a tutti i tiri finché non passi dai Giardini Pensili." },
     nomi: ["Nerea Sciumarina", "Thalos Correntefonda", "Maris Perladiluna", "Coralyn Riva", "Oceo Ventosalso"] },
 ];
 
@@ -814,63 +814,63 @@ const CLASSES = [
     att: { n: "Colpo possente", t: "Attacco con +2 danni; fino al tuo prossimo turno i nemici ti colpiscono con +1." },
     pas: { n: "Attacco extra", t: "Puoi attaccare due volte nello stesso turno: l'unica classe a farlo fin dal primo livello." },
     zaino: ["Spada lunga", "Scudo a goccia", "Elmo crestato", "Pozione di cura"],
-    vizio: { n: "Niente sottigliezze", t: "Non puoi usare pergamene né oggetti magici che richiedono di leggere rune." } },
+    vizio: { n: "Niente sottigliezze", t: "Rune e pergamene non fanno per te: –2 a tutte le prove di Ingegno." } },
   { id: "barbaro", n: "Barbaro", c: "Furia delle terre del nord",
     motto: "La strategia è per chi ha tempo di pensare.",
     base: { for: 4, agi: 3, ing: 1, fas: 1, sor: 2 }, vita: 14,
     att: { n: "Ira", t: "Per un combattimento infliggi +2 danni e subisci 1 danno in meno da ogni colpo." },
-    pas: { n: "Istinto primordiale", t: "Non vieni mai colto di sorpresa e hai +1 all'iniziativa." },
+    pas: { n: "Istinto primordiale", t: "Un'imboscata non ti coglie mai di sorpresa e hai +1 all'iniziativa." },
     zaino: ["Ascia bipenne", "Elmo cornuto", "Pelle di lupo"],
-    vizio: { n: "Furia cieca", t: "Mentre sei in Ira non puoi usare oggetti, curare né ritirarti dal combattimento." } },
+    vizio: { n: "Furia cieca", t: "Mentre sei in Ira non puoi bere pozioni, lanciare bombe, aiutare i compagni né curare." } },
   { id: "mago", n: "Mago", c: "Custode degli arcani",
     motto: "La conoscenza è potere. Il resto è solo fuoco ben indirizzato.",
     base: { for: 1, agi: 2, ing: 4, fas: 2, sor: 2 }, vita: 7,
-    att: { n: "Sfera arcana", t: "3 danni a tutti i nemici nella stanza. Con 1 sul dado l'incantesimo sfugge al controllo." },
-    pas: { n: "Erudizione", t: "Leggi rune, mappe antiche e pergamene. +1 per risolvere enigmi." },
+    att: { n: "Sfera arcana", t: "d8 danni a tutti i nemici nella zona. A volte la magia sfugge al controllo e ti fa 2 danni." },
+    pas: { n: "Erudizione", t: "Leggi rune, mappe antiche e pergamene: +2 alle prove di Ingegno." },
     zaino: ["Bastone di cristallo", "Grimorio runico", "Candele rituali"],
-    vizio: { n: "Corpo fragile", t: "Non puoi indossare armature: chi ti colpisce corpo a corpo ha +1." } },
+    vizio: { n: "Corpo fragile", t: "Niente armature pesanti, e i nemici hanno +1 per colpirti." } },
   { id: "ladro", n: "Furfante", c: "Ombra delle gilde",
     motto: "Le serrature sono solo suggerimenti.",
     base: { for: 2, agi: 4, ing: 2, fas: 2, sor: 3 }, vita: 8,
-    att: { n: "Colpo alle spalle", t: "Se un alleato sta già combattendo quel nemico, +3 danni." },
-    pas: { n: "Mani esperte", t: "Apri serrature e disinneschi trappole con +1; perquisendo trovi sempre qualcosa in più." },
+    att: { n: "Colpo alle spalle", t: "Attacco con +3 danni se un compagno ha già ferito quel nemico." },
+    pas: { n: "Mani esperte", t: "Serrature, trappole e tetti: +2 alle prove di Agilità." },
     zaino: ["Due pugnali ricurvi", "Grimaldelli", "Cappuccio nero"],
-    vizio: { n: "Cattiva fama", t: "Se un furto va male, le guardie ricordano la tua faccia per il resto del capitolo." } },
+    vizio: { n: "Cattiva fama", t: "Se in città una prova per passare di nascosto va male, le guardie ricordano la tua faccia: da Sbrindello i prezzi salgono di 2 per il resto del capitolo." } },
   { id: "chierico", n: "Chierico", c: "Voce del Sole",
     motto: "La luce guarisce. A volte anche a colpi di mazza.",
     base: { for: 2, agi: 1, ing: 3, fas: 3, sor: 2 }, vita: 10,
-    att: { n: "Benedizione", t: "Curi 3 Vita a un alleato oppure rialzi chi è a terra." },
-    pas: { n: "Fede incrollabile", t: "Immune alla paura; i non morti hanno –1 ad attaccarti." },
+    att: { n: "Benedizione", t: "Curi d8+2 Vita a un alleato, oppure rialzi chi è a terra." },
+    pas: { n: "Fede incrollabile", t: "Immune alla paura e al canto delle sirene; i non morti (Annegati, Spiriti avvizziti) hanno –1 ad attaccarti." },
     zaino: ["Mazza flangiata", "Simbolo del Sole", "Acqua consacrata"],
-    vizio: { n: "Voto sacro", t: "Non puoi usare armi da taglio né colpire un nemico che si è arreso." } },
+    vizio: { n: "Voto sacro", t: "Non puoi usare armi da taglio, come la Sciabola o il Pugnale." } },
   { id: "ranger", n: "Ranger", c: "Sentinella delle terre selvagge",
     motto: "La strada più breve passa sempre dove nessuno guarda.",
     base: { for: 2, agi: 4, ing: 2, fas: 1, sor: 2 }, vita: 9,
-    att: { n: "Tiro mirato", t: "Colpisci un nemico anche nella stanza accanto, senza entrarci." },
-    pas: { n: "Battitore", t: "Il gruppo non si perde mai: esplorando sai sempre cosa c'è nelle stanze vicine." },
+    att: { n: "Tiro mirato", t: "Attacco con +1 al tiro e +1 ai danni. Se la tua zona è libera, colpisci un nemico in una zona accanto senza entrarci." },
+    pas: { n: "Battitore", t: "Il gruppo non si perde mai: a ogni spostamento scopri le zone accanto." },
     zaino: ["Arco lungo intagliato", "Faretra", "Corno da caccia", "Mappa"],
-    vizio: { n: "Spirito solitario", t: "Nelle città e al chiuso troppo a lungo hai –1 Fascino." } },
+    vizio: { n: "Spirito solitario", t: "Nelle città (Crocevento e Aurea) hai –1 alle prove di Fascino." } },
   { id: "bardo", n: "Bardo", c: "Cantore delle leggende",
     motto: "Le spade vincono le battaglie. Le canzoni decidono chi le ricorda.",
     base: { for: 1, agi: 2, ing: 2, fas: 4, sor: 3 }, vita: 8,
     att: { n: "Canto di battaglia", t: "Tutti gli alleati hanno +1 al prossimo tiro." },
-    pas: { n: "Lingua d'argento", t: "+1 quando devi convincere, trattare o mentire." },
+    pas: { n: "Lingua d'argento", t: "+2 alle prove di Fascino: convincere, trattare, mentire." },
     zaino: ["Liuto intarsiato", "Flauto d'argento", "Raccolta di ballate"],
-    vizio: { n: "Fama ingombrante", t: "È difficile passare inosservati: –1 per nasconderti o travestirti." } },
+    vizio: { n: "Fama ingombrante", t: "È difficile passare inosservati: –1 quando la compagnia prova a passare di nascosto." } },
   { id: "paladino", n: "Paladino", c: "Scudo dei giusti",
     motto: "Finché resto in piedi, nessuno cade dietro di me.",
     base: { for: 3, agi: 1, ing: 1, fas: 3, sor: 2 }, vita: 12,
     att: { n: "Egida di luce", t: "Proteggi un alleato: i danni che subirebbe li prendi tu, dimezzati." },
-    pas: { n: "Aura radiosa", t: "Le creature del buio hanno –1 contro di te e contro chi ti sta accanto." },
+    pas: { n: "Aura radiosa", t: "Le creature del buio (Famelici, Locuste e Anguille d'ombra, Tentacoli) hanno –1 contro di te e contro il compagno più ferito." },
     zaino: ["Martello da guerra", "Scudo del Sole", "Elmo alato"],
-    vizio: { n: "Codice d'onore", t: "Non puoi mentire né attaccare per primo un nemico che non ti ha minacciato." } },
+    vizio: { n: "Codice d'onore", t: "Se la compagnia compra la propria strada (pizzo, certificati falsi), hai –1 a tutti i tiri fino alla fine del prossimo scontro." } },
   { id: "druido", n: "Druido", c: "Guardiano del Cerchio",
     motto: "La natura non è gentile. È paziente.",
     base: { for: 1, agi: 2, ing: 3, fas: 2, sor: 3 }, vita: 9,
-    att: { n: "Forma selvaggia", t: "Per un combattimento diventi orso (+2 Forza), lince (+2 Agilità) o corvo (voli e vedi tutto)." },
-    pas: { n: "Linguaggio delle bestie", t: "Parli con gli animali; quelli selvatici non ti attaccano mai per primi." },
+    att: { n: "Forma selvaggia", t: "Per un combattimento diventi orso (+1 ai danni), lince (+2 a colpire) o corvo (scopri tutta la mappa e +2 Classe Armatura)." },
+    pas: { n: "Linguaggio delle bestie", t: "Parli con gli animali: al primo giro di uno scontro lupi, granchi e anguille non ti attaccano." },
     zaino: ["Bastone vivente", "Piuma di corvo", "Erbe e mortaio"],
-    vizio: { n: "Rifiuto del metallo", t: "Non indossi armature né scudi di metallo." } },
+    vizio: { n: "Rifiuto del metallo", t: "Non indossi armature né scudi di metallo: solo cuoio, corteccia e legno." } },
 ];
 
 // ===== Pantheon (da definire insieme alla storia) =====
@@ -1204,7 +1204,7 @@ Object.assign(GSVG, {
   occhio: '<path d="M4 32 Q32 6 60 32 Q32 58 4 32 Z" fill="currentColor"/><circle cx="32" cy="32" r="12" fill="#0a0d16"/><ellipse cx="32" cy="32" rx="4" ry="10" fill="currentColor"/><circle cx="36" cy="27" r="2.4" fill="#fff3d6"/>',
 });
 const gIcon = (id, cls = "gic") => `<svg viewBox="0 0 64 64" class="${cls}" aria-hidden="true">${GSVG[id] || ""}</svg>`;
-const canUse = (h, id) => !GEAR[id].cl.length || GEAR[id].cl.includes(h.classe);
+const canUse = (h, id) => (!GEAR[id].cl.length || GEAR[id].cl.includes(h.classe)) && !(h.razza === "mezzuomo" && ["mannaia", "martello", "balestra"].includes(id)); // i mezzuomini non usano armi a due mani
 const worn = h => Object.values(h.eq || {}).filter(Boolean);
 // Un oggetto conta solo se indossato. La Lacrima si spegne in mano al traditore; la Corona funziona sempre.
 const has = (h, id) => !!h.eq && h.eq[GEAR[id].slot] === id && !(id === "lacrima" && h.traditore);
@@ -1632,13 +1632,16 @@ async function spin(el, k, v) { if (!FAST) for (let i = 0; i < 7; i++) { el.inne
 async function check(who, label, need, m, dmg) {
   let r = d20();
   if (window.DICE_HOOK && !FAST) { const v = await DICE_HOOK(who, 20, label); if (v >= 1 && v <= 20) r = v; } // il giocatore tira dal suo telefono
+  const H = heroByName(who);
+  if (r === 1 && razza(H, "mezzuomo") && !H.fx.fortuna) { H.fx.fortuna = true; log(`Fortuna dei piccoli: ${who} ritira l'1.`); toast(`Fortuna dei piccoli · ${who} ritira il dado`); r = d20(); if (window.DICE_HOOK && !FAST) { const v = await DICE_HOOK(who, 20, label + " · Fortuna dei piccoli"); if (v >= 1 && v <= 20) r = v; } }
   SFX.dice();
-  const tot = r + m, crit = r === 20, ok = crit || (r !== 1 && tot >= need);
+  let tot = r + m, crit = r === 20, ok = crit || (r !== 1 && tot >= need), amb = false;
   const box = document.createElement("div"); box.className = "ov dice";
   box.innerHTML = `<div class="ovbox"><div class="dlab">${esc(who)} · ${esc(label)}</div><div class="drow"><div class="dbox" id="dA"></div><div class="dbox" id="dB"></div></div><div class="dres"></div></div>`;
   document.body.appendChild(box);
   await spin(box.querySelector("#dA"), 20, r);
-  box.querySelector(".dres").innerHTML = `d20: ${r}${m ? ` ${m > 0 ? "+" : "−"} ${Math.abs(m)}` : ""} = <b>${tot}</b> <span class="${ok ? "ok" : "ko"}">${crit ? "Critico!" : r === 1 ? "Disastro" : ok ? "Riuscito" : "Fallito"}</span> <small>(serve ${need})</small>`;
+  if (!ok && H && await ambizione(H, r, tot, need)) { tot += 2; ok = true; amb = true; }
+  box.querySelector(".dres").innerHTML = `d20: ${r}${m ? ` ${m > 0 ? "+" : "−"} ${Math.abs(m)}` : ""} = <b>${tot}</b>${amb ? " <small>(Ambizione +2)</small>" : ""} <span class="${ok ? "ok" : "ko"}">${crit ? "Critico!" : r === 1 ? "Disastro" : ok ? "Riuscito" : "Fallito"}</span> <small>(serve ${need})</small>`;
   let total = 0;
   if (ok && dmg) {
     await sleep(450); SFX.dice();
@@ -1675,14 +1678,110 @@ function rollBonus(h) {
   if (h.fx.altare) m += 1; // dono dell'altare: fino alla fine del prossimo scontro
   if (h.items.includes("moneta") && !h.fx.coinUsed) { m += 2; h.fx.coinUsed = true; }
   if (h.fx.stone) { m += 1; h.fx.stone = false; }
-  if (h.fx.shaken) { m -= 2; h.fx.shaken = false; }
+  if (h.fx.shaken) { if (h.classe !== "chierico") m -= 2; h.fx.shaken = false; } // il chierico non conosce la paura
   if (h.fx.aim) { m += 3; h.fx.aim = false; }
   if (h.fx.breath) { m -= 1; h.fx.breath = false; }
   if (h.items.includes("destino") && !S.flags["destino_" + h.id]) { m += 3; S.flags["destino_" + h.id] = true; }
   if (S.ch === 3 && acquatico(h) && submerged(S.pos)) m += 1; // gli Acquatici sott'acqua sono a casa
   if (h.dono && h.dono.hit) m += h.dono.hit; // dono del proprio dio (Prova del dio)
+  if (h.fx.lume) m += 1; // la lanterna rivelatrice dello gnomo, per questo giro
+  if (h.fx.rimorso) m -= 1; // il codice d'onore del paladino
+  if (h.fx.secco && razza(h, "acquatici")) m -= 1; // pelle d'acqua nelle zone aride
+  if (S.ch === 3 && razza(h, "felinidi") && submerged(S.pos)) m -= 2; // avversione all'acqua
   return m;
 }
+
+// ---------- Stirpi e classi: doni, difetti, passivi e vizi ----------
+const ZONE_SOTTO = ["sottobosco", "fonderie", "prigioni"];
+const ZONE_ARIDE = ["portaoro", "sabbiaoro", "fonderie", "piatti"];
+const ZONE_ACQUA = ["moli", "vicoli", "palude", "giardini"];
+const zonaAcqua = k => S.ch === 3 || ZONE_ACQUA.includes(k);
+const inCitta = () => S.ch === 1 || S.ch === 4;
+const DUE_MANI = ["mannaia", "martello", "balestra"];
+const NON_MORTI = ["annegato", "spirito"], BUIO = ["famelico", "famelico4", "locuste", "anguilla", "tentacolo"], ANIMALI = ["lupo", "granchio", "anguilla"], FERRO = ["guardia", "guardiad"];
+const razza = (h, id) => !!h && h.razza === id;
+// Modificatori di stirpe e classe alle prove (eventi, prove di gruppo, scontri evitati, nuoto)
+function trattiProva(h, st, ctx) {
+  let m = 0;
+  if (st === "fas" && inCitta() && (razza(h, "orco") || h.classe === "ranger")) m -= 1;
+  if (st === "ing" && h.classe === "guerriero") m -= 2;
+  if (st === "for" && razza(h, "mezzuomo")) m -= 2;
+  if (ctx === "furtivo") { if (razza(h, "nano")) m -= 2; if (h.classe === "bardo") m -= 1; }
+  if (ctx === "nuoto") { if (razza(h, "nano")) m -= 2; if (razza(h, "felinidi")) m -= 2; }
+  return m;
+}
+const heroByName = who => S && S.heroes && S.heroes.find(x => first(x) === who);
+const scelta1 = (h, o) => votoPubblico({ ...o, voters: [h], primo: true, quiet: true, solo: true });
+// Gnomi: il banco da lavoro a inizio capitolo
+const CONGEGNI = {
+  rampino: { n: "Rampino", t: "La prossima prova di Agilità o di nuoto della compagnia riesce da sola." },
+  lanterna: { n: "Lanterna rivelatrice", t: "Fuori dallo scontro scopre le zone accanto e una lontana; in scontro dà +1 ai tiri di tutta la compagnia per questo giro." },
+  fumogena: { n: "Bomba fumogena", t: "Per questo giro i nemici della zona hanno −3 per colpire." },
+  scudo: { n: "Scudo d'energia", t: "Il compagno più ferito ha +3 Classe Armatura fino al suo prossimo turno." },
+};
+async function bancoDaLavoro(h) {
+  {
+    const v = await scelta1(h, { kicker: "Congegno arcano", titolo: `Il banco da lavoro di ${first(h)}`, testo: "Che cosa costruisci per questo capitolo? Si usa una volta. Con 1 sul d6 va in pezzi.",
+      opts: Object.entries(CONGEGNI).map(([v, C]) => ({ v, n: C.n, sub: C.t })), auto: () => S.ch === 3 ? "rampino" : "scudo" });
+    h.congegno = v; log(`${first(h)} costruisce: ${CONGEGNI[v].n}.`);
+  }
+}
+// Il Prototipo instabile: d6, con 1 va in pezzi
+async function prototipo(h) {
+  const n = CONGEGNI[h.congegno].n; h.congegno = null;
+  const v = await dieOnly(first(h), `${n} · Prototipo instabile`, 6);
+  if (v === 1) { log(`${n} va in pezzi tra le mani di ${first(h)}.`); banner(`${n} esplode`, "bad"); hurtHero(h, 2, "Il prototipo instabile"); return false; }
+  SFX.coin(); banner(n, "good"); return true;
+}
+async function usaCongegno(h) {
+  const k = h.congegno, fs = here();
+  if (!(await prototipo(h))) return;
+  if (k === "lanterna") { if (fs.length) { S.heroes.forEach(x => x.fx.lume = true); log(`La lanterna di ${first(h)} illumina la zona: +1 ai tiri di tutta la compagnia in questo giro.`); }
+    else { GRID.flat().forEach(z => { if (adj(S.pos, z)) S.tiles[z].peek = true; }); rivela(1); log(`La lanterna di ${first(h)} rivela le zone accanto e una più lontana.`); } }
+  if (k === "fumogena") { S.fumo = S.giro; fs.forEach(f => popAt(f.uid, "Fumo", "miss")); log(`${first(h)} lancia la bomba fumogena: i nemici hanno −3 per colpire in questo giro.`); }
+  if (k === "scudo") { const t = [...alive()].sort((a, b) => a.hp / a.max - b.hp / b.max)[0] || h; t.fx.scudoE = true; popAt(t.id, "+3 CA", "heal"); log(`Uno scudo d'energia avvolge ${first(t)}: +3 Classe Armatura fino al suo prossimo turno.`); }
+}
+// Il rampino scatta da solo alla prima prova di Agilità o di nuoto
+async function rampino(label) {
+  const g = alive().find(x => x.congegno === "rampino"); if (!g) return false;
+  log(`${first(g)} lancia il rampino: ${label}.`);
+  return await prototipo(g);
+}
+// Umani: Ambizione, +2 dopo aver visto un tiro mancato di poco
+async function ambizione(h, r, tot, need) {
+  if (!razza(h, "umano") || h.ko || S.flags["amb_" + h.id] || r === 1 || tot + 2 < need) return false;
+  const v = await scelta1(h, { kicker: "Ambizione", titolo: `${first(h)} manca di ${need - tot}`, testo: "Una volta per capitolo puoi aggiungere +2 e far riuscire il tiro.",
+    opts: [{ v: "si", n: "Usa l'Ambizione (+2)", sub: "Il tiro riesce" }, { v: "no", n: "Tieni il risultato", sub: "La conservi per dopo" }], auto: () => "si" });
+  if (v !== "si") return false;
+  S.flags["amb_" + h.id] = true; log(`L'Ambizione di ${first(h)}: +2, il tiro riesce.`); return true;
+}
+// Chi si sveglia in tempo durante un'imboscata: elfi e barbari
+const maiSorpreso = h => razza(h, "elfo") || h.classe === "barbaro";
+// Il codice d'onore: se la compagnia compra la propria strada, il paladino ne porta il peso
+function rimorso() { alive().filter(x => x.classe === "paladino").forEach(x => { x.fx.rimorso = true; log(`${first(x)} abbassa lo sguardo: −1 ai tiri fino alla fine del prossimo scontro.`); }); }
+// Arrivando in una zona: lo sguardo degli elfi, il battitore, la pelle d'acqua
+function arrivoTratti(k, nuova) {
+  if (nuova && alive().some(x => razza(x, "elfo"))) { const prima = GRID.flat().filter(z => S.tiles[z].peek).length; rivela(1); if (GRID.flat().filter(z => S.tiles[z].peek).length > prima) log("Lo sguardo stellare degli elfi scorge una zona lontana."); }
+  if (alive().some(x => x.classe === "ranger")) GRID.flat().forEach(z => { if (adj(k, z) && !S.tiles[z].rev) S.tiles[z].peek = true; });
+  if (S.ch === 4) alive().filter(x => razza(x, "acquatici")).forEach(x => {
+    if (ZONE_ARIDE.includes(k) && !x.fx.secco) { x.fx.secco = true; log(`L'aria di ${TILES[k].n} secca la pelle di ${first(x)}: −1 ai tiri finché non trova acqua.`); }
+    if (k === "giardini" && x.fx.secco) { x.fx.secco = false; log(`${first(x)} si immerge nelle fontane dei Giardini: la pelle torna viva.`); } });
+}
+// Il tiro mirato del ranger: un nemico nella zona accanto, se qui è tutto libero
+// Zone accanto con nemici visibili: già incontrati, oppure in agguato in una zona scoperta (che si popola al primo colpo)
+const zoneTiro = () => GRID.flat().filter(z => z !== S.pos && adj(S.pos, z) && !TILES[z].boss && !S.tiles[z].evitato &&
+  (S.foes.some(f => f.tile === z && f.hp > 0) || (!S.tiles[z].rev && !S.tiles[z].spawned && S.tiles[z].peek && TILES[z].foes.length > 0)));
+const lontani = () => zoneTiro().length ? [{}] : [];
+function bersaglioLontano() {
+  const z = zoneTiro().sort((a, b) => S.foes.filter(f => f.tile === b).length - S.foes.filter(f => f.tile === a).length)[0];
+  if (!S.foes.some(f => f.tile === z && f.hp > 0)) { spawn(z); S.tiles[z].spawned = true; }
+  return target(S.foes.filter(f => f.tile === z));
+}
+// Le carte di stirpe e il vizio di classe, per la scheda
+const trattiCards = h => { const r = R(h.razza), c = CL(h.classe); return `<div class="pcard"><div class="lab">Dono di stirpe</div><b>${esc(r.dono.n)}</b><p>${esc(r.dono.t)}</p>${h.congegno ? `<p><b>Congegno pronto:</b> ${esc(CONGEGNI[h.congegno].n)}</p>` : ""}</div>
+  <div class="pcard"><div class="lab">Difetto di stirpe</div><b>${esc(r.difetto.n)}</b><p>${esc(r.difetto.t)}</p></div><div class="pcard"><div class="lab">Vizio di classe</div><b>${esc(c.vizio.n)}</b><p>${esc(c.vizio.t)}</p></div>`; };
+// Corruzione del traditore: cresce a ogni atto oscuro, e resta da un capitolo all'altro
+const corruz = () => ((S.camp && S.camp.corr) || 0) + ["sabotato", "sabotatoAgo", "sabProva", "nero"].filter(k => S.flags && S.flags[k]).length;
 
 // ---------- Azioni degli eroi ----------
 function canDo(k) {
@@ -1692,10 +1791,12 @@ function canDo(k) {
   if (k === "missioni") return [S.ch === 4, ""];
   if (k === "zaino") return [true, ""];
   if (h.acts <= 0) return [false, "Nessuna azione rimasta"];
+  if (h.fx.rage && h.classe === "barbaro" && ["potion", "bomb", "help", "seme", "fiala"].includes(k)) return [false, "In Ira non puoi farlo"]; // furia cieca
   switch (k) {
     case "attack": return [fs.length > 0 && h.atks < maxAtk(h), !fs.length ? "Nessun nemico qui" : "Hai già attaccato in questo turno"];
     case "combo": { const C = comboOf(h); return [!!C && fs.length > 0 && h.atks < maxAtk(h), "Serve un compagno che abbia appena attaccato"]; }
-    case "ability": { const isAtk = ["guerriero", "ladro", "ranger"].includes(h.classe); return [!h.abil && (fs.length > 0 || h.classe === "chierico") && (!isAtk || h.atks < maxAtk(h)), h.abil ? "Già usata in questo scontro" : !fs.length ? "Nessun nemico qui" : "Hai già attaccato in questo turno"]; }
+    case "ability": { const isAtk = ["guerriero", "ladro", "ranger"].includes(h.classe), lontano = h.classe === "ranger" && h.lvl < 5 && !fs.length && lontani().length > 0;
+      return [!h.abil && (fs.length > 0 || h.classe === "chierico" || lontano) && (!isAtk || h.atks < maxAtk(h)), h.abil ? "Già usata in questo scontro" : !fs.length ? "Nessun nemico qui" : "Hai già attaccato in questo turno"]; }
     case "ability2": { const A = ABIL2[h.classe], heal = ["chierico", "paladino"].includes(h.classe);
       if (h.lvl < 2) return [false, "Dal livello 2"];
       return [!h.abil2 && (fs.length > 0 || heal) && (!A.atk || h.atks < maxAtk(h)) && (!heal || S.heroes.some(x => x.ko || x.hp < x.max)), h.abil2 ? "Già usata in questo scontro" : !fs.length && !heal ? "Nessun nemico qui" : heal ? "Nessuno da curare" : "Hai già attaccato in questo turno"]; }
@@ -1709,6 +1810,7 @@ function canDo(k) {
     case "seme": return [S.ch >= 3 && (S.camp || {}).seme === "verde" && !S.flags.semeUsato && S.heroes.some(x => x.ko || x.hp < x.max), S.flags.semeUsato ? "Già usato nel capitolo" : "Nessuno da curare"];
     case "lantern": return [S.lanterna > 0 && fs.length > 0, "Nessun nemico qui"];
     case "special": { const heal = ["chierico", "bardo"].includes(h.classe); return [h.lvl >= 6 && !h.spec && (heal ? (h.classe === "bardo" ? fs.length > 0 : S.heroes.some(x => x.ko || x.hp < x.max / 2)) : fs.length > 0) && (!["guerriero", "ladro"].includes(h.classe) || h.atks < maxAtk(h)), h.spec ? "Già usato nel capitolo" : h.classe === "chierico" ? "Nessuno è in pericolo" : "Nessun nemico qui"]; }
+    case "congegno": return [!!h.congegno && h.congegno !== "rampino", h.congegno === "rampino" ? "Il rampino scatta da solo" : "Nessun congegno"];
     case "guard": return [fs.length > 0 && !h.fx.guard, h.fx.guard ? "Sei già in guardia" : "Nessun nemico qui"];
     case "amb": { const A = TILES[S.pos].amb; return [!!A && fs.length > 0 && !S.tiles[S.pos].amb, !A ? "" : S.tiles[S.pos].amb ? "Già usato in questa zona" : "Nessun nemico qui"]; }
     case "obj": { const O = objQui(); return [!!O && O.k === "recupera" && !O.preso && fs.length > 0, "Niente da afferrare"]; }
@@ -1735,6 +1837,7 @@ async function act(k) {
     if (k === "ability") await ability(h, c);
     if (k === "ability2") await ability2(h);
     if (k === "special") await special(h);
+    if (k === "congegno") { await usaCongegno(h); spend(h); }
     if (k === "guard") { h.fx.guard = true; popAt(h.id, "In guardia", "heal"); log(`${first(h)} si mette in guardia: dimezza i danni fino al suo prossimo turno.`); spend(h); }
     if (k === "amb") await usaAmb(h);
     if (k === "obj") await objPrendi(h);
@@ -1773,6 +1876,7 @@ function dmgPlus(h, extra = 0) {
   if (h.fx.rage) p += h.fx.rage === 2 ? 3 : 2; if (h.fx.fire) p += 2; if (h.fx.beast) p += h.fx.beast === 2 ? 2 : 1;
   if (h.fx.oil) { p += d6(); h.fx.oil = false; }
   p += gearSum(h, "dmg") + ((h.dono && h.dono.dmg) || 0) + (h.fx.nero ? 1 : 0);
+  if (razza(h, "orco") && h.hp < h.max / 2) p += 1; // furia del sangue
   return p;
 }
 let LASTCRIT = false;
@@ -1780,7 +1884,7 @@ async function attack(h, f, extra = 0, hitBonus = 0, label = "Attacco") {
   LASTCRIT = false;
   const F = FOES[f.type];
   const coord = !!(f.colpo && f.colpo.g === S.giro && f.colpo.h !== h.id); if (coord) label += " · assalto coordinato +2";
-  const m = (coord ? 2 : 0) + mod(h.st[ATK[h.classe]]) + hitBonus + rollBonus(h) + gearSum(h, "hit") + (h.fx.sciabola ? 1 : 0) + (has(h, "balestra") && !h.fx.balUsata ? 2 : 0);
+  const m = (coord ? 2 : 0) + (h.fx.lince ? 2 : 0) + mod(h.st[ATK[h.classe]]) + hitBonus + rollBonus(h) + gearSum(h, "hit") + (h.fx.sciabola ? 1 : 0) + (has(h, "balestra") && !h.fx.balUsata ? 2 : 0);
   h.fx.sciabola = false; h.atks++; h.atkG = S.giro;
   const dmg = { die: 6, plus: dmgPlus(h, extra) };
   let res = await check(first(h), `${label} contro ${F.n}`, defOf(f), m, dmg);
@@ -1853,11 +1957,15 @@ async function ability(h, c) {
     case "guerriero": await attack(h, target(fs), 2, 0, "Colpo possente"); h.fx.exposed = true; break;
     case "barbaro": h.fx.rage = true; log(`${first(h)} entra in Ira: +2 danni e pelle di ferro fino a fine scontro.`); SFX.boss(); break;
     case "mago": { const r = d20(); const v = await dieOnly(first(h), "Sfera arcana · danni a tutti", 8, gearSum(h, "spell")); fs.forEach(f => hurtFoe(f, FOES[f.type].half ? Math.max(1, Math.floor(v / 2)) : v, h)); if (r === 1) { hurtHero(h, 2, "La magia che sfugge al controllo"); } break; }
-    case "ladro": await attack(h, target(fs), alive().length > 1 ? 3 : 0, 0, "Colpo alle spalle"); break;
-    case "ranger": await attack(h, target(fs), 1, 1, "Tiro mirato"); break;
+    case "ladro": { const f = target(fs), alle = f.colpo && f.colpo.h !== h.id && f.hp < f.max; await attack(h, f, alle ? 3 : 0, 0, alle ? "Colpo alle spalle +3" : "Colpo alle spalle"); break; }
+    case "ranger": { const f = fs.length ? target(fs) : bersaglioLontano(); if (!fs.length) log(`${first(h)} tende l'arco verso ${TILES[f.tile].n}.`); await attack(h, f, 1, 1, fs.length ? "Tiro mirato" : "Tiro mirato · zona accanto"); break; }
     case "bardo": S.heroes.forEach(x => x.fx.song = true); log(`Il canto di ${first(h)} dà a tutti +1 al prossimo tiro.`); SFX.heal(); break;
     case "paladino": { const a = alive().filter(x => x !== h).sort((a, b) => a.hp - b.hp)[0] || h; a.fx.aegis = h.id; log(`${first(h)} protegge ${first(a)} con l'Egida di luce.`); break; }
-    case "druido": h.fx.beast = true; log(`${first(h)} assume la forma dell'orso.`); break;
+    case "druido": { const v = await scelta1(h, { kicker: "Forma selvaggia", titolo: `In che cosa si trasforma ${first(h)}?`, testo: "Dura fino alla fine dello scontro.",
+        opts: [{ v: "orso", n: "Orso", sub: "+1 ai danni" }, { v: "lince", n: "Lince", sub: "+2 a colpire" }, { v: "corvo", n: "Corvo", sub: "Scopri tutta la mappa e +2 Classe Armatura" }], auto: () => fs.length >= 3 ? "corvo" : "orso" });
+      if (v === "lince") { h.fx.lince = true; log(`${first(h)} assume la forma della lince: +2 a colpire.`); }
+      else if (v === "corvo") { h.fx.corvo = true; GRID.flat().forEach(z => S.tiles[z].peek = true); log(`${first(h)} si fa corvo: dall'alto vede tutta la mappa (+2 Classe Armatura).`); }
+      else { h.fx.beast = true; log(`${first(h)} assume la forma dell'orso.`); } break; }
     case "chierico": { const a = S.heroes.filter(x => x.ko)[0] || alive().sort((a, b) => a.hp / a.max - b.hp / b.max)[0]; const v = await dieOnly(first(h), "Benedizione · cura", 8, 2); HEALER = h; heal(a, v); HEALER = null; break; }
   }
   spend(h);
@@ -1912,9 +2020,11 @@ async function blessing(h) {
 }
 const target = fs => fs.filter(f => f.hp > 0).sort((a, b) => a.hp - b.hp)[0];
 let HEALER = null;
-function heal(h, v, quiet) { if (HEALER && HEALER.eq && has(HEALER, "incensiere")) v += 1; const was = h.ko; if (h.ko) { h.ko = false; h.hp = 0; log(`${first(h)} si rialza.`); } const g = Math.min(v, h.max - h.hp); h.hp += g; if (HEALER && HEALER.sx) { HEALER.sx.heal += g; if (was && HEALER !== h) HEALER.sx.saves++; } if (g) popAt(h.id, `+${g}`, "heal"); if (!quiet && g) log(`${first(h)} recupera ${g} Vita.`); SFX.heal(); }
+function heal(h, v, quiet) { if (HEALER && HEALER.eq && has(HEALER, "incensiere")) v += 1; if (acquatico(h) && zonaAcqua(S.pos)) v += 1; const was = h.ko; if (h.ko) { h.ko = false; h.hp = 0; log(`${first(h)} si rialza.`); } const g = Math.min(v, h.max - h.hp); h.hp += g; if (HEALER && HEALER.sx) { HEALER.sx.heal += g; if (was && HEALER !== h) HEALER.sx.saves++; } if (g) popAt(h.id, `+${g}`, "heal"); if (!quiet && g) log(`${first(h)} recupera ${g} Vita.`); SFX.heal(); }
 function hurtHero(h, d, by) {
   if (h.ko) return;
+  if (razza(h, "nano") && /spore|velen/i.test(by)) { log(`${first(h)} non sente nemmeno le spore: sangue di pietra.`); popAt(h.id, "Immune", "heal"); return; }
+  if (razza(h, "felinidi") && /rocce|tegola|frana/i.test(by)) { log(`${first(h)} atterra in piedi: nessun danno.`); popAt(h.id, "Illesa", "heal"); return; }
   if (h.fx.aegis) { const p = hero(h.fx.aegis), rad = h.fx.aegisR; h.fx.aegis = null; h.fx.aegisR = false; if (p && !p.ko) { log(`${first(p)} para il colpo destinato a ${first(h)}.`); h = p; d = Math.ceil(d / 2);
     const att = rad && foe(curId()); if (att && att.hp > 0) { hurtFoe(att, 2, p); log(`L'Egida radiosa brucia chi ha colpito: 2 danni di luce.`); } } }
   if (h.fx.rage) d = Math.max(1, d - (h.fx.rage === 2 ? 2 : 1));
@@ -1948,18 +2058,19 @@ async function pickTile(k) {
   await cartaEvento(k); if (!alive().length) { await fallen(); return; }
   if (first_ && NARR["z_" + k] && !T.social) { BUSY = true; render(); await narrate("z_" + k); BUSY = false; }
   if (T.bridge && first_) { // Ponte di Liane: prova di Agilità, o si perde tempo
-    BUSY = true; const r = await check(first(h), "Attraversare il Ponte di Liane", 12, mod(h.st.agi) + rollBonus(h) - (has(h, "corazza") ? 1 : 0) - (has(h, "toga") ? 1 : 0)); BUSY = false;
+    BUSY = true; const r = (await rampino("il ponte di liane è assicurato")) ? { ok: true } : await check(first(h), "Attraversare il Ponte di Liane", 12, mod(h.st.agi) + rollBonus(h) - (has(h, "corazza") ? 1 : 0) - (has(h, "toga") ? 1 : 0)); BUSY = false;
     if (!r.ok) { log(`${first(h)} scivola: le corde reggono, ma la compagnia perde tempo prezioso.`); S.rotTick++; if (S.rotTick >= rotEvery()) { S.rotTick = 0; await rotAdvance(); } }
     else log(`${first(h)} guida la compagnia sul ponte senza un passo falso.`);
   }
   if (submerged(k)) { BUSY = true; await swimIn(h, k); BUSY = false; }
   S.pos = k; S.tiles[k].rev = true; spend(h);
+  arrivoTratti(k, first_);
   if (S.ch === 3 && k === "spiaggia" && S.flags.diario && !S.flags.diarioVisto) { S.flags.diarioVisto = true; log("Seraphel vede il diario del faro. Non chiede di leggerlo."); }
   log(`La compagnia raggiunge: ${T.n}.`);
   if (S.ch === 4) await arriva4(k, first_);
   if (rotten(k)) { log("Il marciume brucia la pelle: −1 Vita a tutti."); alive().forEach(x => { x.hp = Math.max(1, x.hp - 1); popAt(x.id, "−1", "hurt"); }); edge("red"); }
   if (first_) {
-    spawn(k);
+    if (!S.tiles[k].spawned) spawn(k);
     if (T.citizens) log("Sul ponte, decine di cittadini gridano aiuto.");
     if (T.boss) { if (S.ch === 1) await bossArrives(); else if (S.ch === 2) await cervoArrives(false); else if (S.ch === 4) await aurelioArrives(false); else await vasthorArrives(false); return; }
     if (T.evento) { BUSY = true; render(); try { await eventoScena(T.evento); } finally { BUSY = false; } }
@@ -1970,7 +2081,9 @@ async function pickTile(k) {
     if (T.nido) await nidoArrivo();
     if (T.sirene) await sirene();
     if (here().length) { if (T.obj) avviaObj(k); log(ev === "imboscata" ? `${Word()} vi piombano addosso!` : `${Word()} vi sbarrano la strada!`); render(); rollInit(await tiraIniziativa());
-      if (ev === "imboscata") { S.order = [...S.order.filter(id => id[0] !== "h"), ...S.order.filter(id => id[0] === "h")]; log("Imboscata: i nemici agiscono per primi in questo giro."); }
+      if (ev === "imboscata") { const sv = S.order.filter(id => id[0] === "h" && maiSorpreso(hero(id)));
+        S.order = [...sv, ...S.order.filter(id => id[0] !== "h"), ...S.order.filter(id => id[0] === "h" && !sv.includes(id))]; log("Imboscata: i nemici agiscono per primi in questo giro.");
+        if (sv.length) log(`${sv.map(id => first(hero(id))).join(" e ")} non ${sv.length === 1 ? "si fa" : "si fanno"} sorprendere e ${sv.length === 1 ? "agisce" : "agiscono"} prima dei nemici.`); }
       render(); await runFoes(); return; }
   }
   await after();
@@ -1999,7 +2112,7 @@ async function pickHero(id) {
 async function usePotion(id) {
   const t = hero(id), h = cur(); if (!t || (!t.ko && t.hp >= t.max)) return toast(`${first(t)} è già in piena salute.`);
   snap(); S.mode = null; BUSY = true;
-  try { h.items.splice(h.items.indexOf("pozione"), 1); h.sx.pots++; const v = await dieOnly(first(h), t === h ? "Pozione di cura" : `Pozione per ${first(t)}`, 6); if (t !== h) log(`${first(h)} passa una pozione a ${first(t)}.`); HEALER = h; heal(t, v); HEALER = null; spend(h); }
+  try { h.items.splice(h.items.indexOf("pozione"), 1); h.sx.pots++; let v = await dieOnly(first(h), t === h ? "Pozione di cura" : `Pozione per ${first(t)}`, 6); if (razza(t, "umano")) v = Math.max(1, v - 1); if (t !== h) log(`${first(h)} passa una pozione a ${first(t)}.`); HEALER = h; heal(t, v); HEALER = null; spend(h); }
   finally { BUSY = false; }
   await after();
 }
@@ -2025,9 +2138,9 @@ async function checkClear() {
   const t = S.tiles[S.pos], T = TILES[S.pos];
   if (here().length || t.cleared || S.phase !== "play") return;
   t.cleared = true;
-  S.heroes.forEach(h => { h.abil = false; h.abil2 = false; h.fx.rage = h.fx.fire = h.fx.beast = false; h.fx.taunt = h.fx.hidden = false; h.fx.arcoUsato = h.fx.coronaUsata = h.fx.togaUsata = false; h.fx.inno = false; h.fx.furiaUsata = false; h.fx.occhioUsato = h.fx.balUsata = false; });
+  S.heroes.forEach(h => { h.abil = false; h.abil2 = false; h.fx.rage = h.fx.fire = h.fx.beast = false; h.fx.taunt = h.fx.hidden = false; h.fx.arcoUsato = h.fx.coronaUsata = h.fx.togaUsata = false; h.fx.inno = false; h.fx.furiaUsata = false; h.fx.occhioUsato = h.fx.balUsata = false; h.fx.fortuna = h.fx.schivata = h.fx.lince = h.fx.corvo = false; });
   const fought = S.foes.some(f => f.tile === S.pos);
-  if (fought) S.heroes.forEach(h => { h.fx.altare = false; h.fx.guard = false; h.fx.riparo = false; });
+  if (fought) S.heroes.forEach(h => { h.fx.altare = false; h.fx.guard = false; h.fx.riparo = false; h.fx.rimorso = false; h.fx.scudoE = false; });
   { const O = objQui(); if (O && fought) { if (O.k === "recupera") O.preso = true; await objPremio(true); } }
   if (fought) {
     const hurt = alive().filter(h => h.hp < h.max);
@@ -2061,7 +2174,8 @@ async function nextTurn() {
     const id = curId();
     if (id[0] === "h") {
       const h = hero(id); if (h.ko) continue;
-      h.fx.taunt = false; h.fx.hidden = false; h.fx.guard = false;
+      h.fx.taunt = false; h.fx.hidden = false; h.fx.guard = false; h.fx.scudoE = false;
+      if (razza(h, "gnomo") && !S.flags["banco_" + h.id]) { S.flags["banco_" + h.id] = true; BUSY = true; render(); try { await bancoDaLavoro(h); } finally { BUSY = false; } }
       if (h.fx.stun) { h.fx.stun = false; log(`${first(h)} ${h.fx.stunMsg || gx(h, "è ancora avvolto dalle radici", "è ancora avvolta dalle radici")}: salta il turno.`); h.fx.stunMsg = null; popAt(h.id, "Bloccato", "miss"); render(); await sleep(600); continue; }
       if (S.ch === 1 && here().length && !guidaFatta("tut_azioni")) { BUSY = true; render(); try { await guida("tut_azioni"); } finally { BUSY = false; } }
       if (provaPronta(h)) { BUSY = true; render(); try { await provaDio(h); } finally { BUSY = false; } if (h.ko) continue; }
@@ -2080,7 +2194,9 @@ async function foeAct(f) {
   if (S.ch === 1 && !guidaFatta("tut_nemici")) { BUSY = true; render(); await guida("tut_nemici"); }
   if (await caricaTurno(f)) { BUSY = false; return; }
   BUSY = true; const F = FOES[f.type]; markActive(f.uid); await sleep(900);
-  let targets = alive().filter(x => !x.fx.hidden); if (!targets.length) targets = alive();
+  let targets = alive().filter(x => !x.fx.hidden);
+  if (!f.acted && ANIMALI.includes(f.type) && targets.some(x => x.classe !== "druido")) targets = targets.filter(x => x.classe !== "druido"); // il druido parla con le bestie
+  if (!targets.length) targets = alive();
   targets.sort((a, b) => a.hp - b.hp);
   const tz = targets.find(x => x.fx.taunt); if (tz) targets = [tz, ...targets.filter(x => x !== tz)];
   const list = F.twice ? [targets[0], targets[0]] : F.multi ? targets.slice(0, F.boss ? bossTargets() : 2) : [targets[0]];
@@ -2090,14 +2206,24 @@ async function foeAct(f) {
   if (f.weak) { atk -= 3; f.weak = false; }
   if (f.trip) { atk -= 1; f.trip = false; }
   if (F.pack) atk += here().filter(x => x !== f && x.type === f.type).length;
+  if (S.fumo === S.giro) atk -= 3; // la bomba fumogena dello gnomo
+  f.acted = true;
+  const pal = alive().find(x => x.classe === "paladino"), ferito = pal && [...alive()].filter(x => x !== pal).sort((a, b) => a.hp / a.max - b.hp / b.max)[0];
   for (const h of list) {
     if (!h || h.ko) continue;
-    const r = d20(); let hit = r === 20 || (r !== 1 && r + atk >= h.ca + (h.fx.taunt ? 2 : 0) + (h.fx.riparo ? 2 : 0));
+    let a2 = atk;
+    if (h.classe === "mago") a2 += 1; // corpo fragile
+    if (h.classe === "chierico" && NON_MORTI.includes(f.type)) a2 -= 1; // fede incrollabile
+    if (pal && BUIO.includes(f.type) && (h === pal || h === ferito)) a2 -= 1; // aura radiosa
+    const r = d20(); let hit = r === 20 || (r !== 1 && r + a2 >= h.ca + (h.fx.taunt ? 2 : 0) + (h.fx.riparo ? 2 : 0) + (h.fx.scudoE ? 3 : 0) + (h.fx.corvo ? 2 : 0));
     if (hit && has(h, "occhio") && !h.fx.occhioUsato) { h.fx.occhioUsato = true; hit = false; log(`L'Occhio del Leviatano si apre: il colpo scivola via da ${first(h)}.`); }
     const hp0 = h.hp; DUELING++;
     if (hit) {
       SFX.hit(); const n = r === 20 ? 2 : 1; let d = (F.plus || 0); for (let i = 0; i < n; i++) d += roll(F.die); d = Math.max(1, Math.round(d * partyDmg()));
-      hurtHero(h, d, F.n + (r === 20 ? " (critico)" : ""));
+      if (razza(h, "nano") && ZONE_SOTTO.includes(S.pos)) d = Math.max(1, d - 1); // sangue di pietra
+      if (razza(h, "elfo") && FERRO.includes(f.type)) d += 1; // ferro freddo
+      if (razza(h, "felinidi") && d >= 4 && !h.fx.schivata) { h.fx.schivata = true; d = 0; log(`Riflessi felini: ${first(h)} schiva all'ultimo il colpo di ${F.n.split(",")[0]}.`); popAt(h.id, "Schivato", "miss"); }
+      if (d) hurtHero(h, d, F.n + (r === 20 ? " (critico)" : ""));
       if (F.drain && f.hp < f.max) { const g = Math.min(Math.ceil(d / 2), f.max - f.hp); f.hp += g; popAt(f.uid, `+${g}`, "heal"); log(`${F.n} si nutre della vita rubata: +${g}.`); }
       if (F.grab && !h.ko) { h.fx.stun = true; h.fx.stunMsg = f.type === "tentacolo" ? gx(h, "è stretto dal tentacolo", "è stretta dal tentacolo") : null; log(f.type === "tentacolo" ? `Il tentacolo stringe ${first(h)}: salterà il prossimo turno.` : `Le radici avvolgono ${first(h)}: salterà il prossimo turno.`); }
       if (F.drag && !h.ko && submerged(S.pos)) { h.fx.drag = true; log(`L'Annegato trascina giù ${first(h)}: un'azione in meno al prossimo turno.`); }
@@ -2112,7 +2238,7 @@ async function foeAct(f) {
 }
 async function endRound() {
   S.giro++;
-  S.heroes.forEach(h => { h.fx.riparo = false; });
+  S.heroes.forEach(h => { h.fx.riparo = false; h.fx.lume = false; });
   if (S.phase === "play") await objGiro();
   if (S.ch === 1) {
     if (S.phase === "boss") { S.bossGiri++; if (S.bossGiri >= 2) { await seraphel(); return; } }
@@ -2390,7 +2516,7 @@ async function legendary() {
     const r = d20(); if (r === 20 || (r !== 1 && r + 7 + dif().atk >= t.ca)) hurtHero(t, d6(), "Il Calpestio del Cervo"); else { popAt(t.id, "Schivato", "miss"); log(`Il Cervo prova a travolgere ${first(t)}, che si scansa.`); }
   } else {
     banner("Azione leggendaria · Bramito", "bad"); tone(110, .9, "sawtooth", .07, 1.6);
-    const hit = alive().filter(h => d20() + mod(h.st.sor) < 12); hit.forEach(h => { h.fx.shaken = true; popAt(h.id, "Scosso", "miss"); });
+    const hit = alive().filter(h => h.classe !== "chierico" && d20() + mod(h.st.sor) < 12); hit.forEach(h => { h.fx.shaken = true; popAt(h.id, "Scosso", "miss"); });
     log(hit.length ? `Il Bramito scuote ${hit.map(first).join(", ")}: −2 al prossimo tiro.` : "Il Bramito rimbomba, ma la compagnia resiste.");
   }
   render(); await sleep(1400); BUSY = false;
@@ -2454,9 +2580,10 @@ const once = async k => { if (S.flags["n_" + k]) return; S.flags["n_" + k] = tru
 async function swimIn(h, k) {
   const T = TILES[k];
   if (acquatico(h)) log(`${first(h)} guida la compagnia tra le correnti: per un Acquatico è come camminare.`);
+  else if (await rampino(`la compagnia si tira lungo la fune verso ${T.n}`)) log("Il rampino tiene: nessuna corrente vi trascina.");
   else {
     const guida = alive().some(acquatico) ? 2 : 0;
-    const m = Math.max(mod(h.st.for), mod(h.st.agi)) + rollBonus(h) + guida + (S.flags.thessa ? 1 : 0) - (has(h, "corazza") ? 1 : 0) - (has(h, "toga") ? 1 : 0);
+    const m = Math.max(mod(h.st.for), mod(h.st.agi)) + rollBonus(h) + guida + (S.flags.thessa ? 1 : 0) - (has(h, "corazza") ? 1 : 0) - (has(h, "toga") ? 1 : 0) + trattiProva(h, "agi", "nuoto");
     const r = await check(first(h), `Nuotare verso ${T.n}${guida ? " (guida acquatica +2)" : ""}`, 12, m);
     if (!r.ok) {
       const who = alive().filter(x => !acquatico(x));
@@ -2464,6 +2591,7 @@ async function swimIn(h, k) {
       log(`La corrente vi trascina: ${who.map(first).join(", ")} ${who.length === 1 ? "perde 2 Vita e arriva" : "perdono 2 Vita e arrivano"} senza fiato (−1 al primo tiro).`); edge("red");
     } else log(`${first(h)} trova la corrente giusta: la compagnia scivola giù senza fatica.`);
   }
+  alive().filter(x => razza(x, "felinidi") && !x.fx.bagnato).forEach(x => { x.fx.bagnato = true; x.st.agi = Math.max(0, x.st.agi - 1); log(`${first(x)} esce dall'acqua fradicia e di pessimo umore: −1 Agilità fino a fine capitolo.`); });
   const senza = alive().filter(x => !x.collana && !acquatico(x));
   if (senza.length) { senza.forEach(x => { x.hp = Math.max(1, x.hp - 3); popAt(x.id, "−3", "hurt"); }); log(`${senza.map(first).join(", ")} senza Collana del Respiro: l'acqua brucia nei polmoni (−3 Vita).`); }
 }
@@ -2547,7 +2675,7 @@ async function sirene() {
   S.flags.sirene = true;
   await overlay(`<img class="ovimg wide" src="${IMG.loc_scogliera}" alt=""><div class="ovk">Scogliera delle Sirene</div><h3>Il canto</h3>${NP("sirene")}<p class="small">Prova di Fascino (CD 12) per tutti: chi fallisce resta incantato e salta il prossimo turno.</p><button class="btn main" data-v="ok">Resistete</button>`, "cut", "sirene");
   const lost = [];
-  alive().forEach(h => { const r = d20() + mod(h.st.fas) + (h.dio === "isthara" ? 2 : 0); if (r < 12) { h.fx.stun = true; h.fx.stunMsg = gx(h, "è ancora incantato dal canto", "è ancora incantata dal canto"); lost.push(first(h)); } });
+  alive().forEach(h => { const r = h.classe === "chierico" ? 99 : d20() + mod(h.st.fas) + (h.dio === "isthara" ? 2 : 0); if (r < 12) { h.fx.stun = true; h.fx.stunMsg = gx(h, "è ancora incantato dal canto", "è ancora incantata dal canto"); lost.push(first(h)); } });
   log(lost.length ? `Il canto incanta ${lost.join(", ")}: ${lost.length === 1 ? "salterà" : "salteranno"} il prossimo turno.` : "La compagnia ascolta il canto senza perdersi.");
 }
 // Thalassar: il Coro delle Maree, Maral, il Canto dei Nomi Annegati
@@ -2682,7 +2810,7 @@ async function finaleCap3() {
 }
 // Ciò che passa da un capitolo al successivo
 function buildCarry(from) {
-  const camp = { ...(S.camp || {}) };
+  const camp = { ...(S.camp || {}) }; camp.corr = corruz();
   if (from === 2) { camp.seme = S.seme; camp.santuario = S.purified; camp.elfi = !!S.flags.elfi; }
   return { from, patto: camp.patto || (CARRY && CARRY.patto) || {}, dmg: Object.fromEntries(S.heroes.map(h => [h.id, h.dmg || 0])),
     items: Object.fromEntries(S.heroes.map(h => [h.id, h.items.filter(i => i !== "moneta")])), oro: Object.fromEntries(S.heroes.map(h => [h.id, h.oro || 0])),
@@ -2692,7 +2820,7 @@ function buildCarry(from) {
 const campEvery = () => partyN() >= 5 ? 4 : 3; // con una compagnia numerosa (5 o più) l'esplorazione è più lenta: le campane aspettano un giro in più
 function colpa(n, why) { S.colpe = (S.colpe || 0) + n; banner(`+${n} ${n === 1 ? "Colpa" : "Colpe"} · ${why}`, "bad"); log(`La bilancia di Aurea: +${n} ${n === 1 ? "Colpa" : "Colpe"} (${why}).`); }
 function merito(n, why) { S.meriti = (S.meriti || 0) + n; banner(`+${n} ${n === 1 ? "Merito" : "Meriti"} · ${why}`, "good"); log(`La bilancia di Aurea: +${n} ${n === 1 ? "Merito" : "Meriti"} (${why}).`); }
-const prezzo = k => (k === "pozione" && S.ch === 4 && S.flags.dazio ? 8 : ITEMS[k].price) + (S.flags.rancore ? 2 : 0);
+const prezzo = (k, t) => (k === "pozione" && S.ch === 4 && S.flags.dazio ? 8 : ITEMS[k].price) + (S.flags.rancore ? 2 : 0) + (razza(t, "orco") && inCitta() ? 1 : 0);
 // Il Diario delle missioni: compaiono quando qualcuno le propone
 const MISSIONI = {
   dazio:    { t: "Il dazio di Sbrindello", chi: "Sbrindello, alla Porta d'Oro", come: "Convincere il doganiere (Fascino, CD 13) o pagare 15 monete", premio: "Pozioni a 8 monete per tutto il capitolo" },
@@ -3107,7 +3235,7 @@ async function votoPubblico(o) {
           <span class="pvwho">${who.map(h => `<img src="${ritratto(h.razza, h.genere)}" alt="" title="${esc(first(h))}">`).join("")}</span>${o.primo ? "" : `<em>${who.length || ""}</em>`}</button>`; }).join("")}</div>
         ${o.opts.filter(x => x.ghost).map(x => { const who = H.filter(h => votes[h.id] === x.v); return `<button class="pvghost" data-pv="${esc(x.v)}">${esc(x.n)}${who.length ? ` · ${who.map(h => esc(first(h))).join(", ")}` : ""}</button>`; }).join("")}
         ${remote && !tvMode ? `<p class="small">Votate dal telefono: il voto è pubblico. Hanno votato ${remote.filter(id => votes[id] != null).length} su ${remote.length}.</p><button class="linkbtn" id="pvTV">Votate dalla TV</button>`
-          : now ? `<div class="voter"><img src="${ritratto(now.razza, now.genere)}" alt=""><span>${o.primo ? "Chi si offre? Tocca la scelta" : `Vota <b>${esc(first(now))}</b> <small>(${H.length - q.length + 1} di ${H.length})</small>`}</span></div><button class="linkbtn" id="pvAll">Decidete a voce: tocca la scelta di tutti</button>` : ""}</div>`;
+          : now ? `<div class="voter"><img src="${ritratto(now.razza, now.genere)}" alt=""><span>${o.solo ? `Sceglie <b>${esc(first(now))}</b>` : o.primo ? "Chi si offre? Tocca la scelta" : `Vota <b>${esc(first(now))}</b> <small>(${H.length - q.length + 1} di ${H.length})</small>`}</span></div>${o.solo ? "" : `<button class="linkbtn" id="pvAll">Decidete a voce: tocca la scelta di tutti</button>`}` : ""}</div>`;
       m.querySelectorAll("[data-pv]").forEach(b => b.onclick = () => { const q2 = queue(); if (!q2.length) return; if (o.primo) return vote(q2[0].id, b.dataset.pv, true); vote(q2[0].id, b.dataset.pv); });
       const all = m.querySelector("#pvAll"); if (all) all.onclick = () => { toast("Toccate la scelta comune"); m.querySelectorAll("[data-pv]").forEach(b => b.onclick = () => { queue().forEach(h => votes[h.id] = b.dataset.pv); SFX.coin(); end(); }); };
       const tv = m.querySelector("#pvTV"); if (tv) tv.onclick = () => { tvMode = true; draw(); };
@@ -3167,7 +3295,9 @@ const STN = { for: "Forza", agi: "Agilità", ing: "Ingegno", fas: "Fascino", sor
 const sgn = v => (v >= 0 ? "+" : "−") + Math.abs(v);
 const cdCap = () => 11 + S.ch; // 12, 13, 14, 15
 const bonusClasse = (h, st) => (st === "agi" && h.classe === "ladro") || (st === "fas" && h.classe === "bardo") || (st === "ing" && h.classe === "mago") || (st === "for" && h.classe === "barbaro") ? 2 : 0;
-async function prova1(h, st, label, cd = cdCap()) { return check(first(h), label, cd, mod(h.st[st]) + rollBonus(h) + bonusClasse(h, st)); }
+async function prova1(h, st, label, cd = cdCap(), ctx) {
+  if (st === "agi" && await rampino(label)) return { r: 0, tot: cd, ok: true, crit: false, total: 0 };
+  return check(first(h), label, cd, mod(h.st[st]) + rollBonus(h) + bonusClasse(h, st) + trattiProva(h, st, ctx)); }
 function rivela(n) { const cov = GRID.flat().filter(k => !S.tiles[k].rev && !S.tiles[k].peek && !TILES[k].boss); cov.sort(() => Math.random() - .5).slice(0, n).forEach(k => S.tiles[k].peek = true); }
 function dona(it, n = 1, h = chiTiene()) { for (let i = 0; i < n; i++) h.items.push(it); return h; }
 async function esito(img, kicker, titolo, k, small) {
@@ -3220,7 +3350,7 @@ const EV = {
   // Capitolo 3
   sirene: { t: "Il canto", img: "loc_scogliera", k: ["sirene", "ev_sirene"], opts: [["ascolta", "Ascoltate fino in fondo", "Fascino per tutti"], ["cera", "Tappatevi le orecchie", "Perdete tempo"]],
     async res(v) {
-      if (v === "ascolta") { const ok = [], ko = []; for (const h of alive()) { const r = d20() + mod(h.st.fas) + (h.dio === "isthara" ? 2 : 0); if (r >= 12) { ok.push(first(h)); h.fx.stone = true; } else { ko.push(first(h)); hurtHero(h, roll(4), "Le rocce della scogliera"); } }
+      if (v === "ascolta") { const ok = [], ko = []; for (const h of alive()) { const r = h.classe === "chierico" ? 99 : d20() + mod(h.st.fas) + (h.dio === "isthara" ? 2 : 0); if (r >= 12) { ok.push(first(h)); h.fx.stone = true; } else { ko.push(first(h)); hurtHero(h, roll(4), "Le rocce della scogliera"); } }
         S.camp.sireneRosa = true; return ["ev_sirene_ascolta", `${ok.length ? `${ok.join(", ")}: +1 al prossimo tiro.` : ""}${ko.length ? ` ${ko.join(", ")}: si ferisce sulle rocce, incantato.` : ""}`.trim()]; }
       await perdiTempo("Con la cera nelle orecchie, la compagnia avanza piano sugli scogli."); return ["ev_sirene_cera", "Perdete tempo."]; } },
   naufrago: { t: "Il naufrago", img: "loc_portorelitto", k: "ev_naufrago", opts: [["salva", "Tiratelo a bordo", "Forza"], ["sacca", "Prendete solo la sacca", "Monete, ma i suoi compari vi troveranno"]],
@@ -3247,7 +3377,7 @@ const EV = {
       return ["ev_ciotola_via", ""]; } },
   certificato: { t: "I certificati di Sbrindello", img: "npc_sbrindello", k: "ev_certificato", opts: [["compra", "Compratene uno", "8 monete · −1 Colpa, se regge"], ["denuncia", "Denunciatelo", "+1 Merito · Sbrindello se ne ricorderà"], ["via", "Fate finta di niente", "Niente"]],
     async res(v) {
-      if (v === "compra" && borsa() >= 8) { paga(8); if (d20() > 8) { S.colpe = Math.max(0, (S.colpe || 0) - 1); return ["ev_cert_regge", "−1 Colpa."]; } colpa(1, "Un certificato falso"); return ["ev_cert_falso", ""]; }
+      if (v === "compra" && borsa() >= 8) { paga(8); rimorso(); if (d20() > 8) { S.colpe = Math.max(0, (S.colpe || 0) - 1); return ["ev_cert_regge", "−1 Colpa."]; } colpa(1, "Un certificato falso"); return ["ev_cert_falso", ""]; }
       if (v === "denuncia") { merito(1, "La truffa denunciata"); S.flags.rancore = true; return ["ev_cert_denuncia", "Per questo capitolo le merci di Sbrindello costano 2 monete in più."]; }
       return ["ev_cert_via", ""]; } },
 };
@@ -3333,13 +3463,14 @@ async function evitaScena(k) {
   const T = TILES[k], foes = here(), nomi = [...new Set(foes.map(f => FOES[f.type].n.split(",")[0]))].join(", ");
   const opts = [{ v: "lotta", n: "Combattete", sub: "Lo scontro comincia" }];
   T.evita.forEach(([v, st, n]) => { if (v === "paga") { if (borsa() >= pizzo()) opts.push({ v, n, sub: `${pizzo()} monete${S.ch === 4 && foes.some(f => FOES[f.type].legge) ? " · +1 Colpa" : ""}` }); }
-    else { const h = migliore(st); opts.push({ v, n, sub: `${STN[st]} di ${first(h)} ${sgn(mod(h.st[st]) + bonusClasse(h, st))} · CD ${cdCap()}` }); } });
+    else { const h = migliore(st); opts.push({ v, n, sub: `${STN[st]} di ${first(h)} ${sgn(mod(h.st[st]) + bonusClasse(h, st) + trattiProva(h, st, v))} · CD ${cdCap()}` }); } });
   const v = await votoPubblico({ kicker: T.n, titolo: `${nomi}: combattere o evitarli?`, testo: "Se il tentativo fallisce, i nemici vi sorprendono e agiscono per primi.", opts, chi: cur(),
     auto: () => (window.__POLICY && __POLICY.evita) || "lotta" });
   if (v === "lotta") return "lotta";
   let ok = true;
-  if (v === "paga") { paga(pizzo()); if (S.ch === 4 && foes.some(f => FOES[f.type].legge)) colpa(1, "La corruzione"); log(`La compagnia paga ${pizzo()} monete e passa.`); }
-  else { const [, st, n] = T.evita.find(x => x[0] === v), h = migliore(st); ok = (await prova1(h, st, n)).ok; }
+  if (v === "paga") { paga(pizzo()); if (S.ch === 4 && foes.some(f => FOES[f.type].legge)) colpa(1, "La corruzione"); log(`La compagnia paga ${pizzo()} monete e passa.`); rimorso(); }
+  else { const [, st, n] = T.evita.find(x => x[0] === v), h = migliore(st); ok = (await prova1(h, st, n, cdCap(), v)).ok;
+    if (!ok && v === "furtivo" && h.classe === "ladro" && inCitta() && !S.flags.rancore) { S.flags.rancore = true; log(`Le guardie riconoscono la faccia di ${first(h)}: da Sbrindello i prezzi salgono di 2.`); } }
   if (ok) { S.foes = S.foes.filter(f => f.tile !== k); S.tiles[k].evitato = true; banner("Scontro evitato", "good"); log(`${T.n}: la compagnia passa senza combattere.`); return "evitato"; }
   banner("Imboscata!", "bad"); log(`${T.n}: il tentativo fallisce. I nemici vi sorprendono.`); return "imboscata";
 }
@@ -3473,7 +3604,7 @@ async function treasurerVote() {
 }
 async function openShop() {
   if (!S.tesoriere) await treasurerVote();
-  if (FAST) { const plan = window.__BOT && __BOT.shop ? __BOT.shop(S) : []; plan.forEach(([it, id]) => { if (S.oro >= prezzo(it)) { S.oro -= prezzo(it); (hero(id) || S.heroes[0]).items.push(it); } }); return; }
+  if (FAST) { const plan = window.__BOT && __BOT.shop ? __BOT.shop(S) : []; plan.forEach(([it, id]) => { if (S.oro >= prezzo(it, hero(id))) { S.oro -= prezzo(it, hero(id)); (hero(id) || S.heroes[0]).items.push(it); } }); return; }
   await new Promise(res => {
     const m = document.createElement("div"); m.className = "ov shop"; document.body.appendChild(m);
     let to = alive()[0].id, quip = S.ch === 3 ? "sb3_hello" : S.ch === 4 && S.flags.dazio ? "dazio_ok" : pick(SBR.hello), payer = "borsa";
@@ -3487,12 +3618,12 @@ async function openShop() {
         <div class="tochips"><button class="tochip ${payer === "borsa" ? "on" : ""}" data-pay="borsa">◈ Borsa della compagnia<small>${S.oro} mo</small></button>${S.heroes.filter(h => h.oro > 0).map(h => `<button class="tochip ${payer === h.id ? "on" : ""}" data-pay="${h.id}"><img src="${ritratto(h.razza, h.genere)}" alt="">Monete di ${esc(first(h))}<small>${h.oro} mo</small></button>`).join("")}</div>
         <div class="lab">Consegna a</div>
         <div class="tochips">${alive().map(h => `<button class="tochip ${h.id === to ? "on" : ""}" data-to="${h.id}"><img src="${ritratto(h.razza, h.genere)}" alt="">${esc(first(h))}<small>${h.items.filter(x => x === "pozione").length}⚗ ${h.items.filter(x => x === "bomba").length}●</small></button>`).join("")}</div>
-        <div class="wares">${["pozione", "bomba", ...(S.ch === 3 ? ["collana"] : [])].map(k => `<div class="ware"><div class="wic ${k}"></div><div><b>${ITEMS[k].n}</b><p>${esc(ITEMS[k].t)}</p></div><button class="btn ${funds() >= prezzo(k) ? "main" : "ghost"} sm" data-buy="${k}" ${funds() >= prezzo(k) ? "" : "disabled"}>${prezzo(k)} mo</button></div>`).join("")}</div>
+        <div class="wares">${["pozione", "bomba", ...(S.ch === 3 ? ["collana"] : [])].map(k => `<div class="ware"><div class="wic ${k}"></div><div><b>${ITEMS[k].n}</b><p>${esc(ITEMS[k].t)}</p></div><button class="btn ${funds() >= prezzo(k, hero(to)) ? "main" : "ghost"} sm" data-buy="${k}" ${funds() >= prezzo(k, hero(to)) ? "" : "disabled"}>${prezzo(k, hero(to))} mo</button></div>`).join("")}</div>
         <button class="btn ghost" id="shopX">Chiudi bottega</button></div>`;
       m.querySelectorAll("[data-to]").forEach(b => b.onclick = () => { to = b.dataset.to; draw(); });
       m.querySelectorAll("[data-pay]").forEach(b => b.onclick = () => { payer = b.dataset.pay; draw(); });
       m.querySelectorAll("[data-buy]").forEach(b => b.onclick = () => {
-        const k = b.dataset.buy, p = prezzo(k);
+        const k = b.dataset.buy, p = prezzo(k, hero(to));
         if (funds() < p) { quip = pick(SBR.povero); voice(quip, true); return draw(); }
         if (payer === "borsa") S.oro -= p; else hero(payer).oro -= p;
         if (k === "collana") { if (hero(to).collana) { toast(`${first(hero(to))} ha già una collana.`); if (payer === "borsa") S.oro += p; else hero(payer).oro += p; return; } hero(to).collana = true; } else hero(to).items.push(k);
@@ -3718,6 +3849,7 @@ function heroPanel(h) {
       ${S.lanterna ? B("lantern", "Lanterna di Seraphel", "Una brace: d8 di fuoco") : ""}
       ${S.ch >= 3 && (S.camp || {}).seme === "verde" ? B("seme", "Seme del Primo Albero", "Cura d8 · una volta nel capitolo") : ""}
       ${has(h, "fiala") ? B("fiala", "Fiala di spore", "Nemici −1 al prossimo attacco") : ""}
+      ${h.congegno ? B("congegno", CONGEGNI[h.congegno].n, "Congegno arcano · " + CONGEGNI[h.congegno].t) : ""}
       ${TILES[S.pos].shop ? B("shop", "Mercante", "Gratis · compra il tesoriere") : ""}
       ${S.ch === 4 && zona4() ? B("zona", zona4().n, zona4().sub) : ""}
       ${B("zaino", `Zaino${h.bag.length ? ` · ${h.bag.length} nuovi` : ""}`, here().length ? "Cambiare costa 1 azione" : "Equipaggiamento gratis")}
@@ -3817,10 +3949,11 @@ function renderPhone() {
       ${h.lvl >= 6 ? `<div class="pcard"><div class="lab">Attacco speciale · ${h.spec ? "usato nel capitolo" : "pronto"}</div><b>${esc(SPEC[h.classe].n)}</b><p>${esc(SPEC[h.classe].t)}</p></div>` : ""}
       <div class="pcard"><div class="lab">Benedizione di ${esc(g.n)} · ${h.bless ? "usata" : "1 carica"}</div><b>${esc(g.benedizione.n)}</b><p>${esc(g.benedizione.t)}</p></div>
       <div class="pcard"><div class="lab">Passiva</div><b>${esc(c.pas.n)}</b><p>${esc(c.pas.t)}</p></div>
+      ${trattiCards(h)}
       <div class="pcard"><div class="lab">Zaino · monete tue ${h.oro || 0} mo${S.ch >= 2 ? ` · borsa della compagnia ◈ ${S.oro} mo` : ""}</div><p>${[...c.zaino, ...(h.collana && S.ch === 3 ? ["Collana del Respiro"] : []), ...h.items.map(i => ITEMS[i].n)].map(esc).join(" · ")}</p></div>
       <div class="pcard"><div class="lab">Equipaggiamento</div>${Object.keys(SLOTS).map(k => `<p>${SLOTS[k]}: <b>${h.eq[k] ? esc(GEAR[h.eq[k]].n) : "base"}</b>${h.eq[k] ? ` · ${esc(GEAR[h.eq[k]].st)}` : ""}</p>`).join("")}${h.bag.length ? `<p class="small">Nello zaino: ${h.bag.map(i => esc(GEAR[i].n)).join(", ")}</p>` : ""}</div>
       <div class="pcard obj"><div class="lab">◎ Obiettivo personale</div><b>${esc(g.volere.n)}</b><p>${esc(g.volere.t)}</p></div>
-      ${tr ? `<details class="secret" open><summary>◉ Patto segreto</summary><img src="${IMG.nhazgor}" alt="">${secret}${segreti}<div class="corr">Corruzione <span>${[1, 2, 3, 4, 5].map(i => `<i class="${i <= S.ch ? "on" : ""}"></i>`).join("")}</span></div></details>` : ""}
+      ${tr ? `<details class="secret" open><summary>◉ Patto segreto</summary><img src="${IMG.nhazgor}" alt="">${secret}${segreti}<div class="corr">Corruzione <span>${[1, 2, 3, 4, 5].map(i => `<i class="${i <= corruz() ? "on" : ""}"></i>`).join("")}</span></div></details>` : ""}
     </div></div>
     ${h.traditore ? `<label class="secretlbl"><input type="checkbox" id="pSecret" ${PREF.secret ? "checked" : ""}> Mostra come lo vede il traditore (solo demo)</label>` : `<p class="note">Nella demo il traditore è Grosh: apri la sua scheda per vedere il patto segreto.</p>`}
   </div>`;
