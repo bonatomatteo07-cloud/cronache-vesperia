@@ -2105,7 +2105,7 @@ async function foeAct(f) {
     }
     else { SFX.miss(); popAt(h.id, "Schivato", "miss"); banner(`${first(h)} schiva ${F.n.split(",")[0]}`, "miss"); log(`${F.n} attacca ${first(h)} ma manca.`); }
     DUELING--; render(); await duel(f, h, hit ? (h.hp < hp0 ? `−${hp0 - h.hp}` : "Parato") : "Schivato", hit ? "bad" : "miss", hit && r === 20);
-    if (!hit && r === 1 && f.hp > 0) { await (h.fx.guard && !h.ko ? contrattacco(h, f) : maldestro(f)); if (f.hp <= 0) break; }
+    if (!hit && r === 1 && f.hp > 0) { await (h.fx.guard && !h.ko ? contrattacco(h, f) : maldestro(f, h)); if (f.hp <= 0) break; }
   }
   if (F.regen) { const v = Math.min(d8(), f.max - f.hp); if (v) { f.hp += v; log(`Vorgath divora la cenere e si rigenera: +${v}.`); } }
   BUSY = false;
@@ -3393,8 +3393,8 @@ async function contrattacco(h, f) {
   DUELING++; hurtFoe(f, v, h); DUELING--; render(); await duel(h, f, `−${v}`, "good", false); BUSY = true;
 }
 // 1 naturale di un nemico: come per gli eroi, il colpo va storto (d4 a sé stesso). Contro chi è in guardia diventa un contrattacco
-async function maldestro(f) {
-  const F = FOES[f.type], d = roll(4); DUELING++; hurtFoe(f, d, null, "Colpo maldestro"); log(`1 naturale: ${F.n.split(",")[0]} sbaglia il colpo e si ferisce (−${d}${f.hp ? `, ${f.hp}/${f.max}` : ""}).`); DUELING--; render(); if (!FAST) await sleep(700);
+async function maldestro(f, h) { // la ricompensa va all'eroe che stava affrontando, come se avesse dato il colpo finale
+  const F = FOES[f.type], d = roll(4); DUELING++; hurtFoe(f, d, h && !h.ko ? h : null, "Colpo maldestro"); log(`1 naturale: ${F.n.split(",")[0]} sbaglia il colpo e si ferisce (−${d}${f.hp ? `, ${f.hp}/${f.max}` : ""}).`); DUELING--; render(); if (!FAST) await sleep(700);
 }
 // ---------- Il colpo annunciato ----------
 const caricaNeed = f => Math.max(4, Math.round(f.max * (FOES[f.type].boss ? .12 : .2)));
@@ -3407,7 +3407,7 @@ async function caricaTurno(f) { // true se il nemico ha usato il turno per caric
     banner(`${F.n.split(",")[0]} scatena: ${F.carica}`, "bad"); shake(); SFX.boom(); log(`${F.n} scatena ${F.carica}!`);
     let atk = F.atk + (S.ch >= 2 ? 2 + dif().atk : 0); // nel prologo il colpo annunciato è più clemente
     for (const h of [...alive()]) { if (h.ko) continue; const r = d20(), hit = r === 20 || (r !== 1 && r + atk >= h.ca + (h.fx.riparo ? 2 : 0));
-      if (hit) { let d = (S.ch >= 2 ? F.plus || 0 : 0) + roll(F.die); d = Math.max(1, Math.round(d * partyDmg())); hurtHero(h, d, `${F.carica} di ${F.n.split(",")[0]}`); } else { popAt(h.id, "Schivato", "miss"); log(`${first(h)} evita ${F.carica}.`); if (r === 1 && f.hp > 0) await (h.fx.guard ? contrattacco(h, f) : maldestro(f)); if (f.hp <= 0) break; } }
+      if (hit) { let d = (S.ch >= 2 ? F.plus || 0 : 0) + roll(F.die); d = Math.max(1, Math.round(d * partyDmg())); hurtHero(h, d, `${F.carica} di ${F.n.split(",")[0]}`); } else { popAt(h.id, "Schivato", "miss"); log(`${first(h)} evita ${F.carica}.`); if (r === 1 && f.hp > 0) await (h.fx.guard ? contrattacco(h, f) : maldestro(f, h)); if (f.hp <= 0) break; } }
     render(); await sleep(900); BUSY = false; return true;
   }
   if (f.cc % 3 === 2) {
