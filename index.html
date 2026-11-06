@@ -56,6 +56,7 @@
     return null; } };
 })();
 </script>
+<script>window.VID_PARTS=6;</script>
 </head><body>
 <title>Le serate di Matteo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -920,6 +921,15 @@ button.pill.mis:hover{border-color:#e8c766}
 .rolemodal .btn{border:1px solid #d9b46a;border-radius:4px;padding:11px 16px;font-family:"Cinzel",Georgia,serif;font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;background:rgba(10,13,22,.6);color:#f3d793;cursor:pointer}
 .rolemodal .btn.main{background:linear-gradient(180deg,#f3d793,#d9b46a 45%,#9c7a3c);color:#1a1408}
 .rolemodal .ovk{font-size:11px;letter-spacing:.26em;text-transform:uppercase;font-weight:700;color:#d9b46a}
+/* filmato del mondo, a tutto schermo sulla TV */
+.filmato{position:fixed;inset:0;z-index:9999;background:#000;display:flex;align-items:center;justify-content:center;opacity:1;transition:opacity .6s}
+.filmato.via{opacity:0;pointer-events:none}
+.filmato video{width:100%;height:100%;object-fit:contain;background:#000}
+.filmato .salta{position:absolute;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));border:1px solid rgba(217,180,106,.7);border-radius:4px;padding:10px 18px;background:rgba(10,13,22,.55);color:#f3d793;font-family:"Cinzel",Georgia,serif;font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;opacity:.75;transition:opacity .2s}
+.filmato .salta:hover,.filmato .salta:focus-visible{opacity:1}
+.filmato .fattesa{position:absolute;color:#d9b46a;font-family:"Cinzel",Georgia,serif;letter-spacing:.14em;font-size:15px;animation:fatt 1.6s ease-in-out infinite}
+@keyframes fatt{50%{opacity:.35}}
+.filmato .guarda{position:absolute;border:1px solid #d9b46a;border-radius:4px;padding:16px 28px;background:linear-gradient(180deg,#f3d793,#d9b46a 45%,#9c7a3c);color:#1a1408;font-family:"Cinzel",Georgia,serif;font-weight:700;font-size:16px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
 /* ===== Schermata iniziale ===== */
 .tt{position:fixed;inset:0;z-index:200;overflow:hidden;background:#05070d;color:#f3e6c4;font-family:"Cinzel","Trajan Pro",Georgia,serif;cursor:pointer}
 .tt-art{position:absolute;inset:-4%;opacity:0;filter:brightness(.35) saturate(.8);transform:scale(1.12);transition:opacity 2.2s ease,filter 3.5s ease,transform 18s cubic-bezier(.2,.6,.2,1)}
@@ -5459,10 +5469,38 @@ const SERATE = (() => {
       if (role === "tv") { CR.S.screen = "host"; }
       else { CR.S.screen = CR.S.mode === "player" && CR.S.sess ? "" : "login"; }
       CR.keep(); CR.render(); MP.resume(); };
-    document.getElementById("rTv").onclick = () => go("tv");
+    document.getElementById("rTv").onclick = () => filmato(() => go("tv"));
+    preFilmato();
     document.getElementById("rPh").onclick = () => go("player");
     document.getElementById("rProva").onclick = () => { try { ac(); } catch (e) {} put(ROLE, null); setMode("crea"); CR.S.screen = ""; CR.S.mode = "solo"; CR.S.step = 1; CR.keep(); CR.render(); };
     document.getElementById("rDemo").onclick = () => { try { ac(); } catch (e) {} demo = true; setMode("game"); viewbar(); newGame(1); HIST = []; chapterIntro(1); };
+  }
+
+  // ---------- Il filmato del mondo: solo sulla TV, dopo «Sono il Tavolo» ----------
+  // Racconta la lore e arriva al Corno d'Ambra; si può saltare in ogni momento.
+  // Nella versione web il filmato è diviso in pezzi (window.VID_PARTS): si scarica in anticipo mentre si guarda la schermata iniziale
+  let VIDP = null;
+  function preFilmato() {
+    if (!window.VID_PARTS || VIDP) return VIDP;
+    VIDP = Promise.all([...Array(window.VID_PARTS)].map((_, i) => fetch(`vid/intro_vesperia.${i}.part`).then(r => { if (!r.ok) throw 0; return r.blob(); })))
+      .then(bs => URL.createObjectURL(new Blob(bs, { type: "video/mp4" }))).catch(() => null);
+    return VIDP;
+  }
+  function filmato(done) {
+    let fatto = false;
+    const ov = document.createElement("div"); ov.className = "filmato";
+    ov.innerHTML = window.VID_PARTS ? `<video playsinline preload="auto"></video><div class="fattesa">Il racconto sta arrivando…</div><button type="button" class="guarda" hidden>▶ Guarda il racconto</button><button type="button" class="salta">Salta ›</button>`
+      : `<video playsinline preload="auto"><source src="vid/intro_vesperia.mp4" type="video/mp4"><source src="vid/intro_vesperia.webm" type="video/webm"></video><button type="button" class="salta">Salta ›</button>`;
+    document.body.appendChild(ov);
+    const v = ov.querySelector("video"), btn = ov.querySelector(".salta"), gu = ov.querySelector(".guarda"), at = ov.querySelector(".fattesa");
+    const fine = () => { if (fatto) return; fatto = true; try { v.pause(); } catch (e) {} document.removeEventListener("keydown", tasto); ov.classList.add("via"); setTimeout(() => ov.remove(), 700); done(); };
+    const tasto = e => { if (e.key === "Escape" || (["Enter", " "].includes(e.key) && !(gu && !gu.hidden))) { e.preventDefault(); fine(); } };
+    btn.onclick = fine; v.onended = fine; v.onerror = fine; const ls = ov.querySelector("source:last-of-type"); if (ls) ls.onerror = fine; // nessun formato leggibile: si va avanti
+    document.addEventListener("keydown", tasto);
+    try { MUSICA.stop(600); } catch (e) {}
+    const parti = () => v.play().catch(() => { if (gu) { gu.hidden = false; gu.focus(); gu.onclick = () => { gu.hidden = true; v.play().catch(fine); }; } else { v.muted = true; v.play().catch(fine); } }); // senza permesso per l'audio: un tocco per partire
+    if (!window.VID_PARTS) return parti();
+    preFilmato().then(u => { if (fatto) return; if (!u) return fine(); if (at) at.remove(); v.src = u; parti(); });
   }
 
   // ---------- PARTITA DI PROVA: il tuo eroe più quattro compagni ----------
