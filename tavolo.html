@@ -4624,9 +4624,69 @@ function eff(kind, id) {
   else if (kind === "fortuna" && m) { onda(p, 0x8ff0a0, .9, .8); burst(p, 0x9cff9a, 40); }
   else if (kind === "forma" && m) { onda(p, 0x6ee07a, 1.2, 1); burst(p, 0x9cff7a, 60); }
 }
+// ---------- Vetrina: la miniatura dell'eroe nella scheda di creazione ----------
+// Un piccolo teatro a parte (renderer proprio) con piedistallo, luci calde, idle in loop, un colpo ogni tanto, rotazione lenta e trascinamento.
+const V = { cur: null };
+function vetrina(el, key, opts = {}) {
+  if (V.cur) V.cur.stop();
+  if (!HAVE_MINI.has(key)) return false;
+  let rd; const cv = document.createElement("canvas"); cv.className = "vetrina3d";
+  try { rd = new THREE.WebGLRenderer({ canvas: cv, antialias: true, alpha: true }); } catch (e) { return false; }
+  rd.setPixelRatio(Math.min(2, devicePixelRatio)); rd.outputColorSpace = THREE.SRGBColorSpace; rd.toneMapping = THREE.ACESFilmicToneMapping; rd.toneMappingExposure = 1.2; rd.shadowMap.enabled = true;
+  const sc = new THREE.Scene(), cam = new THREE.PerspectiveCamera(30, 0.75, 0.05, 50), ck = new THREE.Clock();
+  sc.add(new THREE.HemisphereLight(0xffe6c0, 0x1a1626, 1.0));
+  const kl = new THREE.DirectionalLight(0xffd9a0, 2.0); kl.position.set(2.5, 4, 3); kl.castShadow = true; kl.shadow.mapSize.set(1024, 1024); Object.assign(kl.shadow.camera, { left: -1.5, right: 1.5, top: 2.5, bottom: -1 }); sc.add(kl);
+  const rim = new THREE.DirectionalLight(0x8fb4ff, 1.4); rim.position.set(-3, 2.5, -3); sc.add(rim);
+  const fill = new THREE.PointLight(0xff9a40, 1.2, 6, 1.5); fill.position.set(-1.4, .6, 1.6); sc.add(fill);
+  // piedistallo di pietra con il bordo d'oro, come le basi delle miniature
+  const ped = new THREE.Group();
+  const stone = new THREE.Mesh(new THREE.CylinderGeometry(.62, .68, .16, 48), new THREE.MeshStandardMaterial({ color: 0x23262f, roughness: .85, metalness: .1 })); stone.position.y = -.08; stone.receiveShadow = true;
+  const gold = new THREE.Mesh(new THREE.TorusGeometry(.63, .012, 8, 64), new THREE.MeshStandardMaterial({ color: 0xd6b16a, emissive: 0x5a4010, roughness: .35, metalness: .9 })); gold.rotation.x = Math.PI / 2;
+  const glow = new THREE.Mesh(new THREE.RingGeometry(.66, 1.05, 64), new THREE.MeshBasicMaterial({ color: opts.color || 0xd6b16a, transparent: true, opacity: .16, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending })); glow.rotation.x = -Math.PI / 2; glow.position.y = -.155;
+  ped.add(stone, gold, glow); sc.add(ped);
+  // scintille lente attorno al piedistallo
+  const NP = 60, pgeo = new THREE.BufferGeometry(), pp = new Float32Array(NP * 3), ps = new Float32Array(NP);
+  for (let i = 0; i < NP; i++) { const a = Math.random() * 6.28, r = .5 + Math.random() * .6; pp[i * 3] = Math.cos(a) * r; pp[i * 3 + 1] = Math.random() * 2; pp[i * 3 + 2] = Math.sin(a) * r; ps[i] = .08 + Math.random() * .2; }
+  pgeo.setAttribute("position", new THREE.BufferAttribute(pp, 3));
+  sc.add(new THREE.Points(pgeo, new THREE.PointsMaterial({ color: opts.color || 0xffc070, size: .02, transparent: true, opacity: .8, blending: THREE.AdditiveBlending, depthWrite: false })));
+  const turn = new THREE.Group(); sc.add(turn);
+  const H = 1.55; cam.position.set(0, H * .62, 3.9); cam.lookAt(0, H * .48, 0);
+  const st = { mix: null, acts: {}, cur: null, yaw: -.35, vy: 0, drag: null, next: 4, alive: true, stop: null };
+  const play = n => { const a = st.acts[n]; if (!a) return; a.reset(); a.setLoop(n === "idle" ? THREE.LoopRepeat : THREE.LoopOnce, n === "idle" ? Infinity : 1); if (st.cur && st.cur !== a) a.crossFadeFrom(st.cur, .2, false); a.play(); st.cur = a; };
+  const colpo = () => { if (st.acts.attacco) { play("attacco"); st.next = ck.elapsedTime + 7 + Math.random() * 4; } };
+  tpl(key).then(T => {
+    if (!T || !st.alive) return;
+    const body = T.clips.length ? SkeletonUtils.clone(T.scene) : T.scene.clone(true), k = H / T.size.y;
+    body.scale.setScalar(k); body.position.set(-T.c.x * k, -T.min.y * k, -T.c.z * k); body.traverse(o => { if (o.isMesh) { o.castShadow = true; o.frustumCulled = false; } });
+    turn.add(body);
+    if (T.clips.length) { st.mix = new THREE.AnimationMixer(body); T.clips.forEach(c => st.acts[c.name] = st.mix.clipAction(c)); st.mix.addEventListener("finished", () => play("idle")); play("idle"); }
+    el.classList.add("v3on"); if (opts.onReady) opts.onReady();
+  });
+  // trascina per girare la miniatura, tocca per farla colpire
+  cv.addEventListener("pointerdown", e => { st.drag = { x: e.clientX, y0: st.yaw, t: performance.now(), moved: false }; cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener("pointermove", e => { if (!st.drag) return; const dx = e.clientX - st.drag.x; if (Math.abs(dx) > 4) st.drag.moved = true; st.yaw = st.drag.y0 + dx * .012; });
+  cv.addEventListener("pointerup", () => { if (st.drag && !st.drag.moved && performance.now() - st.drag.t < 400) colpo(); st.drag = null; });
+  cv.addEventListener("pointercancel", () => st.drag = null);
+  const fit = () => { const w = el.clientWidth || 300, h = el.clientHeight || 400; rd.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); };
+  const ro = new ResizeObserver(fit); ro.observe(el);
+  el.appendChild(cv); fit();
+  st.stop = () => { if (!st.alive) return; st.alive = false; rd.setAnimationLoop(null); ro.disconnect(); try { rd.dispose(); rd.forceContextLoss(); } catch (e) { } cv.remove(); if (V.cur === st) V.cur = null; };
+  rd.setAnimationLoop(() => {
+    if (!cv.isConnected) return st.stop();
+    const dt = Math.min(.05, ck.getDelta()), t = ck.elapsedTime;
+    if (!st.drag) st.yaw += dt * .28;
+    turn.rotation.y = st.yaw;
+    if (st.mix) st.mix.update(dt);
+    if (t > st.next && st.cur === st.acts.idle) colpo();
+    const pa = pgeo.attributes.position; for (let i = 0; i < NP; i++) { let y = pa.getY(i) + ps[i] * dt; if (y > 2.1) y = 0; pa.setY(i, y); } pa.needsUpdate = true;
+    glow.material.opacity = .13 + Math.sin(t * 1.6) * .05;
+    rd.render(sc, cam);
+  });
+  V.cur = st; return true;
+}
 // API usata dal tavolo
 window.B3D = {
-  pop, attack, fx, eff,
+  pop, attack, fx, eff, vetrina,
   get ok() { return B.ok; }, has: k => ROOMS.includes(k) && !(B.bad && B.bad[k]),
   ready: k => !!B.rooms[k],
   mount(el) {
