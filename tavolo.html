@@ -1634,7 +1634,7 @@ function filmato(name) {
     let fatto = false; const parti_ = !!(window.VID_PARTS || {})[name];
     const ov = document.createElement("div"); ov.className = "filmato";
     ov.innerHTML = parti_ ? `<video playsinline preload="auto"></video><div class="fattesa">Il racconto sta arrivando…</div><button type="button" class="guarda" hidden>▶ Guarda</button><button type="button" class="salta">Salta ›</button>`
-      : `<video playsinline preload="auto"><source src="vid/${name}.mp4" type="video/mp4"><source src="vid/${name}.webm" type="video/webm"></video><button type="button" class="salta">Salta ›</button>`;
+      : `<video playsinline preload="auto"><source src="vid/${name}.mp4" type="video/mp4"></video><button type="button" class="salta">Salta ›</button>`;
     document.body.appendChild(ov);
     const v = ov.querySelector("video"), btn = ov.querySelector(".salta"), gu = ov.querySelector(".guarda"), at = ov.querySelector(".fattesa");
     const mus = AUD.mus; if (mus && !mus.paused) mus.pause(); try { stopVoice(true); } catch (e) {} try { MUSICA.stop(600); } catch (e) {}
