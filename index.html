@@ -56,7 +56,7 @@
     return null; } };
 })();
 </script>
-<script>window.VID_PARTS={"boss1_vorgath": 4, "boss2_cervo": 4, "intro_vesperia": 6};</script>
+<script>window.VID_PARTS={"boss1_vorgath": 4, "boss2_cervo": 4, "boss3_vasthor": 5, "intro_vesperia": 6};</script>
 </head><body>
 <title>Le serate di Matteo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -3203,6 +3203,7 @@ async function sigilloScene() {
 }
 // Il Leviatano
 async function vasthorArrives(forced, fromRound) {
+  if (!forced) await filmato("boss3_vasthor");   // la cut scene: gli scogli, la Goccia in fondo al gorgo, gli occhi, la terra trema, Vasthor emerge
   SFX.boss(); await bossCard("vasthor"); S.phase = "boss"; S.flags.forzato = !!forced; S.flags.vasthorDue = false; S.flags.bossG = S.giro; S.flags.bossHp = alive().reduce((a, h) => a + h.hp, 0) + "/" + S.heroes.reduce((a, h) => a + h.max, 0);
   if (forced) { S.flags.vasthorFuori = true; S.foes.filter(f => f.tile === S.pos && f.hp > 0).forEach(f => f.tile = "gorgo"); }
   addFoe("vasthor", S.pos); addFoe("tentacolo", S.pos); addFoe("tentacolo", S.pos); S.leg = legMax();
