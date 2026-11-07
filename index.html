@@ -56,7 +56,7 @@
     return null; } };
 })();
 </script>
-<script>window.VID_PARTS={"boss1_vorgath": 4, "intro_vesperia": 6};</script>
+<script>window.VID_PARTS={"boss1_vorgath": 4, "boss2_cervo": 4, "intro_vesperia": 6};</script>
 </head><body>
 <title>Le serate di Matteo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2976,6 +2976,7 @@ async function pietre() {
 }
 const legMax = () => dif().leg + (S.flags.forzato ? 1 : 0) + PT().leg + (S.ch === 4 && S.flags.pende === "colpe" ? 1 : 0);
 async function cervoArrives(forced, fromRound) {
+  if (!forced) await filmato("boss2_cervo");   // la cut scene: la macchia fitta, Albecorno esce intero, il marciume, la carica a testa bassa
   SFX.boss(); S.phase = "boss"; S.flags.forzato = !!forced; S.flags.cervoDue = false; await bossCard("cervo");
   if (forced) { S.foes.filter(f => f.tile === S.pos).forEach(f => f.tile = "cuore"); }
   const f = addFoe("cervo", S.pos); S.leg = legMax();
