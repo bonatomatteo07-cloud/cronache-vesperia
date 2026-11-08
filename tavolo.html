@@ -944,7 +944,7 @@ window.MUSICA = (() => {
   async function play(n, vol = .5) {
     if (key === n && cur) { cur._vol = vol; if (cur.paused) cur.play().catch(() => {}); fade(cur, target(), 900); return; }
     stop(900); key = n; const u = await url(n); if (key !== n || !u) return;
-    const a = new Audio(u); a.loop = true; a.volume = 0; a._vol = vol; cur = a; a.play().catch(() => {}); fade(a, target(), 1600);
+    const a = typeof lettore === "function" ? lettore("menu") : new Audio(); a.src = u; a.loop = true; a.volume = 0; a._vol = vol; cur = a; a.play().catch(() => {}); fade(a, target(), 1600);
   }
   function stop(ms = 1200) { const a = cur; cur = null; key = null; if (a) fade(a, 0, ms, () => a.pause()); }
   function setDuck(on) { duck = on ? 0 : 1; if (cur) { if (!on && cur.paused) cur.play().catch(() => {}); fade(cur, target(), on ? 350 : 1200, on ? () => { if (duck === 0 && cur) cur.pause(); } : null); } } // mentre parla una voce la musica si ferma, poi riprende
@@ -1328,6 +1328,20 @@ const SPEC = {
   druido: { n: "Ira della natura", t: "Radici in tutta la zona: d6 danni a ogni nemico, che salta il turno (un boss ha −3)." },
 };
 const abilN = h => h.lvl >= 5 ? EVO[h.classe].n : CL(h.classe).att.n, abilT = h => h.lvl >= 5 ? EVO[h.classe].t : CL(h.classe).att.t;
+// Una riga breve sotto ogni pulsante: cosa fa l'abilità, senza dover aprire la scheda
+const BREVE = {
+  att: { guerriero: "+2 danni, ma i nemici ti colpiscono meglio", barbaro: "Per lo scontro +2 danni e 1 danno in meno subito", mago: "d8 danni a tutti i nemici (rischi 2 danni)", ladro: "+3 danni se un compagno l'ha già ferito",
+    chierico: "Cura d8+2 a un alleato o lo rialza", ranger: "+1 al tiro e ai danni, anche nella zona accanto", bardo: "Tutti gli alleati +1 al prossimo tiro", paladino: "Prendi tu i danni di un alleato, dimezzati", druido: "Diventi orso, lince o corvo per lo scontro" },
+  evo: { guerriero: "+4 danni e il nemico perde 1 CA", barbaro: "Per lo scontro +3 danni e −2 subiti", mago: "d8+3 danni a tutti i nemici", ladro: "+5 danni con un compagno al fianco",
+    chierico: "Cura d8+4 o rialza, e libera dagli effetti", ranger: "+2 al tiro e ai danni, ignora le scorte", bardo: "Tutta la compagnia +1 ai tiri nello scontro", paladino: "Prendi i danni di un alleato e ferisci chi colpisce", druido: "Forma selvaggia con +2 danni, e curi d6" },
+  ab2: { guerriero: "I nemici attaccano te, e hai +2 CA", barbaro: "Attacco +1: l'eccesso travolge un altro nemico", mago: "d8+2 danni a un nemico, non manca mai", ladro: "Sparisci; il prossimo attacco ha +3",
+    chierico: "Tutta la compagnia cura d6", ranger: "d6 danni a ogni nemico, senza tiro", bardo: "Un nemico salta il turno (un boss −3)", paladino: "Cura d8+2 e libera da radici e paura", druido: "d6 danni e il nemico salta il turno" },
+  spec: { guerriero: "Un attacco contro ogni nemico", barbaro: "d8 a tutti i nemici, perdono l'attacco", mago: "3d8 a un nemico, d6 agli altri", ladro: "Tre attacchi di fila",
+    chierico: "Tutti si rialzano almeno a metà Vita", ranger: "3d6 che colpiscono sempre", bardo: "Ogni compagno ha un'azione in più", paladino: "d10+5, doppio contro boss ed élite", druido: "d6 a tutti i nemici, saltano il turno" },
+  dio: { varenna: "Scopri cosa c'è nelle zone vicine", kaoth: "Onda d8: ferisce tutti i nemici o cura tutti", zarek: "Il primo tiro che fallisci lo ritiri", isthara: "Un nemico (non un boss) fugge",
+    oruun: "Quando cadi ti rialzi con metà Vita", pyrath: "+2 danni a ogni colpo per lo scontro", sylvara: "Un lupo morde (d8) e tu curi d6" },
+};
+const breveAbil = h => (h.lvl >= 5 ? BREVE.evo : BREVE.att)[h.classe] || abilT(h), breveDio = g => BREVE.dio[g.id] || g.benedizione.t;
 const ATK = { guerriero: "for", barbaro: "for", paladino: "for", ladro: "agi", ranger: "agi", mago: "ing", druido: "ing", chierico: "fas", bardo: "fas" };
 
 // ---------- Stato ----------
@@ -1388,7 +1402,7 @@ const curId = () => S.order[S.turn];
 const cur = () => { const id = curId(); return id && id[0] === "h" ? hero(id) : null; };
 const word = () => CHAP[S.ch].word, Word = () => word()[0].toUpperCase() + word().slice(1);
 // Gruppo: i numeri sono tarati su 4 eroi; con più o meno eroi cambiano Vita e numero dei nemici
-// Numeri per dimensione del gruppo, tarati al simulatore (sim/simn.py): circa una vittoria su due a Normale
+// Numeri per dimensione del gruppo, tarati al simulatore (sim/tune.py): circa sette vittorie su dieci a Normale, per ogni capitolo e numero di eroi
 const PARTY_T = Object.assign({
   3: { hp: 0.65, boss: 0.75, dmg: 0.7, tgt: 1, leg: 0 },
   4: { hp: 1, boss: 1, dmg: 1, tgt: 2, leg: 0 },
@@ -1396,23 +1410,33 @@ const PARTY_T = Object.assign({
   6: { hp: 1.3, boss: 1.45, dmg: 1.27, tgt: 3, leg: 1 },
   7: { hp: 1.4, boss: 1.55, dmg: 1.3, tgt: 4, leg: 1 },
 }, window.__PT || {});
+// Capitolo 2: la Selva, tarata a parte perché il capitolo 1 è un prologo a copione
+const PARTY_T2 = Object.assign({
+  3: { hp: 0.64, boss: 0.73, dmg: 0.68, tgt: 1, leg: 0 },
+  4: { hp: 0.81, boss: 0.81, dmg: 0.81, tgt: 2, leg: 0 },
+  5: { hp: 1.02, boss: 1.07, dmg: 0.98, tgt: 3, leg: 0 },
+  6: { hp: 1.14, boss: 1.27, dmg: 1.12, tgt: 3, leg: 1 },
+  7: { hp: 1.19, boss: 1.31, dmg: 1.1, tgt: 4, leg: 1 },
+}, window.__PT2 || {});
 const PARTY_K = { rot3: 1 };
 const partyN = () => (S && S.heroes ? S.heroes.length : 4);
 // Capitolo 3: il Leviatano e le isole pesano di più sui gruppi grandi; tarato a parte al simulatore (sim/sim3.py)
 const PARTY_T3 = Object.assign({
-  3: { hp: 0.7, boss: 0.85, dmg: 0.75, tgt: 1, leg: 0 },
-  5: { hp: 1.1, boss: 1.2, dmg: 1.1, tgt: 3, leg: 0 },
-  6: { hp: 1.2, boss: 1.4, dmg: 1.24, tgt: 3, leg: 0 },
-  7: { hp: 1.25, boss: 1.45, dmg: 1.3, tgt: 3, leg: 0 },
+  3: { hp: 0.66, boss: 0.8, dmg: 0.71, tgt: 1, leg: 0 },
+  4: { hp: 0.9, boss: 0.9, dmg: 0.9, tgt: 2, leg: 0 },
+  5: { hp: 1.03, boss: 1.12, dmg: 1.03, tgt: 3, leg: 0 },
+  6: { hp: 1.18, boss: 1.38, dmg: 1.23, tgt: 3, leg: 0 },
+  7: { hp: 1.33, boss: 1.53, dmg: 1.37, tgt: 3, leg: 0 },
 }, window.__PT3 || {});
 // Capitolo 4: Aurea, tarato a parte (sim/sim4.py)
 const PARTY_T4 = Object.assign({
-  3: { hp: 0.78, boss: 0.8, dmg: 0.82, tgt: 1, leg: 0 },
-  5: { hp: 1.11, boss: 1.2, dmg: 1.21, tgt: 2, leg: 0 },
-  6: { hp: 1.15, boss: 1.35, dmg: 1.15, tgt: 3, leg: 0 },
-  7: { hp: 1.2, boss: 1.4, dmg: 1.25, tgt: 3, leg: 0 },
+  3: { hp: 0.71, boss: 0.73, dmg: 0.74, tgt: 1, leg: 0 },
+  4: { hp: 0.88, boss: 0.88, dmg: 0.88, tgt: 2, leg: 0 },
+  5: { hp: 1.04, boss: 1.13, dmg: 1.14, tgt: 2, leg: 0 },
+  6: { hp: 1.13, boss: 1.33, dmg: 1.13, tgt: 3, leg: 0 },
+  7: { hp: 1.23, boss: 1.43, dmg: 1.28, tgt: 3, leg: 0 },
 }, window.__PT4 || {});
-const PT = () => { const n = Math.max(3, Math.min(7, partyN())); return S && S.ch === 4 && PARTY_T4[n] ? PARTY_T4[n] : S && S.ch === 3 && PARTY_T3[n] ? PARTY_T3[n] : PARTY_T[n]; };
+const PT = () => { const n = Math.max(3, Math.min(7, partyN())); return S && S.ch === 4 && PARTY_T4[n] ? PARTY_T4[n] : S && S.ch === 3 && PARTY_T3[n] ? PARTY_T3[n] : S && S.ch === 2 && PARTY_T2[n] ? PARTY_T2[n] : PARTY_T[n]; };
 const partyDmg = () => PT().dmg; // i colpi dei nemici crescono con il gruppo
 const bossTargets = () => PT().tgt;
 const partyHp = boss => boss ? PT().boss : PT().hp;
@@ -1521,6 +1545,7 @@ const SFX = {
   boss: () => { tone(70, 1.4, "sawtooth", .08, .6); setTimeout(() => tone(55, 1.6, "sine", .12, .7), 300); },
   bell: () => [392, 392, 330].forEach((f, i) => setTimeout(() => tone(f, .9, "sine", .07), i * 450)),
   turn: () => tone(660, .08, "triangle", .05, 1.3),
+  trillo: () => [1047, 1319, 1047, 1319, 1568].forEach((f, i) => setTimeout(() => tone(f, i === 4 ? .45 : .09, "sine", i === 4 ? .13 : .1), i * 75)), // tocca al prossimo eroe
   coin: () => [988, 1319].forEach((f, i) => setTimeout(() => tone(f, .12, "square", .035), i * 70)),
   boom: () => { tone(60, .6, "sawtooth", .12, .4); setTimeout(() => tone(120, .3, "square", .05, .3), 60); },
   wave: () => { tone(80, 1.4, "sine", .07, 1.8); setTimeout(() => tone(160, 1.2, "triangle", .035, .45), 350); },
@@ -1541,6 +1566,38 @@ const AUD = { cache: {}, mus: null, musKey: null, voice: null, talking: false, f
 const MUSVOL = .5;
 const TRACKS = { 4: { battle: "m_aurea_battaglia", calm: "m_aurea_quiete", boss: "m_guardiano", choice: "m_processo", vote: "m_processo" }, 1: { battle: "m_crocevento_battaglia", calm: "m_locanda", boss: "m_guardiano" }, 2: { battle: "m_selva_battaglia", calm: "m_selva_quiete", boss: "m_guardiano", choice: "m_violino" },
   3: { battle: "m_mare_battaglia", calm: "m_mare_quiete", boss: "m_guardiano", choice: "m_violino_goccia", vote: "m_coro" } };
+// ---------- iPad e iPhone: lettori audio fissi, sbloccati al primo tocco ----------
+// Safari su iOS fa suonare un elemento audio solo se è già partito una volta dopo un tocco dello schermo:
+// un lettore nuovo creato più tardi (una voce che parte da sola) resta muto. Teniamo pochi lettori fissi,
+// li sblocchiamo al primo tocco con un istante di silenzio e poi cambiamo solo il file che suonano.
+var __LET = null;
+const SILENZIO = "data:audio/wav;base64,UklGRkQDAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YSADAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgA==";
+function lettori() {
+  if (__LET) return __LET;
+  const mk = () => { const a = new Audio(); a.preload = "auto"; a.setAttribute("playsinline", ""); return a; };
+  __LET = { voce: [mk()], mus: [mk(), mk()], menu: [mk(), mk()], dio: [mk()], giro: {} };
+  const tutti = () => ["voce", "mus", "menu", "dio"].flatMap(k => __LET[k]);
+  const sblocca = () => {
+    try { const c = ac(); if (c.state !== "running") c.resume(); } catch (e) {} // anche i suoni sintetizzati (dadi, trillo, ambienti) ripartono
+    tutti().forEach(a => {
+      if (a._ok || a._prova) return;
+      if (!a.paused) { a._ok = true; return; } // sta già suonando: è sbloccato
+      const tk = a._prova = {}; if (!a.src) a.src = SILENZIO; a.muted = true; // un istante muto, poi torna com'era
+      const ok = () => { a._ok = true; if (a._prova !== tk) return; a._prova = null; a.pause(); a.muted = false; }; // se nel frattempo il gioco l'ha usato, non lo tocco
+      const p = a.play(); if (p && p.then) p.then(ok).catch(() => { if (a._prova === tk) { a._prova = null; a.muted = false; } }); else ok();
+    });
+  };
+  ["pointerdown", "touchend", "keydown", "click"].forEach(e => addEventListener(e, sblocca, true));
+  return __LET;
+}
+function lettore(tipo) {
+  const L = lettori(), lista = L[tipo], i = L.giro[tipo] = ((L.giro[tipo] ?? -1) + 1) % lista.length, a = lista[i];
+  clearInterval(a._f); a._f = null; a.onended = a.onerror = a.onloadedmetadata = null; a._res = null; a._stop = false; a.loop = false; a.muted = false; a._prova = null;
+  try { a.pause(); } catch (e) {}
+  return a;
+}
+lettori();
+try { if (navigator.audioSession) navigator.audioSession.type = "playback"; } catch (e) {} // iPhone: i suoni si sentono anche con l'interruttore del silenzioso
 function audURL(name) {
   if (!(name in AUD.cache)) AUD.cache[name] = (async () => { try { const r = await fetch(`aud/${name}.mp3`); if (!r.ok) return null; return URL.createObjectURL(await r.blob()); } catch (e) { return null; } })();
   return AUD.cache[name];
@@ -1564,7 +1621,7 @@ async function syncMusic() {
   const old = AUD.mus; if (old) { old._stop = true; fadeTo(old, 0, 900); }
   AUD.musKey = k; AUD.mus = null; if (!k) return;
   const u = await audURL(k); if (AUD.musKey !== k || !u) return;
-  const a = new Audio(u); a.loop = true; a.volume = 0; AUD.mus = a;
+  const a = lettore("mus"); a.src = u; a.loop = true; a.volume = 0; AUD.mus = a;
   if (AUD.talking) { a._stop = true; return; }
   a.play().catch(() => {}); fadeTo(a, MUSVOL, 1200);
 }
@@ -1577,7 +1634,7 @@ async function voice(key, quip) {
   AUD.talking = true; AUD.quip = !!quip; if (AUD.mus) { AUD.mus._stop = true; fadeTo(AUD.mus, 0, 350); } ambient();
   const u = await audURL("v_" + key);
   if (!u || AUD.tok !== tok) { if (AUD.tok === tok) { AUD.talking = false; syncMusic(); } return; }
-  const a = new Audio(u); AUD.voice = a;
+  const a = lettore("voce"); a.src = u; a.volume = 1; AUD.voice = a;
   await new Promise(res => {
     let t = setTimeout(res, 8000); // rete di sicurezza: se l'audio non parte, il gioco va avanti comunque
     a._res = res; a.onended = res; a.onerror = res;
@@ -2221,7 +2278,7 @@ async function nextTurn() {
       if (h.fx.stun) { h.fx.stun = false; log(`${first(h)} ${h.fx.stunMsg || gx(h, "è ancora avvolto dalle radici", "è ancora avvolta dalle radici")}: salta il turno.`); h.fx.stunMsg = null; popAt(h.id, "Bloccato", "miss"); render(); await sleep(600); continue; }
       if (S.ch === 1 && here().length && !guidaFatta("tut_azioni")) { BUSY = true; render(); try { await guida("tut_azioni"); } finally { BUSY = false; } }
       if (provaPronta(h)) { BUSY = true; render(); try { await provaDio(h); } finally { BUSY = false; } if (h.ko) continue; }
-      h.acts = (h.fx.drag ? 1 : 2) + (h.fx.extraAct ? 1 : 0); if (h.fx.extraAct) { h.fx.extraAct = false; log(`La Canzone senza fine dà a ${first(h)} un'azione in più.`); } if (h.fx.drag) { h.fx.drag = false; log(`${first(h)} lotta con l'acqua: una sola azione in questo turno.`); } h.atks = 0; SFX.turn(); vib(h, [40, 80, 40]); resetTimer(); render(); if (window.__BOT && __BOT.turn) setTimeout(() => __BOT.turn(), 0); return;
+      h.acts = (h.fx.drag ? 1 : 2) + (h.fx.extraAct ? 1 : 0); if (h.fx.extraAct) { h.fx.extraAct = false; log(`La Canzone senza fine dà a ${first(h)} un'azione in più.`); } if (h.fx.drag) { h.fx.drag = false; log(`${first(h)} lotta con l'acqua: una sola azione in questo turno.`); } h.atks = 0; SFX.trillo(); vib(h, [40, 80, 40]); resetTimer(); render(); if (window.__BOT && __BOT.turn) setTimeout(() => __BOT.turn(), 0); return;
     }
     const f = foe(id); if (!f || f.hp <= 0) continue;
     if (f.skip) { f.skip = false; log(`${FOES[f.type].n} non riesce ad agire.`); popAt(f.uid, "Fermo", "miss"); render(); await sleep(500); continue; }
@@ -3760,7 +3817,9 @@ function flash(id) { if (FAST) return; requestAnimationFrame(() => $$(`[data-fx=
 function markActive(id) { $$(".tk").forEach(e => e.classList.toggle("on", e.dataset.id === id)); }
 
 // ---------- Interfaccia: Tavolo ----------
-function render() { if (FAST && !window.__DRAW) return; PREF.view === "phone" ? renderPhone() : renderTV(); syncMusic(); ambient(); saveGame(); }
+function render() { if (FAST && !window.__DRAW) return; PREF.view === "phone" ? renderPhone() : renderTV(); syncMusic(); ambient(); saveGame(); avviso3d(); }
+// Se dopo un po' la vista 3D non è partita, lo diciamo una volta: così si sa che non è un errore della mappa
+function avviso3d() { if (FAST || window.__avv3d || !PREF.d3 || (window.B3D && B3D.ok) || performance.now() < 20000 || !S || S.phase === "end") return; window.__avv3d = true; toast("La vista 3D non si è caricata su questo dispositivo: il gioco usa la mappa."); console.warn("3D non disponibile", { B3D: !!window.B3D, ok: !!(window.B3D && B3D.ok), ua: navigator.userAgent }); }
 // Ritratti che soffrono: sotto metà Vita si incrinano, a terra diventano grigi
 const ptCls = h => h.ko ? "ko" : h.hp <= h.max / 4 ? "hurt grave" : h.hp <= h.max / 2 ? "hurt" : "";
 const ptImg = h => `<span class="pt ${ptCls(h)}"><img src="${ritratto(h.razza, h.genere)}" alt=""></span>`;
@@ -3879,10 +3938,10 @@ function heroPanel(h) {
     <div class="actgrid">
       ${B("attack", maxAtk(h) > 1 ? `Attacca (${maxAtk(h) - h.atks} rimasti)` : "Attacca", `d20 + ${STATS.find(s => s.k === ATK[h.classe]).n}, danni d6`)}
       ${(() => { const C = here().length ? comboOf(h) : null; return C ? B("combo", `Mossa di coppia: ${C.n}`, `Con ${first(C.p)} · +${C.hit} al tiro, +d6${C.plus ? "+" + C.plus : ""} danni${C.cura ? ", cura d4 a entrambi" : ""}`) : ""; })()}
-      ${B("ability", abilN(h), h.lvl >= 5 ? "Abilità evoluta · una volta per scontro" : "Una volta per scontro")}
-      ${h.lvl >= 2 ? B("ability2", ABIL2[h.classe].n, "Abilità di livello 2 · una volta per scontro") : ""}
-      ${h.lvl >= 6 ? B("special", SPEC[h.classe].n, "Attacco speciale · una volta per capitolo") : ""}
-      ${B("bless", g.benedizione.n, `Benedizione di ${g.n}`)}
+      ${B("ability", abilN(h), `${breveAbil(h)} · una volta per scontro`)}
+      ${h.lvl >= 2 ? B("ability2", ABIL2[h.classe].n, `${BREVE.ab2[h.classe] || ABIL2[h.classe].t} · una volta per scontro`) : ""}
+      ${h.lvl >= 6 ? B("special", SPEC[h.classe].n, `${BREVE.spec[h.classe] || SPEC[h.classe].t} · una volta per capitolo`) : ""}
+      ${B("bless", g.benedizione.n, `${breveDio(g)} · benedizione di ${g.n}`)}
       ${here().length ? B("guard", "In guardia", "Dimezzi i danni fino al tuo turno · se il nemico fa 1, contrattacchi") : ""}
       ${TILES[S.pos].amb && here().length ? B("amb", TILES[S.pos].amb.n, `${TILES[S.pos].amb.t} · una volta`) : ""}
       ${objQui() && objQui().k === "recupera" ? B("obj", `Afferra: ${objQui().n}`, `Agilità CD ${9 + S.ch}`) : ""}
@@ -4257,7 +4316,7 @@ function chapterIntro(ch) {
   $("#app").innerHTML = `<section class="intro"><img src="${IMG[I.img] || IMG.loc_locanda}" alt=""><div class="introbox">
     <div class="chtabs">${[1, 2, 3, 4].map(n => `<button class="${n === ch ? "on" : ""}" data-ch="${n}">Capitolo ${n}</button>`).join("")}</div>
     <div class="ovk">${I.k}</div><h1>${I.t}</h1><p>${I.p}</p><p class="small">${I.s}</p>
-    ${ch >= 2 ? `<div class="lab">Difficoltà</div><div class="diffrow">${Object.entries(DIFF).map(([k, d]) => `<button class="${PREF.diff === k ? "on" : ""}" data-diff="${k}"><b>${d.n}</b><small>${k === "facile" ? "Nemici più deboli, niente élite" : k === "normale" ? "Una vittoria su due" : "Nemici più forti, due élite, prove più dure"}</small></button>`).join("")}</div>` : ""}
+    ${ch >= 2 ? `<div class="lab">Difficoltà</div><div class="diffrow">${Object.entries(DIFF).map(([k, d]) => `<button class="${PREF.diff === k ? "on" : ""}" data-diff="${k}"><b>${d.n}</b><small>${k === "facile" ? "Nemici più deboli, niente élite" : k === "normale" ? "Circa sette vittorie su dieci" : "Nemici più forti, due élite, prove più dure"}</small></button>`).join("")}</div>` : ""}
     <button class="btn main" id="go">${sv ? "Nuova partita da qui" : "Inizia"}</button>
     <button class="linkbtn" id="goMap">Guarda la mappa di Vesperia</button>
     ${sv ? `<div class="savebox"><div class="lab">Campagna salvata</div><p><b>Capitolo ${sv.S.ch} · ${esc(CHAP[sv.S.ch].tiles[sv.S.pos].n)}</b> · giro ${sv.S.giro}${sv.S.phase === "end" ? " · capitolo concluso" : ""}<br><small>${new Date(sv.t).toLocaleString("it-IT", { dateStyle: "short", timeStyle: "short" })}</small></p>
@@ -4279,6 +4338,7 @@ chapterIntro(1);
 TITOLO.show({ music: "m_epica", cta: "Entra nella campagna" });
 
 </script>
+<script async src="https://cdn.jsdelivr.net/npm/es-module-shims@1.8.2/dist/es-module-shims.js"></script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <script type="module">
 import * as THREE from "three";
@@ -4334,16 +4394,18 @@ let renderer, scene, camera, controls, room = new THREE.Group(), floorY = 0, can
 const rc = new THREE.Raycaster(), down = new THREE.Vector3(0, -1, 0), tl = new THREE.TextureLoader(), texCache = {};
 function decode(b64) { const bin = atob(b64.trim()); const u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return u.buffer; }
 const hAt = (x, z) => { room.updateMatrixWorld(true); rc.set(new THREE.Vector3(x, 8, z), down); const h = rc.intersectObject(room, true)[0]; const y = h ? h.point.y : floorY; return FLAT.has(B.cur) && y > floorY + 0.3 ? floorY : y; };
+// Tablet e telefoni (iPad compreso): grafica più leggera, così Safari non chiude il 3D per la memoria
+const LEGGERO = /iP(ad|hone|od)|Android/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 async function init() {
   canvas = document.createElement("canvas"); canvas.className = "c3d";
   renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
-  renderer.setPixelRatio(Math.min(2, devicePixelRatio)); renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.setPixelRatio(Math.min(LEGGERO ? 1.5 : 2, devicePixelRatio)); renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.15; renderer.shadowMap.enabled = true;
   scene = new THREE.Scene(); scene.background = new THREE.Color(0x0b0f19); scene.fog = new THREE.Fog(0x0b0f19, 14, 30);
   camera = new THREE.PerspectiveCamera(38, 1.6, 0.05, 100); camera.position.set(3.7, 4.1, 4.8);
   controls = new OrbitControls(camera, canvas); controls.target.set(0, 0.3, 0.2); controls.enableDamping = true; controls.maxPolarAngle = 1.35; controls.minDistance = 2.5; controls.maxDistance = 14;
   scene.add(new THREE.HemisphereLight(0xffe2b8, 0x1a1420, 0.9));
-  const key = new THREE.DirectionalLight(0xffd9a0, 1.6); key.position.set(4, 8, 5); key.castShadow = true; key.shadow.mapSize.set(2048, 2048); Object.assign(key.shadow.camera, { left: -4, right: 4, top: 4, bottom: -4 }); scene.add(key);
+  const key = new THREE.DirectionalLight(0xffd9a0, 1.6); key.position.set(4, 8, 5); key.castShadow = true; key.shadow.mapSize.set(LEGGERO ? 1024 : 2048, LEGGERO ? 1024 : 2048); Object.assign(key.shadow.camera, { left: -4, right: 4, top: 4, bottom: -4 }); scene.add(key);
   fire = new THREE.PointLight(0xff7a2a, 3, 7, 1.6); fire.position.set(-1.2, 1.2, -1.2); scene.add(fire);
   scene.add(room);
   const N = 200; pg = new THREE.BufferGeometry(); pos = new Float32Array(N * 3); sp = new Float32Array(N);
@@ -4353,6 +4415,7 @@ async function init() {
   scene.add(new THREE.Points(pg, B.pmat));
   canvas.addEventListener("click", onClick);
   canvas.addEventListener("webglcontextlost", e => { e.preventDefault(); console.warn("3D: contesto grafico perso, torno alla mappa"); B.ok = false; if (window.render && document.querySelector(".tv")) render(); });
+  canvas.addEventListener("webglcontextrestored", () => { console.warn("3D: contesto grafico ripristinato"); Object.keys(B.rooms).forEach(disposeRoom); B.cur = null; B.ok = true; if (window.render && document.querySelector(".tv")) render(); }); // Safari a volte restituisce la grafica: il 3D riparte
   new ResizeObserver(resize).observe(canvas);
   renderer.setAnimationLoop(loop);
   B.ok = true;
@@ -4406,7 +4469,7 @@ function disposeRoom(k) {
   r.g.traverse(o => { if (!o.isMesh) return; o.geometry && o.geometry.dispose(); (Array.isArray(o.material) ? o.material : [o.material]).forEach(m => { if (!m) return; for (const key in m) { const v = m[key]; if (v && v.isTexture) v.dispose(); } m.dispose(); }); });
   delete B.rooms[k]; delete B.loading[k];
 }
-function evict(k) { Object.keys(B.rooms).forEach(r => { if (r !== k && !(typeof adj === "function" && adj(k, r))) disposeRoom(r); }); }
+function evict(k) { Object.keys(B.rooms).forEach(r => { if (r !== k && (LEGGERO || !(typeof adj === "function" && adj(k, r)))) disposeRoom(r); }); } // sui tablet resta in memoria solo la zona dove siete
 function show(k) {
   if (B.cur === k || !B.rooms[k]) return;
   if (B.cur && B.rooms[B.cur]) room.remove(B.rooms[B.cur].g);
@@ -4736,7 +4799,7 @@ window.B3D = {
     const k = S.pos;
     if (!B.rooms[k]) { const note = document.createElement("div"); note.className = "m3load"; note.textContent = "Carico la zona in 3D…"; el.appendChild(note); loadRoom(k).then(() => { if (window.render && document.querySelector(".tv")) render(); }); return true; }
     el.appendChild(canvas); resize(); sync(); evict(k);
-    ROOMS.forEach(r => { if (r !== k && typeof adj === "function" && adj(k, r)) loadRoom(r); }); // solo le zone confinanti si caricano in anticipo
+    if (!LEGGERO) ROOMS.forEach(r => { if (r !== k && typeof adj === "function" && adj(k, r)) loadRoom(r); }); // solo le zone confinanti si caricano in anticipo (non sui tablet)
     return true;
   },
   sync,
