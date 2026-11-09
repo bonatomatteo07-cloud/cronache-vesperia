@@ -917,6 +917,19 @@ button.pill.mis:hover{border-color:#e8c766}
 .pcar{display:block;margin-top:3px;font-size:11px;font-weight:700;color:#ffb9a3;border:1px solid #a24a35;border-radius:3px;padding:2px 5px;background:rgba(162,74,53,.18)}
 .pobj{border:1px solid var(--gold);border-radius:4px;padding:8px 10px;background:rgba(217,180,106,.07);display:grid;gap:2px}
 .pobj b{font-family:var(--title);color:var(--gold-hi)}
+/* Leggibilità sul telefono (controllo accessibilità, nov 2026): testi minimi più grandi e bersagli da 44px */
+.phonewrap.live .livebar{font-size:13px}
+.phonewrap.live .lab{font-size:11.5px}
+.phonewrap.live .act2 small,.phonewrap.live .tgt small{font-size:13px}
+.phonewrap.live .mz span{font-size:12px}
+.phonewrap.live .mz em{font-size:11px}
+.phonewrap.live .pf small,.phonewrap.live .pp small,.phonewrap.live .pord span,.phonewrap.live .zs b,.phonewrap.live .zi small,.phonewrap.live .zcmp small,.phonewrap.live .pcar,.phonewrap.live .pvw{font-size:12.5px}
+.phonewrap.live .zs small,.phonewrap.live .ztag,.phonewrap.live .pstats small,.phonewrap.live .kotag{font-size:11.5px}
+.phonewrap.live .ltabs button,.phonewrap.live .btn.sm{min-height:44px}
+.phonewrap.live .linkbtn{min-height:44px;padding-top:10px;padding-bottom:10px}
+.phonewrap.live .dicehelp{font-size:13px}
+.phonewrap.live .sab{padding-block:8px}
+.phonewrap.live .sab input{width:20px;height:20px;flex:none}
 </style>
 <style id="cssRole">#cambiaRuolo.tb{border-color:var(--gold-lo,#9c7a3c);color:var(--gold-hi,#f3d793)}
 .rolechip{margin-left:auto;margin-right:8px;padding:6px 12px;border:1px solid var(--gold-lo,#9c7a3c);border-radius:999px;background:rgba(217,180,106,.08);color:var(--gold-hi,#f3d793);font:inherit;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
@@ -931,6 +944,26 @@ button.pill.mis:hover{border-color:#e8c766}
 .rolemodal .btn{border:1px solid #d9b46a;border-radius:4px;padding:11px 16px;font-family:"Cinzel",Georgia,serif;font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;background:rgba(10,13,22,.6);color:#f3d793;cursor:pointer}
 .rolemodal .btn.main{background:linear-gradient(180deg,#f3d793,#d9b46a 45%,#9c7a3c);color:#1a1408}
 .rolemodal .ovk{font-size:11px;letter-spacing:.26em;text-transform:uppercase;font-weight:700;color:#d9b46a}
+.rolemodal.parere{place-items:start center;overflow-y:auto;padding:16px max(16px,env(safe-area-inset-left)) 40px}
+.parere .rbox{text-align:left;gap:14px}
+.parere .rbox>h3,.parere .rbox>.ovk,.parere .rbox>p{text-align:center}
+.parere fieldset{border:0;margin:0;padding:0;display:grid;gap:8px;min-width:0}
+.parere legend,.parere .ptxt>span{font-family:var(--serif,"Spectral",Georgia,serif);font-size:16px;color:#ece4d2;margin-bottom:6px;padding:0}
+.parere .pscale{display:flex;flex-wrap:wrap;gap:6px}
+.parere .pscale label,.parere .pchk label{position:relative;cursor:pointer}
+.parere .pscale input,.parere .pchk input{position:absolute;opacity:0;pointer-events:none}
+.parere .pscale span{display:block;padding:10px 12px;min-height:44px;box-sizing:border-box;border:1px solid #3a4560;border-radius:6px;font-size:15px;color:#d8d0bd;background:#0f1420}
+.parere .pchk{display:grid;gap:6px}
+.parere .pchk span{display:block;padding:11px 12px 11px 40px;min-height:44px;box-sizing:border-box;border:1px solid #3a4560;border-radius:6px;font-size:15px;color:#d8d0bd;background:#0f1420}
+.parere .pchk span::before{content:"";position:absolute;left:12px;top:50%;width:18px;height:18px;margin-top:-9px;border:1.5px solid #9aa2b6;border-radius:3px;box-sizing:border-box}
+.parere input:checked+span{border-color:#f3d793;color:#1a1408;background:linear-gradient(180deg,#f3d793,#d9b46a)}
+.parere .pchk input:checked+span::before{border-color:#1a1408;background:#1a1408}
+.parere input:focus-visible+span{outline:2px solid #f3d793;outline-offset:2px}
+.parere .ptxt{display:grid}
+.parere textarea{width:100%;box-sizing:border-box;font:16px/1.4 var(--serif,"Spectral",Georgia,serif);color:#ece4d2;background:#0f1420;border:1px solid #3a4560;border-radius:6px;padding:10px;resize:vertical}
+.parere textarea:focus{outline:2px solid #f3d793;outline-offset:1px}
+.parere .perr{color:#ff9a8a}
+.parbtn{display:block;width:100%;margin:8px 0}
 /* ===== Schermata iniziale ===== */
 .tt{position:fixed;inset:0;z-index:200;overflow:hidden;background:#05070d;color:#f3e6c4;font-family:"Cinzel","Trajan Pro",Georgia,serif;cursor:pointer}
 .tt-art{position:absolute;inset:-4%;opacity:0;filter:brightness(.35) saturate(.8);transform:scale(1.12);transition:opacity 2.2s ease,filter 3.5s ease,transform 18s cubic-bezier(.2,.6,.2,1)}
@@ -5855,7 +5888,7 @@ const SERATE = (() => {
       ordine: S.order.map(id => { id = String(id); if (id[0] === "h") { const x = hero(id); return x ? { id, n: first(x), h: 1 } : null; } const f = foe(id); return f ? { id, n: FOES[f.type].n.split(",")[0], h: 0 } : null; }).filter(Boolean),
       eroi: S.heroes.map(h => ({ id: h.id, user: h.user || "", nome: h.nome, genere: h.genere || "", razza: h.razza, classe: h.classe, dio: h.dio, hp: h.hp, max: h.max, lvl: h.lvl, ca: h.ca, st: h.st,
         congegno: h.congegno || "", abil: !!h.abil, abil2: !!h.abil2, spec: !!h.spec, bless: !!h.bless, items: h.items || [], oro: h.oro || 0, ko: !!h.ko, acts: h.acts || 0, eq: h.eq || {}, bag: h.bag || [] })), msg: MSG,
-      lotta: here().length > 0 && S.phase !== "end",
+      lotta: here().length > 0 && S.phase !== "end", esito: S.result || "", diff: S.diff || "",
       prova: PDIO ? { seq: PDIO.seq, hid: PDIO.hid, dio: PDIO.dio, n: PDIO.n, sim: PDIO.sim, t: PDIO.t, q: PDIO.q, costo: PDIO.costo, dono: PDIO.dono } : null,
       smascherati: (S.camp && S.camp.smascherati) || {},
       voto: VOTO ? { seq: VOTO.seq, ids: VOTO.ids, cands: VOTO.cands } : null,
@@ -5931,7 +5964,8 @@ const SERATE = (() => {
     newGearCheck(T, h); diceCall(T, h);
     const m = T.msg && T.msg[me]; if (m && m.n !== LIVE.msgN) { LIVE.msgN = m.n; LIVE.sent = false; if (m.t) toast(m.t); }
     const scenaLine = T.scena && !myTurn ? `<div class="scenabar"><span class="pulse"></span>${esc(T.scena)}</div>` : "";
-    const turnLine = scenaLine + (myTurn ? `<div class="yourturn">È il tuo turno · ${h.acts} azioni</div>` : T.fase === "end" ? `<div class="turnof">Capitolo concluso</div>` : cur ? `<div class="turnof">Turno di ${esc(cur.nome.split(" ")[0])}</div>` : `<div class="turnof">Tocca ai nemici</div>`);
+    const giaParere = CR.S.parere === (T.pid || 0) + ":" + T.ch, parBtn = T.fase === "end" && !giaParere ? `<button class="btn main parbtn" id="pParere">Com'è andata? Dicci la tua</button>` : "";
+    const turnLine = parBtn + scenaLine + (myTurn ? `<div class="yourturn">È il tuo turno · ${h.acts} azioni</div>` : T.fase === "end" ? `<div class="turnof">Capitolo concluso</div>` : cur ? `<div class="turnof">Turno di ${esc(cur.nome.split(" ")[0])}</div>` : `<div class="turnof">Tocca ai nemici</div>`);
     if (TAB === "zaino") { out(`<div class="phone"><div class="screen">
       <div class="livebar"><span>Cap. ${T.ch} · ${esc(T.zona)}</span><span>Giro ${T.giro}</span></div>${tabs}${zaino(T, h, myTurn)}</div></div>`); wireLive(); wireZaino(T, h); return; }
     if (TAB === "plancia") { out(`<div class="phone"><div class="screen">
@@ -5954,6 +5988,7 @@ const SERATE = (() => {
       ${smk ? `<div class="pcard obj"><div class="lab">L'Accusa</div><p>${smk === "redento" ? "Hai rinnegato Nhazgor davanti alla compagnia. Il Sussurro tace: non hai più un patto." : "Sei stato smascherato: in questo capitolo il patto tace e non puoi sabotare. Ma non hai rinnegato il Re Affamato, e il Sussurro tornerà."}</p></div>` : ""}
       ${tr ? `<details class="secret"><summary>◉ Patto segreto <small>tocca per aprire, tienilo nascosto</small></summary><img src="${IMG.nhazgor}" alt="">${secret}${segreti}<div class="corr">Corruzione <span>${[1, 2, 3, 4, 5].map(i => `<i class="${i <= T.ch ? "on" : ""}"></i>`).join("")}</span></div></details>` : ""}
       <div class="pcard"><div class="lab">Al Tavolo</div>${(T.log || []).map(l => `<p class="small">${esc(l)}</p>`).join("")}</div>
+      <button class="linkbtn" id="pParere2">${giaParere ? "Parere inviato · puoi cambiarlo" : "Com'è andata? Lascia un parere"}</button>
     </div></div>`);
     wireLive();
     document.querySelectorAll("[data-roll]").forEach(b => b.onclick = async () => { SFX.dice(); const k = +b.dataset.roll, el = document.getElementById("pDie"), v = roll(k); await spin(el, k, v); el.innerHTML += `<b>${v}</b>`; });
@@ -5978,9 +6013,46 @@ const SERATE = (() => {
     const det = document.querySelector("details.secret"); if (det && LIVE.open) det.open = true; if (det) det.ontoggle = () => { LIVE.open = det.open; };
   }
 
+  // Il parere dopo la partita: poche domande dal telefono, salvate in partite/{codice}/pareri/{utente}-{capitolo}
+  const PQ = [
+    { k: "diff", t: "La difficoltà, per te, è stata…", o: ["Troppo facile", "Facile", "Giusta", "Difficile", "Troppo difficile"] },
+    { k: "fun", t: "Quanto ti sei divertito?", o: ["Poco", "Così così", "Abbastanza", "Molto", "Moltissimo"] },
+    { k: "turno", t: "Al tuo turno, quanto era facile capire cosa fare?", o: ["Difficile", "Non sempre", "Abbastanza", "Facile", "Facilissimo"] },
+  ];
+  const PT_ = [
+    { k: "top", t: "Qual è stato il momento più bello della partita?" },
+    { k: "persi", t: "C'è stato un momento in cui non hai capito cosa succedeva o cosa dovevi fare? Raccontalo." },
+    { k: "noia", t: "Quando hai aspettato troppo o ti sei annoiato?" },
+    { k: "cambia", t: "Se potessi cambiare una cosa sola, quale sarebbe?" },
+  ];
+  const PPROB = ["Una voce o un dialogo non si sentiva", "La musica copriva le voci", "Mancava il 3D sul Tavolo", "Il telefono si è scollegato", "Testi troppo piccoli", "Il gioco era lento a rispondere"];
+  function parere(T, h) {
+    if (document.querySelector(".rolemodal") || !T) return;
+    const code = CR.S.sess && CR.S.sess.code, me = CR.S.sess && CR.S.sess.user; if (!code || !me) return;
+    const m = document.createElement("div"); m.className = "rolemodal parere";
+    const scala = q => `<fieldset><legend>${q.t}</legend><div class="pscale">${q.o.map((o, i) => `<label><input type="radio" name="pq_${q.k}" value="${i + 1}"><span>${o}</span></label>`).join("")}</div></fieldset>`;
+    m.innerHTML = `<form class="rbox" id="pForm"><div class="ovk">Capitolo ${T.ch} · due minuti</div><h3>Com'è andata?</h3><p>Le tue risposte servono a migliorare il gioco per la prossima serata. Rispondi solo a quello che vuoi.</p>
+      ${PQ.map(scala).join("")}
+      ${PT_.map(q => `<label class="ptxt"><span>${q.t}</span><textarea name="pt_${q.k}" rows="2" maxlength="600"></textarea></label>`).join("")}
+      <fieldset><legend>Hai avuto qualcuno di questi problemi?</legend><div class="pchk">${PPROB.map((o, i) => `<label><input type="checkbox" name="pp" value="${i}"><span>${o}</span></label>`).join("")}</div></fieldset>
+      <fieldset><legend>Da cosa hai giocato?</legend><div class="pscale">${["iPhone", "Android", "iPad o tablet", "Computer"].map(o => `<label><input type="radio" name="pdev" value="${o}"><span>${o}</span></label>`).join("")}</div></fieldset>
+      <p class="perr" hidden>Non riesco a salvare: controlla la connessione e riprova.</p>
+      <div class="rrow"><button class="btn main" type="submit">Invia</button><button class="btn ghost" type="button" data-n>Più tardi</button></div></form>`;
+    document.body.appendChild(m);
+    m.querySelector("[data-n]").onclick = () => m.remove();
+    m.querySelector("#pForm").onsubmit = async e => { e.preventDefault();
+      const f = e.target, v = n => { const x = f.querySelector(`[name="${n}"]:checked`); return x ? x.value : ""; };
+      const d = { ch: T.ch, giro: T.giro, esito: T.esito || (T.fase === "end" ? "" : "in corso"), livello: T.diff || "", eroi: (T.eroi || []).length, eroe: h ? h.classe : "", t: Date.now(),
+        ...Object.fromEntries(PQ.map(q => [q.k, +v("pq_" + q.k) || 0])), ...Object.fromEntries(PT_.map(q => [q.k, f.querySelector(`[name="pt_${q.k}"]`).value.trim()])),
+        problemi: [...f.querySelectorAll('[name="pp"]:checked')].map(x => PPROB[+x.value]), dispositivo: v("pdev") };
+      const b = f.querySelector('[type="submit"]'); b.disabled = true;
+      try { await MP.db.doc(`partite/${code}/pareri/${me}-${T.ch}`).set(d); CR.S.parere = (T.pid || 0) + ":" + T.ch; CR.keep(); m.remove(); toast("Grazie! Il tuo parere è arrivato."); renderLive(); }
+      catch (err) { b.disabled = false; f.querySelector(".perr").hidden = false; } };
+  }
   function wireLive() {
     document.querySelectorAll("[data-cmd]").forEach(b => b.onclick = () => send(b.dataset.cmd, b.dataset.v));
     provaPhone(); votoPhone(); pvotoPhone();
+    ["pParere", "pParere2"].forEach(id => { const b = document.getElementById(id); if (b) b.onclick = () => { const T = LIVE.t, me = CR.S.sess && CR.S.sess.user; parere(T, T && (T.eroi || []).find(x => x.user === me)); }; });
     document.querySelectorAll("[data-tab]").forEach(b => b.onclick = () => { TAB = b.dataset.tab; try { SFX.click ? SFX.click() : 0; } catch (e) {} renderLive(); scrollTo(0, 0); });
   }
   // La Prova del dio sul telefono: una carta segreta, solo per chi la riceve
