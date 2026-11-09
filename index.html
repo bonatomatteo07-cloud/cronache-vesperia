@@ -748,6 +748,103 @@ button.pill.mis:hover{border-color:#e8c766}
 @keyframes fatt{50%{opacity:.35}}
 .filmato .guarda{position:absolute;border:1px solid #d9b46a;border-radius:4px;padding:16px 28px;background:linear-gradient(180deg,#f3d793,#d9b46a 45%,#9c7a3c);color:#1a1408;font-family:"Cinzel",Georgia,serif;font-weight:700;font-size:16px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
 .tile.oblio img{filter:grayscale(1) blur(2px) brightness(.45)}.tile.oblio .tname{color:#9aa2b6;font-style:italic}.seg5.lan i.on{background:#f3d793;box-shadow:0 0 6px rgba(243,215,147,.7)}.pill.lanp.warn{border-color:#a24a35}
+
+/* ===== Tavolo «cinematografico»: scena grande, carte dell'iniziativa sulla scena, cronaca a destra ===== */
+.tv.cine{height:100vh;height:100dvh;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr);padding:0;gap:0;overflow:hidden;background:#05070c}
+.tv.cine .cbar{gap:12px;padding:6px 14px;border-bottom:1px solid rgba(217,180,106,.22);background:#05070c;position:relative;z-index:6}
+.tv.cine .cbar .brand b{font-size:13px}.tv.cine .cbar .brand span{font-size:12.5px}
+.tv.cine .cbar .pills{gap:5px}.tv.cine .cbar .pill{font-size:12px;padding:3px 8px}
+.giro{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);white-space:nowrap}
+.giro b{color:var(--gold-hi);font-size:14px}
+.gseg{display:flex;gap:3px;width:clamp(80px,11vw,190px)}
+.gseg i{flex:1;height:6px;border-radius:2px;background:#2a2f3e}
+.gseg i.d{background:#7d6430}
+.gseg i.c{background:#f0cf7a;box-shadow:0 0 7px rgba(240,207,122,.7)}
+.gseg i.c.f{background:#e0645a;box-shadow:0 0 7px rgba(224,100,90,.7)}
+.tv.cine .tools{position:relative}
+.tmenu{position:absolute;right:0;top:calc(100% + 6px);z-index:20;display:grid;gap:6px;padding:8px;min-width:180px;background:#0d111c;border:1px solid var(--gold-lo);border-radius:6px;box-shadow:0 12px 30px rgba(0,0,0,.6)}
+.tmenu .tb{text-align:left;padding:9px 12px}
+.tv.cine .board{height:100%;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,390px);gap:0;align-items:stretch}
+.stage{--ch:clamp(104px,24vh,250px);position:relative;min-height:0;min-width:0;display:flex;flex-direction:column;background:#0b0f19;overflow:hidden}
+.tv.cine .stage>.map{height:auto;flex:1;min-height:0;border:0;border-radius:0;box-shadow:none}
+.tv.cine .stage>.map.is3d{aspect-ratio:auto;height:auto}
+.stage>.map.is3d .c3d{border-radius:0}
+.tv.cine .stage>.map:not(.is3d){grid-template-rows:repeat(3,minmax(0,1fr))}
+.tv.cine .stage>.map:not(.is3d) .tile{aspect-ratio:auto;min-height:0}
+.stage .m3tag{left:auto;right:12px;top:12px}
+.ttag{position:absolute;left:14px;top:12px;z-index:3;display:flex;align-items:center;gap:9px;padding:6px 16px 6px 6px;border-radius:999px;background:rgba(5,7,12,.8);border:1px solid rgba(217,180,106,.6);pointer-events:none}
+.ttag img{width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:50% 15%}
+.ttag span{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.ttag b{font-family:var(--title);font-size:18px;color:var(--gold-hi)}
+.ttag.f{border-color:rgba(224,100,90,.75)}.ttag.f span{color:#e7a29a}.ttag.f b{color:#f6c1b8}
+.istrip{z-index:2}
+.stage.s3d .istrip{position:absolute;left:0;right:0;bottom:0;padding:70px 14px 12px;background:linear-gradient(180deg,rgba(5,7,12,0),rgba(5,7,12,.82) 55%,rgba(5,7,12,.96));pointer-events:none}
+.stage.s2d .istrip{padding:10px 12px;background:#05070c;border-top:1px solid rgba(217,180,106,.2)}
+.stage.s2d{--ch:clamp(96px,17vh,170px)}
+.irow{display:flex;align-items:flex-end;gap:8px;min-width:0;pointer-events:auto}
+.ic{position:relative;flex:0 0 auto;padding:0;overflow:hidden;border-radius:10px;border:1px solid rgba(255,255,255,.2);background:#10162a;text-align:left;transition:transform .35s,box-shadow .35s,opacity .35s}
+.ic>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 12%}
+.ic.big{height:var(--ch);width:calc(var(--ch)*.71);border:3px solid #f0cf7a;box-shadow:0 0 26px rgba(240,207,122,.55)}
+.ic.big.f{border-color:#e0645a;box-shadow:0 0 26px rgba(224,100,90,.55)}
+.ic.mid{height:calc(var(--ch)*.71);width:calc(var(--ch)*.5);border:2px solid var(--gold)}
+.ic.mid.f{border-color:#c9554a}
+.ic.sm{height:calc(var(--ch)*.63);width:calc(var(--ch)*.31);flex-shrink:1;min-width:calc(var(--ch)*.2)}
+.ic.sm.f{border-color:#7e3530}
+.ic.done{opacity:.4}
+.ic.ko>img{filter:grayscale(1) brightness(.6)}
+.ic .icn{position:absolute;left:0;right:0;bottom:0;display:grid;gap:3px;padding:18px 6px 6px;background:linear-gradient(180deg,rgba(5,7,12,0),rgba(5,7,12,.95))}
+.ic .icn b{font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
+.ic.big .icn b{font-family:var(--title);font-size:clamp(13px,1.9vh,18px);color:var(--gold-hi)}
+.ic.big.f .icn b,.ic.mid.f .icn b{color:#f6c1b8}
+.ic.mid .icn b{font-size:13px}
+.ic .icn small{font-size:11px;color:var(--muted)}
+.ic .hpb{height:4px;margin:0}
+.ic.big .hpb{height:6px}
+.hpb.warn i{background:linear-gradient(90deg,#b98a2c,#f0c35a)}
+.ic .ini{position:absolute;left:6px;top:6px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:700;font-size:12px;background:var(--gold);color:#0b0f19}
+.ic.f .ini{background:#c9554a;color:#fff}
+.ic .poi{position:absolute;left:0;right:0;top:0;padding:3px;text-align:center;font-style:normal;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;background:var(--gold);color:#0b0f19}
+.ic.f .poi{background:#c9554a;color:#fff}
+.ic .cnt{position:absolute;right:4px;top:4px;padding:1px 5px;border-radius:4px;font-style:normal;font-size:11px;font-weight:700;background:#c9554a;color:#fff}
+.ic.pick{cursor:pointer;animation:glowg 1.3s infinite}
+.ic.f.pick{animation:glowr 1.3s infinite}
+.ic .pickhint{top:40%;font-size:10px;padding:4px 6px;white-space:nowrap}
+@keyframes glowg{50%{box-shadow:0 0 0 3px rgba(243,215,147,.5)}}
+.tv.cine .side{height:100%;min-height:0;overflow-y:auto;scrollbar-width:thin;align-content:start;padding:10px;gap:10px;background:#090c14;border-left:1px solid rgba(217,180,106,.18)}
+.cron1{gap:4px;padding:10px 12px;border-left:3px solid #6b7389}
+.cron1 p{margin:0;font-family:var(--serif);font-size:14px;line-height:1.35;color:#8f8a7e}
+.cron1 p.new{color:#ddd5c3;font-size:15px}
+.cronbig{gap:9px;border-color:rgba(201,85,74,.45)}
+.cronbig .cbh{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.cronbig .cbh .lab{color:#e7a29a}.cronbig .cbh small{color:var(--muted);font-size:12px}
+.cronbig p{margin:0;font-family:var(--serif);font-size:15px;line-height:1.38;color:#7f7b72}
+.cronbig p.mid{color:#b9b2a2}
+.cronbig p.new{padding:9px 11px;border-radius:6px;background:rgba(224,100,90,.14);border-left:3px solid #e0645a;color:#fff0ec;font-size:17px;font-weight:500;animation:cronin .5s ease-out}
+@keyframes cronin{from{opacity:0;transform:translateY(6px)}}
+.tvwait .calm{font-size:15px}
+/* Il cambio turno: la fascia dorata */
+.tbn{position:fixed;inset:0;z-index:80;display:grid;align-items:center;pointer-events:none;background:rgba(5,7,12,0);transition:background .35s}
+.tbn.on{background:rgba(5,7,12,.5)}
+.tbn-band{display:flex;align-items:center;justify-content:center;gap:clamp(16px,3vw,40px);padding:clamp(18px,4vh,40px) 20px;background:linear-gradient(90deg,rgba(5,7,12,0),rgba(5,7,12,.93) 20%,rgba(5,7,12,.93) 80%,rgba(5,7,12,0));border-top:1px solid rgba(217,180,106,.5);border-bottom:1px solid rgba(217,180,106,.5);opacity:0;transform:scale(.96);transition:opacity .35s,transform .45s cubic-bezier(.2,.9,.3,1.2)}
+.tbn.on .tbn-band{opacity:1;transform:none}
+.tbn.out .tbn-band{opacity:0;transform:translateY(-14px)}
+.tbn.out{background:rgba(5,7,12,0)}
+.tbn-pt{width:clamp(90px,18vh,160px);height:clamp(90px,18vh,160px);border-radius:50%;overflow:hidden;border:4px solid #f0cf7a;box-shadow:0 0 0 8px rgba(217,180,106,.18),0 0 50px rgba(240,207,122,.6);flex-shrink:0}
+.tbn-pt img{width:100%;height:100%;object-fit:cover;object-position:50% 15%}
+.tbn-t{display:grid;gap:4px;min-width:0}
+.tbn-k{font-size:clamp(12px,1.8vh,16px);font-weight:700;letter-spacing:.34em;text-transform:uppercase;color:var(--gold)}
+.tbn-n{font-family:var(--title);font-weight:800;font-size:clamp(44px,11vh,104px);line-height:1;color:#f6e2a8;text-shadow:0 4px 30px rgba(240,207,122,.35);overflow-wrap:anywhere}
+.tbn-s{font-family:var(--serif);font-style:italic;font-size:clamp(15px,2.4vh,21px);color:#d8d1bf}
+.tbn-p{font-size:clamp(13px,1.9vh,16px);color:var(--muted)}.tbn-p b{color:var(--gold-hi)}.tbn-p b.f{color:#f1a79c}
+.tbn-h{margin-top:4px;font-size:clamp(13px,1.9vh,16px);font-weight:700;color:var(--gold-hi)}
+body:has(.tv.cine) .viewbar{left:auto;right:12px;transform:none}
+body:has(.tv.cine) .tv.cine .side{padding-bottom:60px}
+@media (max-width:980px){.tv.cine{height:auto;min-height:100vh;overflow:visible}.tv.cine .board{grid-template-columns:minmax(0,1fr)}.stage{height:62vh}.tv.cine .side{height:auto;border-left:0}}
+@media (prefers-reduced-motion:reduce){.tbn-band,.ic{transition:none}.cronbig p.new{animation:none}}
+.side .foe.cmp{grid-template-columns:40px 1fr;gap:8px;padding:6px 8px}
+.side .foe.cmp img{width:40px;height:48px}
+.side .foe.cmp .fn{font-size:14px}.side .foe.cmp .hpb{margin:2px 0 1px}
+.stage.s2d .ttag{display:none}
 /* ===== Le serate di Matteo ===== */
 .serhome .introbox{max-width:620px}
 .rolegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px;margin-top:6px}
@@ -931,6 +1028,53 @@ button.pill.mis:hover{border-color:#e8c766}
 .phonewrap.live .dicehelp{font-size:13px}
 .phonewrap.live .sab{padding-block:8px}
 .phonewrap.live .sab input{width:20px;height:20px;flex:none}
+/* ===== Plancia del telefono, nuova: prima le tue azioni o a chi tocca, poi il resto ===== */
+.yourturn.big{display:grid;gap:2px;justify-items:center;padding:12px 10px;border-radius:8px;border:2px solid var(--gold);background:radial-gradient(90% 120% at 50% 0%,rgba(240,207,122,.28),rgba(217,180,106,.06));animation:ytin .6s ease-out}
+.yourturn.big span{font-family:var(--title);font-weight:800;font-size:22px;letter-spacing:.06em;color:#f6e2a8}
+.yourturn.big small{font-size:13px;color:var(--muted)}
+@keyframes ytin{from{transform:scale(.94);opacity:0}}
+.mturn{display:grid;gap:8px;padding:12px;border:1px solid var(--gold-lo);border-radius:10px;background:linear-gradient(180deg,rgba(217,180,106,.08),rgba(217,180,106,.02))}
+.mt-h{display:flex;justify-content:space-between;align-items:center}
+.mt-h span:first-child{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.mt-h .dia{display:flex;gap:6px}.mt-h .dia i{width:14px;height:14px;transform:rotate(45deg);border:1px solid var(--gold-lo)}
+.mt-h .dia i.on{background:linear-gradient(135deg,var(--gold-hi),var(--gold-lo));border-color:var(--gold-hi)}
+.agl{margin-top:4px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.agrid3{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.act3{display:grid;grid-template-columns:30px minmax(0,1fr);gap:8px;align-items:start;text-align:left;min-height:64px;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--panel2);color:var(--text)}
+.act3 .aico{width:26px;height:26px;color:var(--gold);margin-top:1px}
+.act3 span{display:grid;gap:3px;min-width:0}
+.act3 b{font-family:var(--title);font-size:14.5px;line-height:1.2;color:var(--gold-hi)}
+.act3 small{font-size:12px;line-height:1.3;color:var(--muted)}
+.act3:not(:disabled):active{border-color:var(--gold);background:rgba(217,180,106,.16);transform:scale(.98)}
+.act3:disabled{opacity:.36}
+.act3.prim{grid-template-columns:40px minmax(0,1fr);align-items:center;min-height:76px;border:2px solid var(--gold);background:linear-gradient(180deg,rgba(240,207,122,.22),rgba(217,180,106,.08))}
+.act3.prim .aico{width:34px;height:34px;color:var(--gold-hi)}
+.act3.prim b{font-size:19px}
+.act3.god .aico{color:#f0cf7a}
+.mturn .endt{width:100%;min-height:48px;margin-top:2px}
+.tcard{display:grid;grid-template-columns:64px minmax(0,1fr);gap:12px;align-items:center;padding:10px 12px;border-radius:10px;border:1px solid var(--gold-lo);background:rgba(217,180,106,.07)}
+.tcard img{width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:50% 15%;border:2px solid var(--gold)}
+.tcard div{display:grid;gap:1px;min-width:0}
+.tcard span{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.tcard b{font-family:var(--title);font-size:22px;color:#f6e2a8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tcard small{font-size:13px;color:var(--muted)}
+.tcard.f{border-color:#7a3430;background:rgba(224,100,90,.08)}.tcard.f img{border-color:#e0645a}.tcard.f span{color:#e7a29a}.tcard.f b{color:#f6c1b8}
+.pcron{display:grid;gap:6px;padding:10px 12px;border-radius:8px;background:rgba(255,255,255,.03);border-left:3px solid #6b7389}
+.pcron p{margin:0;font-family:var(--serif);font-size:14.5px;line-height:1.35;color:#8f8a7e}
+.pcron p.new{color:#efe7d6;font-size:15.5px}
+.pord2{display:flex;gap:6px;overflow-x:auto;padding:2px 0 6px;scrollbar-width:none}
+.pord2 span{flex:0 0 auto;display:grid;justify-items:center;gap:3px;width:58px;position:relative}
+.pord2 img{width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:50% 15%;border:2px solid #3a4258}
+.pord2 b{font-size:11px;font-weight:600;color:var(--muted);max-width:58px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pord2 em{position:absolute;top:-2px;right:2px;font-style:normal;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:1px 4px;border-radius:3px;background:var(--gold);color:#0b0f19}
+.pord2 span.f img{border-color:#7a3430}.pord2 span.f em{background:#c9554a;color:#fff}
+.pord2 span.on img{width:52px;height:52px;border:3px solid #f0cf7a;box-shadow:0 0 12px rgba(240,207,122,.6)}
+.pord2 span.on.f img{border-color:#e0645a;box-shadow:0 0 12px rgba(224,100,90,.6)}
+.pord2 span.on b{color:var(--gold-hi)}
+.pord2 span.ko{opacity:.4}
+.psec{display:grid;gap:6px}
+.pf.cur{border-color:#e0645a;box-shadow:0 0 0 2px rgba(224,100,90,.4)}
+@media (prefers-reduced-motion:reduce){.yourturn.big{animation:none}}
 </style>
 <style id="cssRole">#cambiaRuolo.tb{border-color:var(--gold-lo,#9c7a3c);color:var(--gold-hi,#f3d793)}
 .rolechip{margin-left:auto;margin-right:8px;padding:6px 12px;border:1px solid var(--gold-lo,#9c7a3c);border-radius:999px;background:rgba(217,180,106,.08);color:var(--gold-hi,#f3d793);font:inherit;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
@@ -1508,7 +1652,8 @@ const ARMOR = { guerriero: 3, paladino: 3, barbaro: 2, chierico: 2, ranger: 1, l
 const LV2 = { guerriero: 6, paladino: 6, barbaro: 6, chierico: 4, ranger: 4, druido: 4, bardo: 4, ladro: 3, mago: 3 }; // Vita guadagnata al livello 2
 const maxAtk = h => h.classe === "guerriero" ? 2 : 1;
 const FAST = !!window.__FAST; // simulatore: niente attese né animazioni
-const PACE = () => (typeof PREF !== "undefined" && PREF.rapido ? .55 : 1); // «Ritmo rapido» accorcia attese e animazioni di lotta
+const RITMI = { calmo: 1.3, normale: 1, rapido: .55 }, RITMO_N = { calmo: "Ritmo calmo", normale: "Ritmo normale", rapido: "Ritmo rapido" };
+const PACE = () => (typeof PREF !== "undefined" && RITMI[PREF.ritmo]) || 1; // il ritmo della lotta: calmo (predefinito) allunga attese e animazioni, rapido le accorcia
 const sleep = ms => FAST ? Promise.resolve() : new Promise(r => setTimeout(r, ms * PACE()));
 const clamp = v => Math.max(0, Math.min(MAXP, v));
 const R = id => RACES.find(x => x.id === id), CL = id => CLASSES.find(x => x.id === id), GD = id => GODS.find(x => x.id === id);
@@ -1819,7 +1964,7 @@ const ATK = { guerriero: "for", barbaro: "for", paladino: "for", ladro: "agi", r
 
 // ---------- Stato ----------
 let S, HIST = [], BUSY = false;
-const PREF = { rapido: (() => { try { return localStorage.getItem("vesperia.ritmo") === "rapido"; } catch (e) { return false; } })(), music: true, voice: true, timer: false, view: "tv", phone: "h1", secret: false, d3: true, diff: "normale" };
+const PREF = { ritmo: (() => { try { const v = localStorage.getItem("vesperia.ritmo2"); return RITMI[v] ? v : "calmo"; } catch (e) { return "calmo"; } })(), music: true, voice: true, timer: false, view: "tv", phone: "h1", secret: false, d3: true, diff: "normale" };
 const use3d = () => PREF.d3 && window.B3D && B3D.ok && B3D.has(S.pos) && S.mode !== "move";
 let CARRY = null; // danni del capitolo precedente, per il premio di livello
 const ROT_BASE = 4;
@@ -2766,12 +2911,13 @@ async function nextTurn() {
       if (h.fx.stun) { h.fx.stun = false; log(`${first(h)} ${h.fx.stunMsg || gx(h, "è ancora avvolto dalle radici", "è ancora avvolta dalle radici")}: salta il turno.`); h.fx.stunMsg = null; popAt(h.id, "Bloccato", "miss"); render(); await sleep(600); continue; }
       if (S.ch === 1 && here().length && !guidaFatta("tut_azioni")) { BUSY = true; render(); try { await guida("tut_azioni"); } finally { BUSY = false; } }
       if (provaPronta(h)) { BUSY = true; render(); try { await provaDio(h); } finally { BUSY = false; } if (h.ko) continue; }
-      h.acts = (h.fx.drag ? 1 : 2) + (h.fx.extraAct ? 1 : 0); if (h.fx.extraAct) { h.fx.extraAct = false; log(`La Canzone senza fine dà a ${first(h)} un'azione in più.`); } if (h.fx.drag) { h.fx.drag = false; log(`${first(h)} lotta con l'acqua: una sola azione in questo turno.`); } h.atks = 0; SFX.trillo(); vib(h, [40, 80, 40]); resetTimer(); render(); if (window.__BOT && __BOT.turn) setTimeout(() => __BOT.turn(), 0); return;
+      h.acts = (h.fx.drag ? 1 : 2) + (h.fx.extraAct ? 1 : 0); if (h.fx.extraAct) { h.fx.extraAct = false; log(`La Canzone senza fine dà a ${first(h)} un'azione in più.`); } if (h.fx.drag) { h.fx.drag = false; log(`${first(h)} lotta con l'acqua: una sola azione in questo turno.`); } h.atks = 0; UI.tvacts = false; vib(h, [40, 80, 40]); render(); await turnBanner(h); resetTimer(); render(); if (window.__BOT && __BOT.turn) setTimeout(() => __BOT.turn(), 0); return;
     }
     const f = foe(id); if (!f || f.hp <= 0) continue;
     if (f.skip) { f.skip = false; log(`${FOES[f.type].n} non riesce ad agire.`); popAt(f.uid, "Fermo", "miss"); render(); await sleep(500); continue; }
     render(); await foeAct(f);
     if (!alive().length) { await fallen(); return; }
+    await sleep(650); // un attimo per leggere la cronaca prima del prossimo
   }
 }
 async function runFoes() { // nemici che agiscono prima del primo eroe dopo un nuovo tiro di iniziativa
@@ -4535,7 +4681,7 @@ function defeatScene({ type, by, loot }) {
   });
 }
 function flash(id) { if (FAST) return; requestAnimationFrame(() => $$(`[data-fx="${id}"]`).forEach(e => { e.classList.remove("hitfx"); void e.offsetWidth; e.classList.add("hitfx"); })); }
-function markActive(id) { $$(".tk").forEach(e => e.classList.toggle("on", e.dataset.id === id)); }
+function markActive(id) { $$(".tk, .ic").forEach(e => e.classList.toggle("on", e.dataset.id === String(id))); }
 
 // ---------- Interfaccia: Tavolo ----------
 function render() { if (FAST && !window.__DRAW) return; if (window.SERATE && SERATE.mode !== "game") return; PREF.view === "phone" ? renderPhone() : renderTV(); syncMusic(); ambient(); saveGame(); avviso3d(); if (window.SERATE) SERATE.tick(); }
@@ -4596,44 +4742,119 @@ function pillsBase() {
     <span class="pill">${esc(dif().n)}</span>
     ${S.phase === "boss" ? `<span class="pill warn">Azioni leggendarie ${S.leg}/${legMax()}</span>` : `<span class="pill">Obiettivo: il Cuore della Selva</span>`}`;
 }
+// ---------- Il Tavolo: la scena al centro, le carte dell'iniziativa sopra la scena, la cronaca a destra ----------
+const UI = { menu: false, tvacts: false };
+const nomeDi = id => { id = String(id); if (id[0] === "h") { const x = hero(id); return x ? first(x) : ""; } const f = foe(id); return f ? FOES[f.type].n.split(",")[0] : ""; };
+// chi agisce dopo chi è di turno (se il giro finisce, il primo del giro dopo)
+function nextAfter() {
+  const n = S.order.length; if (!n) return null;
+  for (let j = 1; j <= n; j++) { const i = ((S.turn < 0 ? -1 : S.turn) + j) % n, id = String(S.order[i]), isH = id[0] === "h", x = isH ? hero(id) : foe(id);
+    if (x && (isH ? !x.ko : x.hp > 0) && i !== S.turn) return { id, n: nomeDi(id), f: !isH }; }
+  return null;
+}
+const aDn = n => (/^[aeiouàèéìòù]/i.test(String(n)) ? "ad " : "a ");
+// Cambio turno: la scena si ferma, una fascia dorata dice a chi tocca, il trillo, poi si gioca
+async function turnBanner(h) {
+  if (FAST || !h) return;
+  const was = BUSY; BUSY = true;
+  const nx = nextAfter(), tel = !!(window.SERATE && h.user);
+  const d = document.createElement("div"); d.className = "tbn"; d.setAttribute("role", "status");
+  d.innerHTML = `<div class="tbn-band"><span class="tbn-pt"><img src="${ritratto(h.razza, h.genere)}" alt=""></span><div class="tbn-t"><div class="tbn-k">Tocca a</div><div class="tbn-n">${esc(first(h))}</div>
+    <div class="tbn-s">${esc(stirpeS(h.razza, genOf(h)))} ${esc(classeN(h.classe, genOf(h)))} · ${h.hp}/${h.max} Vita</div>
+    ${nx ? `<div class="tbn-p">Poi tocca ${aDn(nx.n)}<b class="${nx.f ? "f" : ""}">${esc(nx.n)}</b></div>` : ""}${tel ? `<div class="tbn-h">Scegli la mossa dal telefono</div>` : ""}</div></div>`;
+  document.body.appendChild(d); requestAnimationFrame(() => d.classList.add("on"));
+  try { SFX.trillo(); } catch (e) {}
+  await sleep(1700); d.classList.add("out"); await sleep(380); d.remove();
+  BUSY = was;
+}
+// La barra del giro: «turno 3 di 10» con una tacca per ogni turno
+function giroHTML() {
+  const n = S.order.length; if (!n || S.phase === "end") return "";
+  const v = []; S.order.forEach((id, i) => { id = String(id); const isH = id[0] === "h", x = isH ? hero(id) : foe(id); if (!x) return; if (i <= S.turn || (isH ? !x.ko : x.hp > 0)) v.push({ i, f: !isH }); });
+  if (!v.length) return "";
+  const k = Math.max(0, v.filter(o => o.i <= S.turn).length), cu = v.find(o => o.i === S.turn);
+  return `<div class="giro"><span>Giro ${S.giro}${k ? ` · turno <b>${k}</b> di ${v.length}` : ""}</span>${v.length <= 16 ? `<span class="gseg">${v.map(o => `<i class="${o.i < S.turn ? "d" : o.i === S.turn ? "c" + (o.f ? " f" : "") : ""}"></i>`).join("")}</span>` : ""}</div>`;
+}
+// Le carte dell'iniziativa: chi gioca (grande), chi viene dopo («Poi»), poi gli altri; chi ha già agito va in fondo, sbiadito
+function initCards() {
+  const n = S.order.length; if (!n) return "";
+  const t = S.turn >= 0 && S.turn < n ? S.turn : -1, ent = [];
+  for (let j = 0; j < n; j++) { const i = ((t < 0 ? 0 : t) + j) % n, id = String(S.order[i]), isH = id[0] === "h", x = isH ? hero(id) : foe(id);
+    if (!x || (!isH && x.hp <= 0)) continue; ent.push({ id, i, isH, x, done: t >= 0 && i < t, act: i === t, cnt: 1 }); }
+  const nx = ent.find(e => !e.act && !e.done && (!e.isH || !e.x.ko)) || ent.find(e => !e.act && (!e.isH || !e.x.ko));
+  const out = [];
+  for (const e of ent) { const L = out[out.length - 1];
+    if (L && !e.isH && !L.isH && L.x.type === e.x.type && !L.act && !e.act && L !== nx && e !== nx && L.done === e.done) { L.cnt++; continue; }
+    out.push(e); }
+  return out.map(e => {
+    const x = e.x, F = !e.isH && FOES[x.type], img = e.isH ? ritratto(x.razza, x.genere) : IMG[F.img], nm = e.isH ? first(x) : F.n.split(",")[0];
+    const pk = e.isH ? (S.mode === "help" && cur() !== x) || ((S.mode === "potion" || S.mode === "seme") && (x.ko || x.hp < x.max)) : S.mode === "attack" && e.cnt === 1 && x.tile === S.pos;
+    const sz = e.act ? "big" : e === nx ? "mid" : "sm";
+    const tgt = e.isH ? `data-hero="${x.id}"` : e.cnt === 1 ? `data-foe="${x.uid}"` : "";
+    return `<button class="ic ${sz} ${e.isH ? "h" : "f"} ${F && F.boss ? "boss" : ""} ${e.done ? "done" : ""} ${e.isH && x.ko ? "ko" : ""} ${pk ? "pick" : ""}" ${tgt} data-fx="${e.id}" data-id="${e.id}" title="${esc(nm)}${e.cnt > 1 ? ` ×${e.cnt}` : ""} · ${e.isH && x.ko ? "a terra" : `${x.hp}/${x.max} Vita`}${e.done ? " · ha già agito" : ""}">
+      <img src="${img}" alt="${esc(nm)}">${e.act && S.init[e.id] != null ? `<i class="ini">${S.init[e.id]}</i>` : ""}${sz === "mid" ? `<em class="poi">Poi</em>` : ""}${e.cnt > 1 ? `<i class="cnt">×${e.cnt}</i>` : ""}
+      <span class="icn"><b>${esc(nm)}</b>${hpBar(x.hp, x.max, e.isH ? (x.hp <= x.max / 2 ? "warn" : "") : "red")}${sz !== "sm" ? `<small>${e.isH && x.ko ? "A terra" : `${x.hp}/${x.max}`}</small>` : ""}</span>
+      ${pk ? `<span class="pickhint">${e.isH ? (x.ko ? "Rialza" : S.mode === "help" ? "Sostieni" : "Cura") : "Colpisci"}</span>` : ""}</button>`;
+  }).join("");
+}
+function turnTag() {
+  const id = curId(); if (!id || S.phase === "end") return "";
+  const isH = String(id)[0] === "h", x = isH ? hero(id) : foe(id); if (!x) return "";
+  return `<div class="ttag ${isH ? "" : "f"}"><img src="${isH ? ritratto(x.razza, x.genere) : IMG[FOES[x.type].img]}" alt=""><span>Turno di</span><b>${esc(nomeDi(id))}</b></div>`;
+}
+// La cronaca: una riga sopra le azioni nel turno degli eroi; nel turno dei nemici prende tutto il riquadro, una riga alla volta
+function cronHTML(big) {
+  const L = S.log.slice(0, big ? 5 : 2).reverse();
+  if (!big) return L.length ? `<div class="panel cron1"><span class="lab">Cronaca</span>${L.map((l, i) => `<p class="${i === L.length - 1 ? "new" : ""}">${esc(l)}</p>`).join("")}</div>` : "";
+  const id = curId(), f = id && String(id)[0] !== "h" && foe(id), nx = nextAfter();
+  return `<div class="panel cronbig"><div class="cbh"><span class="lab">${f ? `Turno di ${esc(nomeDi(id))}` : "Cronaca"}</span>${nx ? `<small>poi: ${esc(nx.n)}</small>` : ""}</div>${L.map((l, i) => `<p class="${i === L.length - 1 ? "new" : i === L.length - 2 ? "mid" : ""}">${esc(l)}</p>`).join("")}</div>`;
+}
+// Nelle serate chi ha il telefono sceglie da lì: sulla TV resta la sua carta e la cronaca (le azioni si aprono con un tocco)
+function phoneTurnPanel(h) {
+  return `<div class="panel turnbox tvwait"><div class="hh">${ptImg(h)}<div class="hhi"><div class="lab">Turno di</div><h3>${esc(h.nome)}</h3><div class="hpline">${hpBar(h.hp, h.max)} <b>${h.hp}/${h.max}</b> <span class="ca">CA ${h.ca}</span></div></div>
+    <div class="acts"><span class="lab">Azioni</span><div>${[0, 1].map(i => `<i class="${i < h.acts ? "on" : ""}"></i>`).join("")}</div></div></div>
+    <p class="calm">${esc(first(h))} sceglie la mossa dal telefono.</p><div class="endrow"><button class="linkbtn" id="bTvActs">Scegli dal Tavolo</button></div></div>`;
+}
 function renderTV() {
   const h = cur(), fs = here(), T = TILES[S.pos];
-  const ended = S.phase === "end";
-  $("#app").innerHTML = `<div class="tv ch${S.ch}">
-    <header class="bar">
+  const ended = S.phase === "end", d3 = use3d();
+  const turnHTML = ended ? endPanel() : h ? cronHTML(false) + (window.SERATE && h.user && !UI.tvacts ? phoneTurnPanel(h) : heroPanel(h)) : cronHTML(true);
+  $("#app").innerHTML = `<div class="tv cine ch${S.ch}">
+    <header class="bar cbar">
       <div class="brand"><b>Cronache di Vesperia</b><span>Capitolo ${S.ch} · ${esc(CHAP[S.ch].t)}</span></div>
       <div class="pills">${pillsHTML()}</div>
+      ${giroHTML()}
       <div class="tools">
         <button class="tb" id="bUndo" ${HIST.length && !BUSY && !ended ? "" : "disabled"}>Annulla</button>
-        <button class="tb ${PREF.d3 ? "on" : ""}" id="b3d" title="Vista 3D delle zone">${PREF.d3 ? "Vista 3D" : "Mappa 2D"}</button>
         <button class="tb ${PREF.music ? "on" : ""}" id="bMusic">Musica</button>
-        <button class="tb ${PREF.voice ? "on" : ""}" id="bVoice">Narratore</button>
-        <button class="tb ${PREF.timer ? "on" : ""}" id="bTimer">Clessidra</button>
-        <button class="tb ${PREF.rapido ? "on" : ""}" id="bPace" title="Ritmo della lotta: animazioni e attese più brevi">${PREF.rapido ? "Ritmo rapido" : "Ritmo normale"}</button>
-        <button class="tb" id="bMap">Mappa</button>
-        <button class="tb" id="bFull">Schermo intero</button>
-        <button class="tb" id="bNew">Ricomincia</button>
+        <button class="tb ${PREF.ritmo !== "normale" ? "on" : ""}" id="bPace" title="Ritmo della lotta: calmo lascia il tempo di leggere, rapido accorcia attese e animazioni">${RITMO_N[PREF.ritmo] || "Ritmo"}</button>
+        <button class="tb ${UI.menu ? "on" : ""}" id="bMenu" aria-expanded="${UI.menu}">Altro ▾</button>
+        ${UI.menu ? `<div class="tmenu">
+          <button class="tb ${PREF.d3 ? "on" : ""}" id="b3d" title="Vista 3D delle zone">${PREF.d3 ? "Vista 3D" : "Mappa 2D"}</button>
+          <button class="tb ${PREF.voice ? "on" : ""}" id="bVoice">Narratore</button>
+          <button class="tb ${PREF.timer ? "on" : ""}" id="bTimer">Clessidra</button>
+          <button class="tb" id="bMap">Mappa del mondo</button>
+          <button class="tb" id="bFull">Schermo intero</button>
+          <button class="tb" id="bNew">Ricomincia</button></div>` : ""}
       </div>
     </header>
     <main class="board">
-      ${use3d() ? `<section class="map is3d" id="map3d"><div class="m3tag">${esc(TILES[S.pos].n)}${rotten(S.pos) ? " · marcia" : ""}${submerged(S.pos) ? " · sott'acqua" : ""}${S.mode === "attack" ? " · tocca un nemico da colpire" : ""}</div></section>` : `<section class="map ${S.mode === "move" ? "picking" : ""}">${GRID.flat().map(tileHTML).join("")}</section>`}
+      <section class="stage ${d3 ? "s3d" : "s2d"}">
+        ${d3 ? `<section class="map is3d" id="map3d"><div class="m3tag">${esc(TILES[S.pos].n)}${rotten(S.pos) ? " · marcia" : ""}${submerged(S.pos) ? " · sott'acqua" : ""}${S.mode === "attack" ? " · tocca un nemico da colpire" : ""}</div></section>` : `<section class="map ${S.mode === "move" ? "picking" : ""}">${GRID.flat().map(tileHTML).join("")}</section>`}
+        ${turnTag()}
+        <div class="istrip"><div class="irow">${initCards()}</div></div>
+      </section>
       <aside class="side">
-        <div class="panel track"><div class="lab">Ordine di iniziativa · giro ${S.giro}</div><div class="tks">${S.order.map((id, i) => {
-          const isH = id[0] === "h", x = isH ? hero(id) : foe(id); if (!x) return "";
-          const img = isH ? ritratto(x.razza, x.genere) : IMG[FOES[x.type].img];
-          return `<div class="tk ${i === S.turn ? "on" : ""} ${i < S.turn ? "done" : ""} ${isH ? "" : "tkfoe"}" data-id="${id}" data-fx="${id}"><img src="${img}" alt=""><b>${S.init[id] ?? ""}</b><span>${esc(isH ? first(x) : FOES[x.type].n.split(",")[0])}</span></div>`; }).join("")}</div></div>
-        <div class="panel room"><div class="roomhead"><img src="${IMG[T.img]}" alt=""><div><div class="lab">Siete qui${rotten(S.pos) ? ` · <span class="rotw">zona marcia</span>` : ""}${submerged(S.pos) ? ` · <span class="seaw">sott'acqua</span>` : ""}</div><h3>${esc(T.n)}</h3><p>${esc(S.ch === 1 && T.boss && S.phase !== "play" ? "Il Braciere Eterno è spento. Restano buio e cenere." : T.txt)}</p></div></div>
-          ${fs.length ? fs.map(f => { const F = FOES[f.type]; return `<button class="foe ${S.mode === "attack" ? "pick" : ""} ${F.boss ? "boss" : ""} ${F.elite ? "elite" : ""}" data-foe="${f.uid}" data-fx="${f.uid}"><img src="${IMG[F.img]}" alt=""><div class="fi"><div class="fn">${esc(F.n)} <small>${F.elite ? "★ élite · " : ""}liv ${F.lvl}</small>${f.skip ? ` <span class="stun">fermo</span>` : ""}${f.weak ? ` <span class="stun">sgomento</span>` : ""}${f.colpo && f.colpo.g === S.giro ? ` <span class="stun coord" title="Chi lo colpisce dopo un compagno, in questo giro, ha +2">ferito · +2 ai compagni</span>` : ""}</div>${f.carica_on ? `<div class="carica">⚠ Prepara ${esc(F.carica)} · spezzala con ${Math.max(0, caricaNeed(f) - (f.cdmg || 0))} danni, o mettetevi in guardia</div>` : ""}${hpBar(f.hp, f.max, "red")}<div class="fm">${f.hp}/${f.max} Vita · CA ${defOf(f)} · danni d${F.die}${F.plus ? (F.plus > 0 ? "+" : "") + F.plus : ""}</div>${F.sp ? `<div class="fsp">${esc(F.sp)}</div>` : ""}</div>${S.mode === "attack" ? `<span class="pickhint">Colpisci</span>` : ""}</button>`; }).join("") : `<p class="calm">${ended ? "Il silenzio dopo la tempesta." : T.shop ? "Zona sicura. Sbrindello ha aperto bottega accanto al suo carretto." : S.flags.purifying && S.pos === "sylsant" ? "Il santuario si purifica: restate qui fino a fine giro." : "Nessun nemico. Potete muovervi o cercare."}</p>`}
+        ${turnHTML}
+        <div class="panel room"><div class="roomhead"><img src="${IMG[T.img]}" alt=""><div><div class="lab">Siete qui${rotten(S.pos) ? ` · <span class="rotw">zona marcia</span>` : ""}${submerged(S.pos) ? ` · <span class="seaw">sott'acqua</span>` : ""}</div><h3>${esc(T.n)}</h3>${fs.length ? "" : `<p>${esc(S.ch === 1 && T.boss && S.phase !== "play" ? "Il Braciere Eterno è spento. Restano buio e cenere." : T.txt)}</p>`}</div></div>
+          ${fs.length ? fs.map(f => { const F = FOES[f.type]; return `<button class="foe ${fs.length > 2 ? "cmp" : ""} ${S.mode === "attack" ? "pick" : ""} ${F.boss ? "boss" : ""} ${F.elite ? "elite" : ""}" data-foe="${f.uid}" data-fx="${f.uid}"><img src="${IMG[F.img]}" alt=""><div class="fi"><div class="fn">${esc(F.n)} <small>${F.elite ? "★ élite · " : ""}liv ${F.lvl}</small>${f.skip ? ` <span class="stun">fermo</span>` : ""}${f.weak ? ` <span class="stun">sgomento</span>` : ""}${f.colpo && f.colpo.g === S.giro ? ` <span class="stun coord" title="Chi lo colpisce dopo un compagno, in questo giro, ha +2">ferito · +2 ai compagni</span>` : ""}</div>${f.carica_on ? `<div class="carica">⚠ Prepara ${esc(F.carica)} · spezzala con ${Math.max(0, caricaNeed(f) - (f.cdmg || 0))} danni, o mettetevi in guardia</div>` : ""}${hpBar(f.hp, f.max, "red")}<div class="fm">${f.hp}/${f.max} Vita · CA ${defOf(f)} · danni d${F.die}${F.plus ? (F.plus > 0 ? "+" : "") + F.plus : ""}</div>${F.sp && (fs.length <= 2 || F.boss || F.elite) ? `<div class="fsp">${esc(F.sp)}</div>` : ""}</div>${S.mode === "attack" ? `<span class="pickhint">Colpisci</span>` : ""}</button>`; }).join("") : `<p class="calm">${ended ? "Il silenzio dopo la tempesta." : T.shop ? "Zona sicura. Sbrindello ha aperto bottega accanto al suo carretto." : S.flags.purifying && S.pos === "sylsant" ? "Il santuario si purifica: restate qui fino a fine giro." : "Nessun nemico. Potete muovervi o cercare."}</p>`}
         </div>
         ${objQui() && fs.length ? `<div class="panel objbox"><div class="lab">⚑ Obiettivo</div><b>${esc(objQui().n)}</b><p>${esc(objQui().t)}</p><div class="objst">${objQui().k === "difendi" ? `<span class="cuori">${"♥".repeat(objQui().cuori)}<i>${"♥".repeat(Math.max(0, (objQui().giri ? TILES[objQui().tile].obj.cuori : 0) - objQui().cuori))}</i></span>` : ""}<span>${objQui().left} ${objQui().left === 1 ? "giro" : "giri"} ${objQui().k === "recupera" ? "prima che sia perduto" : "da resistere"}</span></div></div>` : ""}
-        ${ended ? endPanel() : h ? heroPanel(h) : `<div class="panel turnbox"><div class="lab">Turno dei nemici</div><p class="calm">${esc(Word())} agiscono…</p></div>`}
-        <div class="panel logbox"><div class="lab">Cronaca</div>${S.log.slice(0, 6).map((l, i) => `<p class="${i ? "" : "new"}">${esc(l)}</p>`).join("")}</div>
       </aside>
     </main>
-    <footer class="strip">${S.heroes.map(stripCard).join("")}</footer>
   </div>`;
   bindTV();
-  if (use3d()) { try { B3D.mount($("#map3d")); } catch (e) { console.error("3D", e); PREF.d3 = false; } }
+  if (d3) { try { B3D.mount($("#map3d")); } catch (e) { console.error("3D", e); PREF.d3 = false; } }
 }
 function tileHTML(k) {
   const T = TILES[k], st = S.tiles[k], isHere = S.pos === k, a = adj(S.pos, k), pk = S.mode === "move" && a;
@@ -4743,13 +4964,16 @@ function bindTV() {
   $$("[data-tile]").forEach(b => b.onclick = () => pickTile(b.dataset.tile));
   $$("[data-foe]").forEach(b => b.onclick = () => pickFoe(b.dataset.foe));
   $$("[data-hero]").forEach(b => b.onclick = () => pickHero(b.dataset.hero));
+  $$(".tmenu .tb").forEach(b => b.addEventListener("click", () => { UI.menu = false; }));
   const on = (id, f) => { const e = $(id); if (e) e.onclick = f; };
+  on("#bMenu", () => { UI.menu = !UI.menu; render(); });
+  on("#bTvActs", () => { UI.tvacts = true; render(); });
   on("#bCancel", () => { S.mode = null; S.combo = null; render(); });
   on("#bEnd", async () => { if (BUSY) return; snap(); const h = cur(); if (h) h.acts = 0; await after(); });
   on("#bUndo", () => { if (!HIST.length || BUSY) return; S = JSON.parse(HIST.pop()); setChapter(S.ch); render(); });
   on("#bMusic", () => { PREF.music = !PREF.music; render(); });
   on("#bVoice", () => { PREF.voice = !PREF.voice; if (!PREF.voice) stopVoice(); render(); });
-  on("#bPace", () => { PREF.rapido = !PREF.rapido; try { localStorage.setItem("vesperia.ritmo", PREF.rapido ? "rapido" : "normale"); } catch (e) {} render(); });
+  on("#bPace", () => { const k = Object.keys(RITMI); PREF.ritmo = k[(k.indexOf(PREF.ritmo) + 1) % k.length]; try { localStorage.setItem("vesperia.ritmo2", PREF.ritmo); } catch (e) {} render(); });
   on("#bTimer", () => { PREF.timer = !PREF.timer; resetTimer(); render(); });
   on("#bMap", () => worldMap(S.ch + (S.phase === "end" ? 1 : 0), true));
   on("#bFull", () => { try { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); } catch (e) {} });
@@ -6180,7 +6404,7 @@ const SERATE = (() => {
       mappa: GRID.map(row => row.map(k => { const t = S.tiles[k], T = TILES[k], seen = t.rev || t.peek;
         return { k, n: seen ? T.n : "", tipo: t.rev ? "" : tipoZona(k)[0], tl: tipoZona(k)[1], rev: !!t.rev, img: seen ? T.img || "" : "", rot: !!rotten(k) || !!t.oblio, sub: !!submerged(k), obl: !!t.oblio, qui: k === S.pos, nem: S.foes.some(f => f.tile === k && f.hp > 0 && t.rev) }; })),
       nemici: here().map(f => { const F = FOES[f.type]; return { uid: f.uid, n: F.n.split(",")[0], img: F.img, hp: f.hp, max: f.max, ca: defOf(f), boss: !!F.boss, elite: !!F.elite, sp: F.sp || "", carica: f.carica_on ? `${F.carica} · spezzala con ${Math.max(0, caricaNeed(f) - (f.cdmg || 0))} danni, o mettiti in guardia` : "", coord: !!(f.colpo && f.colpo.g === S.giro) }; }),
-      ordine: S.order.map(id => { id = String(id); if (id[0] === "h") { const x = hero(id); return x ? { id, n: first(x), h: 1 } : null; } const f = foe(id); return f ? { id, n: FOES[f.type].n.split(",")[0], h: 0 } : null; }).filter(Boolean),
+      ordine: S.order.map(id => { id = String(id); if (id[0] === "h") { const x = hero(id); return x ? { id, n: first(x), h: 1, ko: !!x.ko } : null; } const f = foe(id); return f && f.hp > 0 ? { id, n: FOES[f.type].n.split(",")[0], h: 0, img: FOES[f.type].img, boss: !!FOES[f.type].boss } : null; }).filter(Boolean),
       eroi: S.heroes.map(h => ({ id: h.id, user: h.user || "", nome: h.nome, genere: h.genere || "", razza: h.razza, classe: h.classe, dio: h.dio, hp: h.hp, max: h.max, lvl: h.lvl, ca: h.ca, st: h.st,
         congegno: h.congegno || "", abil: !!h.abil, abil2: !!h.abil2, spec: !!h.spec, bless: !!h.bless, items: h.items || [], oro: h.oro || 0, ko: !!h.ko, acts: h.acts || 0, eq: h.eq || {}, bag: h.bag || [] })), msg: MSG,
       lotta: here().length > 0 && S.phase !== "end", esito: S.result || "", diff: S.diff || "",
@@ -6268,8 +6492,8 @@ const SERATE = (() => {
     const turnLine = parBtn + scenaLine + (myTurn ? `<div class="yourturn">È il tuo turno · ${h.acts} azioni</div>` : T.fase === "end" ? `<div class="turnof">Capitolo concluso</div>` : cur ? `<div class="turnof">Turno di ${esc(cur.nome.split(" ")[0])}</div>` : `<div class="turnof">Tocca ai nemici</div>`);
     if (TAB === "zaino") { out(`<div class="phone"><div class="screen">
       <div class="livebar"><span>Cap. ${T.ch} · ${esc(T.zona)}</span><span>Giro ${T.giro}</span></div>${tabs}${zaino(T, h, myTurn)}</div></div>`); wireLive(); wireZaino(T, h); return; }
-    if (TAB === "plancia") { out(`<div class="phone"><div class="screen">
-      <div class="livebar"><span>Cap. ${T.ch} · ${esc(T.zona)}</span><span>Giro ${T.giro}</span></div>${tabs}${turnLine}${plancia(T, h, myTurn)}</div></div>`); wireLive(); return; }
+    if (TAB === "plancia") { const tl = parBtn + scenaLine + (myTurn ? `<div class="yourturn big"><span>È il tuo turno</span><small>${h.acts} ${h.acts === 1 ? "azione" : "azioni"} · guarda anche la TV</small></div>` : T.fase === "end" ? `<div class="turnof">Capitolo concluso</div>` : ""); out(`<div class="phone"><div class="screen">
+      <div class="livebar"><span>Cap. ${T.ch} · ${esc(T.zona)}</span><span>Giro ${T.giro}</span></div>${tabs}${tl}${plancia(T, h, myTurn)}</div></div>`); wireLive(); return; }
     out(`<div class="phone"><div class="screen">
       <div class="livebar"><span>Cap. ${T.ch} · ${esc(T.zona)}</span><span>Giro ${T.giro}</span></div>${tabs}
       <div class="phhead">${ptImg(h)}<div><h3>${esc(h.nome)}</h3><div class="sub">${esc(stirpeS(h.razza, genOf(h)))} · ${esc(classeN(h.classe, genOf(h)))} · Livello ${h.lvl}${T.tesoriere === h.id ? " · ◈ Tesoriere" : ""}</div>
@@ -6399,7 +6623,31 @@ const SERATE = (() => {
       <p class="small">${mio ? (V.primo ? "Fatto. Guarda la TV." : "Hai votato. Il voto è pubblico: i risultati sono sulla TV.") : V.primo ? "Il primo che risponde decide." : "Il voto è pubblico: tutti vedranno cosa scegli."}</p></div>`;
     m.querySelectorAll("[data-pvo]").forEach(b => b.onclick = () => { if (mio) return; LIVE.pv = { seq: V.seq, v: b.dataset.pvo }; send("pvoto", V.seq + ":" + b.dataset.pvo); pvotoPhone(); });
   }
-  // La plancia sul telefono: mappa, nemici, compagnia e azioni. Si tocca direttamente il bersaglio.
+  // Icone delle azioni sul telefono (tratto semplice, come le icone della mappa)
+  const AICO = {
+    attack: '<path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2"/>',
+    combo: '<path d="M5 4l9 9M4 5l1-1M13 14l-2 2M19 4l-9 9M20 5l-1-1M11 14l2 2M8 16l-3 3M16 16l3 3"/>',
+    ability: '<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.3 6L12 16.4 6.6 19.4l1.3-6L3.4 9.3l6-.7z"/>',
+    ability2: '<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.3 6L12 16.4 6.6 19.4l1.3-6L3.4 9.3l6-.7z"/>',
+    special: '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+    bless: '<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/>',
+    guard: '<path d="M12 3l8 3v6c0 4.4-3.4 8-8 9-4.6-1-8-4.6-8-9V6z"/>',
+    amb: '<path d="M7 11V6a1.5 1.5 0 0 1 3 0v5M10 10V4.5a1.5 1.5 0 0 1 3 0V10M13 10V5.5a1.5 1.5 0 0 1 3 0V12M16 11a1.5 1.5 0 0 1 3 0v3a7 7 0 0 1-7 7h-1a6 6 0 0 1-5-3l-2.5-4a1.5 1.5 0 0 1 2.5-1.6L7 14"/>',
+    obj: '<path d="M6 21V4M6 4h11l-2.5 4L17 12H6"/>',
+    move: '<path d="M4 12h14M13 6l6 6-6 6"/>',
+    search: '<circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5.5 5.5"/>',
+    help: '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>',
+    potion: '<path d="M9 3h6M10 3v5L5.5 17A3 3 0 0 0 8.2 21h7.6a3 3 0 0 0 2.7-4L14 8V3M7.5 14h9"/>',
+    bomb: '<circle cx="11" cy="14" r="6.5"/><path d="M15.5 9.5L18 7M18 7l1-1M19.5 4.5l.5-.5M20 7h1M18 4V3"/>',
+    lantern: '<path d="M9 4h6M10 4V2.5h4V4M8 7h8l-1 11H9zM12 10v4M9 21h6"/>',
+    seme: '<path d="M6 20c0-8 5-13 13-14-1 8-6 13-13 14zM6 20l7-7"/>',
+    fiala: '<path d="M9 3h6M10 3v6l-4 9a2 2 0 0 0 1.8 3h8.4a2 2 0 0 0 1.8-3l-4-9V3"/>',
+    congegno: '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>',
+    zona: '<path d="M12 21s-6-5.6-6-11a6 6 0 0 1 12 0c0 5.4-6 11-6 11z"/><circle cx="12" cy="10" r="2"/>',
+  };
+  const aIco = k => `<svg class="aico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${AICO[k] || AICO.ability}</svg>`;
+  const AGRP = [["Combattere", ["combo", "ability", "ability2", "special", "bless", "guard", "amb", "obj"]], ["Muoversi e aiutare", ["move", "search", "help"]], ["Oggetti", ["potion", "bomb", "lantern", "seme", "fiala", "congegno", "zona"]]];
+  // La plancia sul telefono: prima quello che serve adesso (le tue azioni, o a chi tocca e cosa succede), poi nemici, compagnia e mappa
   function plancia(T, h, myTurn) {
     const can = myTurn && !T.busy && !LIVE.sent, tg = {}; (can ? T.bersagli || [] : []).forEach(b => tg[b.t + ":" + b.v] = b);
     const hint = { attack: "Tocca il nemico da colpire", move: "Tocca una zona vicina sulla mappa", help: "Tocca il compagno da aiutare", potion: "Tocca chi beve la pozione", seme: "Tocca chi riceve la luce del Seme" }[T.modo];
@@ -6408,23 +6656,41 @@ const SERATE = (() => {
       ((T.missioni || []).length ? `<details class="pmis"><summary>✎ Missioni · ${T.missioni.filter(x => x.s === "fatta").length}/${T.missioni.length} completate</summary>${T.missioni.map(x => `<div class="pm ${x.s}"><b>${esc(x.t)}</b><span>${{ attiva: "In corso", fatta: "Completata", fallita: "Fallita", rubata: "La coppa è nel Gran Banco" }[x.s] || ""}</span><small>${esc(x.come)}</small></div>`).join("")}</details>` : "") : "";
     const valle = T.ch === 5 ? `<div class="pmare valle"><span>Lanterne ${"●".repeat(T.lanterne || 0)}${"○".repeat(Math.max(0, (T.lanterneMax || 7) - (T.lanterne || 0)))}</span><span>✦ Frammenti ${T.frammenti || 0}</span></div>` +
       ((T.missioni || []).length ? `<details class="pmis"><summary>✎ Missioni · ${T.missioni.filter(x => x.s === "fatta").length}/${T.missioni.length} completate</summary>${T.missioni.map(x => `<div class="pm ${x.s}"><b>${esc(x.t)}</b><span>${{ attiva: "In corso", fatta: "Completata", fallita: "Fallita" }[x.s] || ""}</span><small>${esc(x.come)}</small></div>`).join("")}</details>` : "") : "";
-    const map = mare + aurea + valle + `<div class="pmap">${(T.mappa || []).flat().map(z => { const b = tg["tile:" + z.k];
+    const map = `<div class="psec"><div class="lab">Mappa</div><div class="pmap">${(T.mappa || []).flat().map(z => { const b = tg["tile:" + z.k];
       return `<button class="mz ${z.qui ? "qui" : ""} ${z.rev ? "" : "fog"} ${z.rot ? "rot" : ""} ${z.sub ? "sub" : ""} ${b ? "pick" : ""}" ${b ? `data-cmd="tile" data-v="${esc(z.k)}"` : "disabled"}>
-        ${z.img && IMG[z.img] ? `<img src="${IMG[z.img]}" alt="">` : ""}${z.tipo ? `<i class="mzico t-${z.tipo}">${icon(z.tipo)}</i>` : ""}<span>${esc(z.n || z.tl || "?")}</span>${z.qui ? `<em>◆ voi</em>` : z.nem ? `<em class="nm">nemici</em>` : b ? `<em>${esc(b.s)}</em>` : ""}</button>`; }).join("")}</div>`;
-    const foes = (T.nemici || []).length ? `<div class="lab">Nemici qui</div><div class="pfoes">${T.nemici.map(f => { const b = tg["foe:" + f.uid];
-      return `<button class="pf ${b ? "pick" : ""} ${f.boss ? "boss" : f.elite ? "elite" : ""}" ${b ? `data-cmd="foe" data-v="${esc(f.uid)}"` : "disabled"}><img src="${IMG[f.img]}" alt=""><div><b>${esc(f.n)}</b>${hpBar(f.hp, f.max, "red")}<small>${f.hp}/${f.max} · CA ${f.ca}${f.sp ? " · " + esc(f.sp) : ""}${f.coord ? " · ferito: +2 ai compagni" : ""}</small>${f.carica ? `<span class="pcar">⚠ ${esc(f.carica)}</span>` : ""}</div>${b ? `<span class="pfhit">Colpisci</span>` : ""}</button>`; }).join("")}</div>` : `<p class="small">Nessun nemico in questa zona.</p>`;
-    const party = `<div class="lab">Compagnia</div><div class="pparty">${(T.eroi || []).map(x => { const b = tg["hero:" + x.id];
-      return `<button class="pp ${x.id === T.turno ? "cur" : ""} ${x.ko ? "ko" : ""} ${b ? "pick" : ""}" ${b ? `data-cmd="hero" data-v="${esc(x.id)}"` : "disabled"}><img src="${ritratto(x.razza, x.genere)}" alt=""><b>${esc(x.nome.split(" ")[0])}${x.id === h.id ? " (tu)" : ""}</b>${hpBar(x.hp, x.max)}<small>${x.ko ? "A terra" : `${x.hp}/${x.max}`}</small></button>`; }).join("")}</div>`;
-    let ctrl = "";
+        ${z.img && IMG[z.img] ? `<img src="${IMG[z.img]}" alt="">` : ""}${z.tipo ? `<i class="mzico t-${z.tipo}">${icon(z.tipo)}</i>` : ""}<span>${esc(z.n || z.tl || "?")}</span>${z.qui ? `<em>◆ voi</em>` : z.nem ? `<em class="nm">nemici</em>` : b ? `<em>${esc(b.s)}</em>` : ""}</button>`; }).join("")}</div></div>`;
+    const foes = (T.nemici || []).length ? `<div class="psec"><div class="lab">Nemici qui</div><div class="pfoes">${T.nemici.map(f => { const b = tg["foe:" + f.uid];
+      return `<button class="pf ${b ? "pick" : ""} ${f.boss ? "boss" : f.elite ? "elite" : ""} ${f.uid === T.turno ? "cur" : ""}" ${b ? `data-cmd="foe" data-v="${esc(f.uid)}"` : "disabled"}><img src="${IMG[f.img]}" alt=""><div><b>${esc(f.n)}</b>${hpBar(f.hp, f.max, "red")}<small>${f.hp}/${f.max} · CA ${f.ca}${f.sp ? " · " + esc(f.sp) : ""}${f.coord ? " · ferito: +2 ai compagni" : ""}</small>${f.carica ? `<span class="pcar">⚠ ${esc(f.carica)}</span>` : ""}</div>${b ? `<span class="pfhit">Colpisci</span>` : ""}</button>`; }).join("")}</div></div>` : "";
+    const party = `<div class="psec"><div class="lab">Compagnia</div><div class="pparty">${(T.eroi || []).map(x => { const b = tg["hero:" + x.id];
+      return `<button class="pp ${x.id === T.turno ? "cur" : ""} ${x.ko ? "ko" : ""} ${b ? "pick" : ""}" ${b ? `data-cmd="hero" data-v="${esc(x.id)}"` : "disabled"}><img src="${ritratto(x.razza, x.genere)}" alt=""><b>${esc(x.nome.split(" ")[0])}${x.id === h.id ? " (tu)" : ""}</b>${hpBar(x.hp, x.max)}<small>${x.ko ? "A terra" : `${x.hp}/${x.max}`}</small></button>`; }).join("")}</div></div>`;
+    // l'ordine del giro, a partire da chi gioca adesso
+    const ord = T.ordine || [], ti = Math.max(0, ord.findIndex(o => o.id === T.turno)), rot = [...ord.slice(ti), ...ord.slice(0, ti)], eroeDi = id => (T.eroi || []).find(x => x.id === id);
+    const imgOf = o => { if (o.h) { const e = eroeDi(o.id); return e ? ritratto(e.razza, e.genere) : ""; } return IMG[o.img] || ""; };
+    const nx = rot.slice(1).find(o => !o.ko);
+    const ordine = rot.length ? `<div class="pord2" aria-label="Ordine del giro">${rot.map((o, i) => `<span class="${i === 0 && o.id === T.turno ? "on" : ""} ${o === nx ? "nx" : ""} ${o.h ? "" : "f"} ${o.ko ? "ko" : ""}"><img src="${imgOf(o)}" alt=""><b>${esc(o.n)}${o.id === h.id ? " (tu)" : ""}</b>${o === nx ? "<em>poi</em>" : ""}</span>`).join("")}</div>` : "";
+    const cron = n => (T.log || []).length ? `<div class="pcron">${(T.log || []).slice(0, n).reverse().map((l, i, a) => `<p class="${i === a.length - 1 ? "new" : ""}">${esc(l)}</p>`).join("")}</div>` : "";
+    let top = "";
     if (myTurn) {
-      if (T.busy || LIVE.sent) ctrl = `<div class="cmdbox wait"><span class="pulse"></span>${esc(T.scena || "Guarda la TV…")}</div>`;
-      else if (T.modo) ctrl = `<div class="cmdbox modeh"><b>${esc(hint || "Scegli")}</b><button class="linkbtn" data-cmd="cancel">Annulla</button></div>`;
-      else ctrl = `<div class="cmdbox"><div class="lab">Le tue azioni · si vedono sulla TV</div><div class="agrid">${(T.azioni || []).map(a => `<button class="act2" data-cmd="act" data-v="${a.k}" ${a.ok ? "" : "disabled"}><b>${esc(a.t)}</b><small>${esc(a.sub)}</small></button>`).join("")}</div><button class="btn ghost sm" data-cmd="end">Fine turno</button></div>`;
+      if (T.busy || LIVE.sent) top = `<div class="cmdbox wait"><span class="pulse"></span>${esc(T.scena || "Guarda la TV…")}</div>`;
+      else if (T.modo) top = `<div class="cmdbox modeh"><b>${esc(hint || "Scegli")}</b><button class="linkbtn" data-cmd="cancel">Annulla</button></div>`;
+      else {
+        const A = T.azioni || [], by = k => A.find(a => a.k === k), atk = by("attack");
+        const btn = a => `<button class="act3 ${a.k === "attack" ? "prim" : ""} ${a.k === "bless" ? "god" : ""}" data-cmd="act" data-v="${a.k}" ${a.ok ? "" : "disabled"}>${aIco(a.k)}<span><b>${esc(a.t)}</b><small>${esc(a.sub)}</small></span></button>`;
+        const used = new Set(["attack"]);
+        const groups = AGRP.map(([n, ks]) => { const L = ks.map(by).filter(Boolean); L.forEach(a => used.add(a.k)); return L.length ? `<div class="agl">${n}</div><div class="agrid3">${L.map(btn).join("")}</div>` : ""; }).join("");
+        const rest = A.filter(a => !used.has(a.k));
+        top = `<div class="mturn"><div class="mt-h"><span>Le tue azioni</span><span class="dia" aria-label="${h.acts} azioni rimaste">${[0, 1].map(i => `<i class="${i < h.acts ? "on" : ""}"></i>`).join("")}</span></div>
+          ${atk ? btn(atk) : ""}${groups}${rest.length ? `<div class="agrid3">${rest.map(btn).join("")}</div>` : ""}
+          <button class="btn ghost endt" data-cmd="end">Fine turno</button></div>`;
+      }
+    } else if (T.fase !== "end" && T.turno) {
+      const o = ord.find(x => x.id === T.turno), e = o && o.h ? eroeDi(o.id) : null;
+      top = o ? `<div class="tcard ${o.h ? "" : "f"}"><img src="${imgOf(o)}" alt=""><div><span>Tocca a</span><b>${esc(o.n)}</b>${nx ? `<small>poi: ${esc(nx.n)}${nx.id === h.id ? " (tu)" : ""}</small>` : ""}</div></div>${cron(3)}` : cron(3);
     }
-    const ord = (T.ordine || []).length ? `<div class="pord">${T.ordine.map(o => `<span class="${o.id === T.turno ? "on" : ""} ${o.h ? "" : "f"}">${esc(o.n)}</span>`).join("")}</div>` : "";
-    const emo = `<div class="pemo">${EMO.map((e, i) => `<button data-cmd="emote" data-v="${i}">${esc(e)}</button>`).join("")}</div>`;
     const ob = T.obiettivo ? `<div class="pobj"><b>⚑ ${esc(T.obiettivo.n)}</b>${T.obiettivo.k === "difendi" ? ` <span class="cuori">${"♥".repeat(T.obiettivo.cuori)}</span>` : ""} <small>· ${T.obiettivo.giri} ${T.obiettivo.giri === 1 ? "giro" : "giri"}</small><p class="small">${esc(T.obiettivo.t)}</p></div>` : "";
-    return `${T.modo && can ? ctrl : ""}${map}${ob}${foes}${ord}${party}${T.modo && can ? "" : ctrl}${emo}<div class="pcard"><div class="lab">Al Tavolo</div>${(T.log || []).map(l => `<p class="small">${esc(l)}</p>`).join("")}</div>`;
+    const emo = `<div class="pemo">${EMO.map((e, i) => `<button data-cmd="emote" data-v="${i}">${esc(e)}</button>`).join("")}</div>`;
+    const body = T.modo === "move" && can ? map + party : (T.nemici || []).length ? foes + party + mare + aurea + valle + map : mare + aurea + valle + map + party;
+    return `${top}${ordine}${ob}${body}${emo}${myTurn ? `<div class="psec"><div class="lab">Al Tavolo</div>${cron(3)}</div>` : ""}`;
   }
   // ---------- Il dado da tirare sul telefono ----------
   function diceCall(T, h) {
