@@ -845,6 +845,71 @@ body:has(.tv.cine) .tv.cine .side{padding-bottom:60px}
 .side .foe.cmp img{width:40px;height:48px}
 .side .foe.cmp .fn{font-size:14px}.side .foe.cmp .hpb{margin:2px 0 1px}
 .stage.s2d .ttag{display:none}
+
+/* ===== Barra: l'orologio del capitolo e le icone ===== */
+.tv.cine .cbar{flex-wrap:nowrap;min-height:52px}
+.tv.cine .cbar .pills{flex-wrap:nowrap;align-items:center;gap:10px;overflow:hidden}
+.clock{display:flex;align-items:center;gap:9px;padding:5px 12px;border-radius:10px;background:rgba(240,207,122,.08);border:1px solid rgba(240,207,122,.38);white-space:nowrap;flex-shrink:0}
+.clock .ck-l{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.clock .ck-t{font-size:12px;color:#d8c58f}.clock .ck-t b{color:#f6e2a8}
+.clock.warn{border-color:rgba(224,100,90,.7);background:rgba(224,100,90,.1)}.clock.warn .ck-l{color:#f1a79c}
+.clock .seg5 i{width:14px;height:12px}
+.ck-lan{display:flex;gap:3px}.ck-lan i{display:block;width:14px;height:18px}.ck-lan svg{width:100%;height:100%;fill:#3a3528}
+.ck-lan i.on svg{fill:#f0cf7a;filter:drop-shadow(0 0 4px rgba(240,207,122,.7))}
+.chips{display:flex;align-items:center;gap:5px;min-width:0;overflow:hidden}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:4px 8px;border-radius:6px;background:rgba(255,255,255,.05);font-size:12.5px;font-weight:600;white-space:nowrap;border:1px solid transparent;color:var(--text)}
+.chip>i{font-style:normal;color:var(--gold)}.chip small{color:var(--muted);margin:0 2px}
+.chip.ok{color:#a6e6cd;border-color:rgba(92,191,155,.4)}.chip.warn{color:#f3b2a8;border-color:rgba(222,107,93,.5)}.chip.gold>i{color:var(--gold-hi)}
+button.chip{cursor:pointer}button.chip:hover{border-color:var(--gold-lo)}
+.chip.relq{gap:2px;padding-inline:6px}.chip.relq i{width:16px;height:16px;font-size:9px}
+.tv.cine .cbar .pill{font-size:12px;padding:3px 8px}
+/* ===== Azioni del Tavolo: come sul telefono ===== */
+.tv.cine .act{grid-template-columns:24px minmax(0,1fr);gap:8px;align-items:start;padding:8px 9px;border-radius:7px}
+.tv.cine .act .aico{width:22px;height:22px;color:var(--gold);margin-top:1px}
+.tv.cine .act span{display:grid;gap:2px;min-width:0}
+.tv.cine .act b{font-family:var(--title);font-size:13.5px;color:var(--gold-hi);line-height:1.2}
+.tv.cine .act small{font-size:11.5px}
+.tv.cine .act.prim{grid-template-columns:36px minmax(0,1fr);align-items:center;padding:11px 12px;border:2px solid var(--gold);background:linear-gradient(180deg,rgba(240,207,122,.2),rgba(217,180,106,.06))}
+.tv.cine .act.prim .aico{width:32px;height:32px;color:var(--gold-hi)}
+.tv.cine .act.prim b{font-size:18px}
+.hcs{display:flex !important;flex-wrap:wrap;gap:5px}
+.hc-p{padding:2px 7px;border-radius:5px;font-size:11.5px;font-weight:700;white-space:nowrap}
+.hc-p.hi{background:rgba(92,191,155,.2);color:#a6e6cd}.hc-p.mid{background:rgba(224,176,79,.2);color:#f0d48e}.hc-p.lo{background:rgba(222,107,93,.22);color:#f6c1b8}
+.agl{font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.pickhint.hp-hi{border-color:#5cbf9b;color:#a6e6cd}.pickhint.hp-mid{border-color:#e0b04f;color:#f0d48e}.pickhint.hp-lo{border-color:#de6b5d;color:#f6c1b8}
+/* ===== Titolo di zona ===== */
+.ztit{position:fixed;inset:0;z-index:85;display:grid;place-items:center;overflow:hidden;background:#05070c;opacity:0;transition:opacity .45s;pointer-events:none}
+.ztit.on{opacity:1}.ztit.out{opacity:0}
+.ztit>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.55);transform:scale(1.04);transition:transform 3s ease-out}
+.ztit.on>img{transform:scale(1.1)}
+.ztit::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(5,7,12,.15),rgba(5,7,12,.85))}
+.zt-b{position:relative;z-index:1;display:grid;justify-items:center;gap:12px;text-align:center;padding:0 20px;transform:translateY(10px);transition:transform .8s cubic-bezier(.2,.9,.3,1)}
+.ztit.on .zt-b{transform:none}
+.zt-k{font-size:clamp(11px,1.7vh,14px);font-weight:700;letter-spacing:.38em;text-transform:uppercase;color:var(--gold)}
+.zt-n{display:flex;align-items:center;gap:22px;font-family:var(--title);font-weight:800;font-size:clamp(40px,9vh,86px);line-height:1;color:#f6e2a8;text-shadow:0 4px 34px rgba(0,0,0,.9)}
+.zt-n i{display:block;width:clamp(40px,8vw,120px);height:1px;background:linear-gradient(90deg,rgba(217,180,106,0),var(--gold))}.zt-n i:last-child{transform:scaleX(-1)}
+.zt-s{max-width:760px;font-family:var(--serif);font-style:italic;font-size:clamp(16px,2.8vh,24px);color:#ddd5c3;text-shadow:0 2px 12px rgba(0,0,0,.9)}
+.zt-tag{padding:5px 12px;border-radius:999px;font-size:13px;font-weight:600;background:rgba(240,207,122,.15);color:#f0d48e}
+.zt-tag.boss{background:rgba(201,85,74,.28);color:#f6c1b8}.zt-tag.ok{background:rgba(92,191,155,.2);color:#a6e6cd}
+/* ===== Il dono del livello (Tavolo) ===== */
+.ov.doni .ovbox{max-width:620px}
+.donohead{display:flex;align-items:center;gap:14px}.donohead img{width:72px;height:72px;border-radius:50%;object-fit:cover;object-position:50% 15%;border:3px solid var(--gold)}
+.donohead h3{margin:2px 0 0}
+.donirow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.dono{display:grid;justify-items:center;gap:6px;padding:18px 12px;border-radius:12px;border:1px solid var(--gold-lo);background:linear-gradient(180deg,rgba(240,207,122,.12),rgba(217,180,106,.03));color:var(--text);text-align:center}
+.dono .aico{width:40px;height:40px;color:var(--gold-hi)}
+.dono b{font-family:var(--title);font-size:20px;color:#f6e2a8}.dono small{font-size:14px;color:#d8d0bd}
+.dono:hover,.dono:focus-visible{border-color:var(--gold-hi);box-shadow:0 0 0 3px rgba(243,215,147,.35)}
+@media (max-width:560px){.donirow{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.ztit>img,.zt-b{transition:none}}
+.tv.cine .cbar{gap:10px;padding:6px 12px}
+.tv.cine .cbar .brand{flex-shrink:0}
+.tv.cine .cbar .pills{flex:1 1 auto;min-width:0}
+.tv.cine .cbar .giro,.tv.cine .cbar .tools{flex-shrink:0}
+.chip.relq{gap:1px}.chip.relq i{width:13px;height:13px;font-size:0;border-width:1px}
+@media (max-width:1500px){.tv.cine .cbar .brand span{display:none}.tv.cine .cbar .brand b{font-size:12px;letter-spacing:.1em}.gseg{width:clamp(60px,7vw,120px)}}
+@media (max-width:1180px){.tv.cine .cbar .brand{display:none}}
+@media (max-width:1400px){.tv.cine .cbar .chip.relq{display:none}.giro .gseg{display:none}}
 /* ===== Le serate di Matteo ===== */
 .serhome .introbox{max-width:620px}
 .rolegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:12px;margin-top:6px}
@@ -1075,6 +1140,20 @@ body:has(.tv.cine) .tv.cine .side{padding-bottom:60px}
 .psec{display:grid;gap:6px}
 .pf.cur{border-color:#e0645a;box-shadow:0 0 0 2px rgba(224,100,90,.4)}
 @media (prefers-reduced-motion:reduce){.yourturn.big{animation:none}}
+/* probabilità di colpire e dono del livello sul telefono */
+.act3 .hcs{display:flex;flex-wrap:wrap;gap:5px}
+.pfhit b{display:block;font-size:17px;line-height:1}.pfhit small{display:block;font-size:10.5px;font-weight:600;opacity:.85}
+.pfhit{text-align:center}
+.pfhit.hp-hi{background:rgba(92,191,155,.2);color:#a6e6cd;border-color:#5cbf9b}.pfhit.hp-mid{background:rgba(224,176,79,.2);color:#f0d48e;border-color:#e0b04f}.pfhit.hp-lo{background:rgba(222,107,93,.22);color:#f6c1b8;border-color:#de6b5d}
+.dnphone .ovbox{display:grid;gap:12px;justify-items:center;text-align:center}
+.dn-pt{width:88px;height:88px;border-radius:50%;object-fit:cover;object-position:50% 15%;border:3px solid var(--gold);box-shadow:0 0 24px rgba(240,207,122,.45)}
+.dn-row{display:grid;gap:10px;width:100%}
+.dnphone .dono{grid-template-columns:44px 1fr;justify-items:start;text-align:left;align-items:center;column-gap:12px;padding:14px}
+.dnphone .dono .aico{grid-row:span 2;width:36px;height:36px}
+.vt-done{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.vt-done span{display:flex;align-items:center;gap:6px;padding:5px 10px 5px 5px;border-radius:999px;border:1px solid var(--line);color:var(--muted);font-weight:600}
+.vt-done span.on{border-color:var(--good);color:#a6e6cd}
+.vt-done img{width:28px;height:28px;border-radius:50%;object-fit:cover;object-position:50% 15%}
 </style>
 <style id="cssRole">#cambiaRuolo.tb{border-color:var(--gold-lo,#9c7a3c);color:var(--gold-hi,#f3d793)}
 .rolechip{margin-left:auto;margin-right:8px;padding:6px 12px;border:1px solid var(--gold-lo,#9c7a3c);border-radius:999px;background:rgba(217,180,106,.08);color:var(--gold-hi,#f3d793);font:inherit;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
@@ -1838,7 +1917,17 @@ const worn = h => Object.values(h.eq || {}).filter(Boolean);
 // Un oggetto conta solo se indossato. La Lacrima si spegne in mano al traditore; la Corona funziona sempre.
 const has = (h, id) => !!h.eq && h.eq[GEAR[id].slot] === id && !(id === "lacrima" && h.traditore);
 const gearSum = (h, k) => worn(h).reduce((a, id) => a + (GEAR[id][k] || 0) * (id === "lacrima" && h.traditore ? 0 : 1), 0);
-function recalcCA(h) { if (h.ca0 == null) h.ca0 = h.ca; h.ca = h.ca0 + gearSum(h, "ca") + ((h.dono && h.dono.ca) || 0); }
+function recalcCA(h) { if (h.ca0 == null) h.ca0 = h.ca; h.ca = h.ca0 + gearSum(h, "ca") + ((h.dono && h.dono.ca) || 0) + lvSum(h, "ca"); }
+// I doni del livello: a ogni nuovo livello ognuno ne sceglie uno tra due; si sommano capitolo dopo capitolo
+const LVD = {
+  tempra: { n: "Tempra", t: "+3 Vita massima", hp: 3, ico: "help" },
+  mano: { n: "Mano ferma", t: "+1 a tutti i tiri per colpire", hit: 1, ico: "mira" },
+  colpo: { n: "Colpo pesante", t: "+1 ai danni", dmg: 1, ico: "attack" },
+  guardia: { n: "Guardia alta", t: "+1 Classe Armatura", ca: 1, ico: "guard" },
+};
+const lvSum = (h, k) => (h.doniL || []).reduce((a, d) => a + ((LVD[d] || {})[k] || 0), 0);
+function addDono(h, k) { if (!LVD[k]) return; (h.doniL = h.doniL || []).push(k); if (LVD[k].hp) { h.max += LVD[k].hp; if (!h.ko) h.hp += LVD[k].hp; } recalcCA(h); }
+function offerDoni() { const k = Object.keys(LVD); const a = k.splice(Math.floor(Math.random() * k.length), 1)[0]; return [a, k[Math.floor(Math.random() * k.length)]]; }
 const partyOwns = id => S.heroes.some(h => worn(h).includes(id) || (h.bag || []).includes(id));
 function pickGear(table, h) {
   const free = table.filter(id => !partyOwns(id)); if (!free.length) return null;
@@ -1985,12 +2074,12 @@ function makeHero(p, ch, top) {
 function joinHeroes() {
   PARTY.forEach(p => { const i = S.heroes.findIndex(h => h.id === p.id), o = S.heroes[i];
     if (!o || !o.compagno || o.user || !p.user) return; // un giocatore prende il posto di un compagno automatico: eredita zaino, monete e ferite
-    const h = makeHero(p, S.ch, null); h.items = [...o.items]; h.oro = o.oro || 0; h.dmg = o.dmg || 0; h.sx = o.sx;
+    const h = makeHero(p, S.ch, null); h.doniL = []; (o.doniL || []).forEach(k => addDono(h, k)); h.items = [...o.items]; h.oro = o.oro || 0; h.dmg = o.dmg || 0; h.sx = o.sx;
     h.bag = [...o.bag, ...Object.values(o.eq).filter(Boolean)]; // l'equipaggiamento del compagno torna nello zaino
     [...h.bag].forEach(id => autoEquip(h, id)); h.ko = o.ko; h.hp = o.ko ? 0 : Math.max(1, Math.round(h.max * o.hp / o.max)); recalcCA(h);
     S.heroes[i] = h; log(`${first(o)} cede il posto a ${first(h)}, che entra nella compagnia con il suo zaino.`); });
   const nuovi = PARTY.filter(p => !S.heroes.some(h => h.id === p.id));
-  nuovi.forEach(p => { const h = makeHero(p, S.ch, null); recalcCA(h); S.heroes.push(h); log(`${first(h)} si unisce alla compagnia.`); });
+  nuovi.forEach(p => { const h = makeHero(p, S.ch, null); h.doniL = []; for (let i = 1; i < S.ch; i++) addDono(h, offerDoni()[0]); recalcCA(h); S.heroes.push(h); log(`${first(h)} si unisce alla compagnia.`); });
   return nuovi.length;
 }
 function newGame(ch = 1, top = null) {
@@ -2006,6 +2095,8 @@ function newGame(ch = 1, top = null) {
     S.heroes.forEach(h => { const g = (CARRY.gear || {})[h.id]; if (g) { h.eq = { ...h.eq, ...g.eq }; h.bag = [...g.bag]; } recalcCA(h); });
     S.heroes.forEach(h => { if (((S.camp || {}).smascherati || {})[h.user || h.id] === "redento") h.traditore = false; }); // chi si è redento all'Accusa resta redento
   }
+  S.heroes.forEach(h => { h.doniL = []; const prev = ch >= 2 && CARRY && CARRY.from === ch - 1 && CARRY.doni ? CARRY.doni[h.id] || [] : [];
+    prev.forEach(k => addDono(h, k)); const want = Math.max(0, ch - (FAST || window.__AUTODONI ? 1 : 2)); while (h.doniL.length < want) addDono(h, offerDoni()[0]); }); // i doni dei livelli passati (a caso se si comincia da qui)
   if (ch === 1) { spawn("locanda"); log("Cade cenere su Crocevento. Il fiume si è fermato. Poi le campane."); }
   else if (ch === 2) { tiles.limitare.cleared = true; log("La compagnia raggiunge il Limitare della Selva Antica."); }
   else if (ch === 4) initCap4(tiles);
@@ -2063,9 +2154,13 @@ const PARTY_T5 = Object.assign({ // Capitolo 5: la Valle delle Lanterne, tarato 
   7: { hp: 1.08, boss: 1.255, dmg: 1.124, tgt: 3, leg: 0 },
 }, window.__PT5 || {});
 const PT = () => { const n = Math.max(3, Math.min(7, partyN())); return S && S.ch === 5 && PARTY_T5[n] ? PARTY_T5[n] : S && S.ch === 4 && PARTY_T4[n] ? PARTY_T4[n] : S && S.ch === 3 && PARTY_T3[n] ? PARTY_T3[n] : S && S.ch === 2 && PARTY_T2[n] ? PARTY_T2[n] : PARTY_T[n]; };
-const partyDmg = () => PT().dmg; // i colpi dei nemici crescono con il gruppo
+const DONK_T = { // per capitolo e numero di eroi, misurato col simulatore (~7 vittorie su 10 a Normale)
+  2: { 3: .04, 4: .06, 5: .06, 6: .05, 7: .06 }, 3: { 3: .043, 4: .072, 5: .05, 6: .05, 7: .051 },
+  4: { 3: .033, 4: .045, 5: .055, 6: .044, 7: .042 }, 5: { 3: .043, 4: .052, 5: .039, 6: .032, 7: .035 } };
+const DONK = () => { const ch = (S && S.ch) || 1; if (ch < 2) return 1; const k = window.__DONK != null ? window.__DONK : (DONK_T[ch] || DONK_T[5])[Math.max(3, Math.min(7, partyN()))]; return 1 + k * (ch - 1); }; // i doni del livello rendono gli eroi più forti: i nemici crescono di pari passo
+const partyDmg = () => PT().dmg * DONK(); // i colpi dei nemici crescono con il gruppo
 const bossTargets = () => PT().tgt;
-const partyHp = boss => boss ? PT().boss : PT().hp;
+const partyHp = boss => (boss ? PT().boss : PT().hp) * DONK();
 const BOSS_K = { 2: 0.88, 3: 1.17, 4: 1.75 };
 function addFoe(k, tile) {
   const F = FOES[k]; let hp = F.hp;
@@ -2393,24 +2488,32 @@ async function dieOnly(who, label, k, plus = 0) {
   await sleep(1300); box.remove(); return tot;
 }
 // Bonus personali al d20: canto del bardo, moneta di Zarek, pietra del Cerchio, bramito del Cervo
-function rollBonus(h) {
-  let m = 0;
-  if (h.fx.song) { m += 1; h.fx.song = false; }
+function rollBonus(h, peek = false) {
+  let m = 0; const use = f => { if (!peek) f(); };
+  if (h.fx.song) { m += 1; use(() => h.fx.song = false); }
   if (h.fx.inno) m += 1; // Inno degli eroi: per tutto lo scontro
   if (h.fx.altare) m += 1; // dono dell'altare: fino alla fine del prossimo scontro
-  if (h.items.includes("moneta") && !h.fx.coinUsed) { m += 2; h.fx.coinUsed = true; }
-  if (h.fx.stone) { m += 1; h.fx.stone = false; }
-  if (h.fx.shaken) { if (h.classe !== "chierico") m -= 2; h.fx.shaken = false; } // il chierico non conosce la paura
-  if (h.fx.aim) { m += 3; h.fx.aim = false; }
-  if (h.fx.breath) { m -= 1; h.fx.breath = false; }
-  if (h.items.includes("destino") && !S.flags["destino_" + h.id]) { m += 3; S.flags["destino_" + h.id] = true; }
+  if (h.items.includes("moneta") && !h.fx.coinUsed) { m += 2; use(() => h.fx.coinUsed = true); }
+  if (h.fx.stone) { m += 1; use(() => h.fx.stone = false); }
+  if (h.fx.shaken) { if (h.classe !== "chierico") m -= 2; use(() => h.fx.shaken = false); } // il chierico non conosce la paura
+  if (h.fx.aim) { m += 3; use(() => h.fx.aim = false); }
+  if (h.fx.breath) { m -= 1; use(() => h.fx.breath = false); }
+  if (h.items.includes("destino") && !S.flags["destino_" + h.id]) { m += 3; use(() => S.flags["destino_" + h.id] = true); }
   if (S.ch === 3 && acquatico(h) && submerged(S.pos)) m += 1; // gli Acquatici sott'acqua sono a casa
   if (h.dono && h.dono.hit) m += h.dono.hit; // dono del proprio dio (Prova del dio)
+  m += lvSum(h, "hit"); // dono del livello: Mano ferma
   if (h.fx.lume) m += 1; // la lanterna rivelatrice dello gnomo, per questo giro
   if (h.fx.rimorso) m -= 1; // il codice d'onore del paladino
   if (h.fx.secco && razza(h, "acquatici")) m -= 1; // pelle d'acqua nelle zone aride
   if (S.ch === 3 && razza(h, "felinidi") && submerged(S.pos)) m -= 2; // avversione all'acqua
   return m;
+}
+// Quanto serve sul d20 per colpire quel nemico, e con che probabilità (contando i bonus del momento)
+function hitNeed(h, f) {
+  const coord = !!(f.colpo && f.colpo.g === S.giro && f.colpo.h !== h.id);
+  const m = (coord ? 2 : 0) + (h.fx.lince ? 2 : 0) + mod(h.st[ATK[h.classe]]) + rollBonus(h, true) + gearSum(h, "hit") + (h.fx.sciabola ? 1 : 0) + (has(h, "balestra") && !h.fx.balUsata ? 2 : 0);
+  const need = Math.min(20, Math.max(2, defOf(f) - m)); let p = (21 - need) / 20; if (h.fx.reroll) p = 1 - (1 - p) * (1 - p);
+  return { need, p: Math.round(p * 100), cls: p >= .55 ? "hi" : p >= .4 ? "mid" : "lo" };
 }
 
 // ---------- Stirpi e classi: doni, difetti, passivi e vizi ----------
@@ -2599,7 +2702,7 @@ function dmgPlus(h, extra = 0) {
   let p = Math.max(0, Math.floor(mod(h.st[ATK[h.classe]]) / 2)) + extra;
   if (h.fx.rage) p += h.fx.rage === 2 ? 3 : 2; if (h.fx.fire) p += 2; if (h.fx.beast) p += h.fx.beast === 2 ? 2 : 1;
   if (h.fx.oil) { p += d6(); h.fx.oil = false; }
-  p += gearSum(h, "dmg") + ((h.dono && h.dono.dmg) || 0) + (h.fx.nero ? 1 : 0);
+  p += gearSum(h, "dmg") + ((h.dono && h.dono.dmg) || 0) + lvSum(h, "dmg") + (h.fx.nero ? 1 : 0);
   if (razza(h, "orco") && h.hp < h.max / 2) p += 1; // furia del sangue
   return p;
 }
@@ -2780,10 +2883,20 @@ function hurtHero(h, d, by) {
 const adj = (a, b) => { const p = pos(a), q = pos(b); if (!p || !q) return false; return Math.abs(p.r - q.r) + Math.abs(p.c - q.c) === 1; };
 function pos(k) { for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) if (GRID[r][c] === k) return { r, c }; }
 
+// Entrando in una zona nuova: il suo nome grande sull'illustrazione, per un attimo, come al cinema
+async function zonaTitolo(k) {
+  if (FAST) return; const T = TILES[k], tz = tipoZona(k), was = BUSY; BUSY = true;
+  const tag = tz[0] === "boss" ? `<span class="zt-tag boss">Qui vi aspetta il boss</span>` : tz[0] === "sicura" ? `<span class="zt-tag ok">Zona sicura</span>` : `<span class="zt-tag">${esc(tz[1])}</span>`;
+  const d = document.createElement("div"); d.className = "ztit"; d.setAttribute("role", "status");
+  d.innerHTML = `<img src="${IMG[T.img]}" alt=""><div class="zt-b"><div class="zt-k">Capitolo ${S.ch} · ${esc(CHAP[S.ch].t)}</div><div class="zt-n"><i></i>${esc(T.n)}<i></i></div><div class="zt-s">${esc(T.txt || "")}</div>${tag}</div>`;
+  document.body.appendChild(d); requestAnimationFrame(() => d.classList.add("on"));
+  await sleep(2300); d.classList.add("out"); await sleep(450); d.remove(); BUSY = was;
+}
 async function pickTile(k) {
   if (S.mode !== "move" || !adj(S.pos, k)) return;
   snap(); S.mode = null; const h = cur(), first_ = !S.tiles[k].rev, T = TILES[k];
   await cartaEvento(k); if (!alive().length) { await fallen(); return; }
+  if (first_) await zonaTitolo(k);
   if (first_ && NARR["z_" + k] && !T.social) { BUSY = true; render(); await narrate("z_" + k); BUSY = false; }
   if (T.bridge && first_) { // Ponte di Liane: prova di Agilità, o si perde tempo
     BUSY = true; const r = (await rampino("il ponte di liane è assicurato")) ? { ok: true } : await check(first(h), "Attraversare il Ponte di Liane", 12, mod(h.st.agi) + rollBonus(h) - (has(h, "corazza") ? 1 : 0) - (has(h, "toga") ? 1 : 0)); BUSY = false;
@@ -3562,7 +3675,7 @@ function buildCarry(from) {
   if (from === 2) { camp.seme = S.seme; camp.santuario = S.purified; camp.elfi = !!S.flags.elfi; }
   return { from, patto: camp.patto || (CARRY && CARRY.patto) || {}, dmg: Object.fromEntries(S.heroes.map(h => [h.id, h.dmg || 0])),
     items: Object.fromEntries(S.heroes.map(h => [h.id, h.items.filter(i => i !== "moneta")])), oro: Object.fromEntries(S.heroes.map(h => [h.id, h.oro || 0])),
-    gear: Object.fromEntries(S.heroes.map(h => [h.id, { eq: h.eq, bag: h.bag }])), catena: S.catena, cittadini: camp.cittadini, borsa: S.oro, tesoriere: S.tesoriere, camp };
+    gear: Object.fromEntries(S.heroes.map(h => [h.id, { eq: h.eq, bag: h.bag }])), doni: Object.fromEntries(S.heroes.map(h => [h.id, [...(h.doniL || [])]])), catena: S.catena, cittadini: camp.cittadini, borsa: S.oro, tesoriere: S.tesoriere, camp };
 }
 // ---------- Capitolo 4 · Aurea: campane, Colpe e Meriti, missioni, processo, il Giudice Ingordo e l'Ago ----------
 const campEvery = () => partyN() >= 5 ? 4 : 3; // con una compagnia numerosa (5 o più) l'esplorazione è più lenta: le campane aspettano un giro in più
@@ -4691,57 +4804,75 @@ function avviso3d() { if (FAST || window.__avv3d || !PREF.d3 || (window.B3D && B
 const ptCls = h => h.ko ? "ko" : h.hp <= h.max / 4 ? "hurt grave" : h.hp <= h.max / 2 ? "hurt" : "";
 const ptImg = h => `<span class="pt ${ptCls(h)}"><img src="${ritratto(h.razza, h.genere)}" alt=""></span>`;
 function hpBar(v, m, cls = "") { const p = Math.round(v / m * 100); return `<span class="hpb ${cls}"><i style="width:${p}%"></i></span>`; }
+// Icone delle azioni (Tavolo e telefono), a tratto semplice come le icone della mappa
+const AICO = {
+  attack: '<path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2"/>',
+  combo: '<path d="M5 4l9 9M4 5l1-1M13 14l-2 2M19 4l-9 9M20 5l-1-1M11 14l2 2M8 16l-3 3M16 16l3 3"/>',
+  ability: '<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.3 6L12 16.4 6.6 19.4l1.3-6L3.4 9.3l6-.7z"/>',
+  ability2: '<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.3 6L12 16.4 6.6 19.4l1.3-6L3.4 9.3l6-.7z"/>',
+  special: '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+  bless: '<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/>',
+  guard: '<path d="M12 3l8 3v6c0 4.4-3.4 8-8 9-4.6-1-8-4.6-8-9V6z"/>',
+  amb: '<path d="M7 11V6a1.5 1.5 0 0 1 3 0v5M10 10V4.5a1.5 1.5 0 0 1 3 0V10M13 10V5.5a1.5 1.5 0 0 1 3 0V12M16 11a1.5 1.5 0 0 1 3 0v3a7 7 0 0 1-7 7h-1a6 6 0 0 1-5-3l-2.5-4a1.5 1.5 0 0 1 2.5-1.6L7 14"/>',
+  obj: '<path d="M6 21V4M6 4h11l-2.5 4L17 12H6"/>',
+  move: '<path d="M4 12h14M13 6l6 6-6 6"/>',
+  search: '<circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5.5 5.5"/>',
+  help: '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>',
+  potion: '<path d="M9 3h6M10 3v5L5.5 17A3 3 0 0 0 8.2 21h7.6a3 3 0 0 0 2.7-4L14 8V3M7.5 14h9"/>',
+  bomb: '<circle cx="11" cy="14" r="6.5"/><path d="M15.5 9.5L18 7M18 7l1-1M19.5 4.5l.5-.5M20 7h1M18 4V3"/>',
+  lantern: '<path d="M9 4h6M10 4V2.5h4V4M8 7h8l-1 11H9zM12 10v4M9 21h6"/>',
+  seme: '<path d="M6 20c0-8 5-13 13-14-1 8-6 13-13 14zM6 20l7-7"/>',
+  fiala: '<path d="M9 3h6M10 3v6l-4 9a2 2 0 0 0 1.8 3h8.4a2 2 0 0 0 1.8-3l-4-9V3"/>',
+  congegno: '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>',
+  mira: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/>',
+  shop: '<path d="M4 8h16l-1.5 12h-13zM9 8V6a3 3 0 0 1 6 0v2"/>',
+  zaino: '<path d="M7 7a5 5 0 0 1 10 0v13H7zM9 7V5h6v2M7 12h10"/>',
+  zona: '<path d="M12 21s-6-5.6-6-11a6 6 0 0 1 12 0c0 5.4-6 11-6 11z"/><circle cx="12" cy="10" r="2"/>',
+};
+const aIco = k => `<svg class="aico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${AICO[k] || AICO.ability}</svg>`;
 // Le sette Reliquie: un incavo per dio, si accende quando la compagnia ne conquista una
 const RELIQ = { varenna: ["L'Ago della Bilancia", () => S.ago || (S.camp || {}).ago, v => v === "storto"], sylvara: ["Il Seme del Primo Albero", () => S.seme || (S.camp || {}).seme, v => v === "grigio"], kaoth: ["La Goccia Primordiale", () => S.goccia || (S.camp || {}).goccia, v => v === "torbida"] };
 function relicsHTML() {
-  return `<span class="pill relq" title="Le sette Reliquie degli dèi">${GODS.filter(g => g.id !== "nhazgor").map(g => { const r = RELIQ[g.id], v = r && r[1]();
+  return `<span class="chip relq" title="Le sette Reliquie degli dèi">${GODS.filter(g => g.id !== "nhazgor").map(g => { const r = RELIQ[g.id], v = r && r[1]();
     return `<i class="${v ? "on" : ""} ${v && r[2](v) ? "dark" : ""}" title="${esc(g.n)}: ${v ? esc(r[0]) + (r[2](v) ? ` (${esc(v)})` : "") : "ancora perduta"}">${g.simbolo}</i>`; }).join("")}</span>`;
 }
-function pillsHTML() { return pillsBase() + objPill() + relicsHTML(); }
+function pillsHTML() { return clockHTML() + `<div class="chips">${chipsHTML()}${objPill()}${relicsHTML()}</div>`; }
 function objPill() { const O = objQui(); if (!O || !here().length) return ""; return `<span class="pill warn" title="${esc(O.t)}">⚑ ${esc(O.n)}${O.k === "difendi" ? ` ${"♥".repeat(O.cuori)}` : ""} · ${O.left} ${O.left === 1 ? "giro" : "giri"}</span>`; }
-function pillsBase() {
-  const T2 = S.ch === 2, t = S.tesoriere && hero(S.tesoriere);
-  if (S.ch === 5) { const m = Object.values(S.missioni || {}), fatte = m.filter(x => x === "fatta").length, dim = GRID.flat().filter(k => S.tiles[k].oblio).length;
-    return `<span class="pill">Giro <b>${S.giro}</b></span>
-    <span class="pill lanp ${S.lanterne <= 2 ? "warn" : ""}" title="Le lanterne della valle si spengono una ogni ${lanEvery()} giri. Quando si spegne l'ultima, Nemesh viene a cercarvi.">Lanterne <span class="seg5 lan">${Array.from({ length: S.lanterneMax }, (_, i) => `<i class="${i < S.lanterne ? "on" : ""}"></i>`).join("")}</span>${S.phase === "play" && S.lanterne ? ` <small>prossima tra ${lanEvery() - (S.lanTick || 0)}</small>` : ""}</span>
-    ${dim ? `<span class="pill warn" title="Zone dimenticate: chi ci rientra rischia di dimenticare la propria abilità, e Nemesh se ne nutre">Dimenticate <b>${dim}</b></span>` : ""}
-    <span class="pill" title="Frammenti del nome cancellato: con 3 lo potete pronunciare contro Nemesh">✦ Frammenti <b>${(S.camp || {}).frammenti || 0}</b></span>
-    <span class="pill" title="Tenuta della Catena">⛓ <b>${S.catena}</b>/7</span>
-    <span class="pill gold" title="Borsa della compagnia${t ? ` · tesoriere: ${esc(first(t))}` : ""}">◈ <b>${S.oro}</b> mo${t ? ` · ${esc(first(t))}` : ""}</span>
-    <button class="pill mis" data-act="missioni" title="Diario delle missioni">✎ Missioni <b>${fatte}</b>/${m.length}</button>
-    ${S.phase === "boss" ? `<span class="pill warn">Azioni leggendarie ${S.leg}/${legMax()}</span>` : ""}`; }
-  if (S.ch === 4) { const m = Object.values(S.missioni || {}), fatte = m.filter(x => x === "fatta").length, pend = S.meriti > S.colpe ? "meriti" : S.colpe > S.meriti ? "colpe" : "";
-    return `<span class="pill">Giro <b>${S.giro}</b></span>
-    <span class="pill campp ${S.campane >= 4 ? "warn" : ""}" title="Le campane del Verdetto suonano ogni ${campEvery()} giri. Al quinto rintocco comincia il processo.">Campane <span class="seg5">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= S.campane ? "on" : ""}"></i>`).join("")}</span>${S.phase === "play" && S.campane < 5 ? ` <small>· ${campEvery() - (S.campTick || 0)} ${campEvery() - (S.campTick || 0) === 1 ? "giro" : "giri"}</small>` : ""}</span>
-    <span class="pill bil ${pend}" title="La bilancia di Aurea: al processo decide la sorte di Seraphel e la forza del Giudice">⚖ Colpe <b>${S.colpe}</b> · Meriti <b>${S.meriti}</b></span>
-    <span class="pill" title="Tenuta della Catena">⛓ <b>${S.catena}</b>/7</span>
-    <span class="pill gold" title="Borsa della compagnia${t ? ` · tesoriere: ${esc(first(t))}` : ""}">◈ <b>${S.oro}</b> mo${t ? ` · ${esc(first(t))}` : ""}</span>
-    <button class="pill mis" data-act="missioni" title="Diario delle missioni">✎ Missioni <b>${fatte}</b>/${m.length}</button>
-    ${S.flags.lirio === "scorta" ? `<span class="pill warn" title="Scortate Lirio alla Porta d'Oro">Lirio ${"♥".repeat(S.lirioV)}</span>` : ""}
-    ${S.flags.lanzeri ? `<span class="pill ok">Lanzeri è con voi</span>` : S.flags.sorvegliato ? `<span class="pill warn" title="Ogni scontro in strada aggiunge una Colpa">Sorvegliati da Lanzeri</span>` : ""}
-    ${S.phase === "boss" ? `<span class="pill warn">Azioni leggendarie ${S.leg}/${legMax()}</span>` : ""}`; }
-  if (S.ch === 3) { const left = MAREA_EVERY - (S.mareaTick || 0); return `<span class="pill">Giro <b>${S.giro}</b></span>
-    <span class="pill marea ${S.marea === "alta" ? "alta" : ""}" title="La marea cambia ogni ${MAREA_EVERY} giri. Con l'alta marea le zone basse vanno sott'acqua e due isole inesplorate cambiano posto.">${S.marea === "alta" ? "≋ Alta marea" : "≈ Bassa marea"}${S.asciutto > 0 ? " · zone basse asciutte" : ""}${S.phase === "play" ? ` <small>cambia tra ${left} ${left === 1 ? "giro" : "giri"}</small>` : ""}</span>
-    <span class="pill gorgop ${S.gorgo >= GORGO_MAX - 1 ? "warn" : ""}" title="Il Gorgo sale a ogni cambio di marea. A ${GORGO_MAX} il Leviatano emerge dove si trova la compagnia.">Gorgo <span class="seg5 gor">${Array.from({ length: GORGO_MAX }, (_, i) => `<i class="${i < S.gorgo ? "on" : ""}"></i>`).join("")}</span></span>
-    <span class="pill" title="Tenuta della Catena">⛓ <b>${S.catena}</b>/7</span>
-    <span class="pill gold" title="Borsa della compagnia${t ? ` · tesoriere: ${esc(first(t))}` : ""}">◈ <b>${S.oro}</b> mo${t ? ` · ${esc(first(t))}` : ""}</span>
-    ${S.flags.purifying ? `<span class="pill ok">Giardino ${S.purify}/2</span>` : S.purified ? `<span class="pill ok">✓ Corallo purificato</span>` : ""}
-    ${S.flags.thessa ? `<span class="pill ok" title="Thessa vede in anticipo le isole che si spostano">Thessa vi guida</span>` : ""}
-    <span class="pill">${esc(dif().n)}</span>
-    ${S.phase === "boss" ? `<span class="pill warn">Azioni leggendarie ${S.leg}/${legMax()}</span>` : `<span class="pill">Obiettivo: l'Occhio del Gorgo</span>`}`; }
-  if (!T2) return `<span class="pill">Giro <b>${S.giro}</b></span>
-    <span class="pill brace ${S.brace <= 2 ? "warn" : ""}" title="La brace della lanterna perde una tacca ogni ${BRACE_EVERY} giri: quando si spegne, la fame vi trova">Brace <span class="seg5">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= S.brace ? "on" : ""}"></i>`).join("")}</span>${S.brace ? `<small>cala tra ${BRACE_EVERY - (S.braceTick || 0)} ${BRACE_EVERY - (S.braceTick || 0) === 1 ? "giro" : "giri"}</small>` : ""}</span>
-    <span class="pill" title="Tenuta della Catena">⛓ <b>${S.catena}</b>/7</span>
-    <span class="pill ${S.cittadini ? "ok" : ""}">${S.cittadini ? "✓ Cittadini salvi" : "Ponte Vecchio: cittadini in pericolo"}</span>
-    ${S.phase === "boss" ? `<span class="pill warn">Resistete: giro ${S.bossGiri + 1}/2</span>` : `<span class="pill">Obiettivo: raggiungere il Tempio</span>`}`;
-  return `<span class="pill">Giro <b>${S.giro}</b></span>
-    <span class="pill rotp ${S.rot >= 3 ? "warn" : ""}" title="Il marciume avanza di una zona ogni ${rotEvery()} giri. Se raggiunge il Limitare, il Cervo vi trova.">Marciume <span class="seg5 rot">${[1, 2, 3, 4].map(i => `<i class="${i <= S.rot ? "on" : ""}"></i>`).join("")}</span>${S.rot >= 4 ? "" : S.rotHold ? " <small>fermo</small>" : ` <small>avanza tra ${rotEvery() - S.rotTick} ${rotEvery() - S.rotTick === 1 ? "giro" : "giri"}</small>`}</span>
-    <span class="pill" title="Tenuta della Catena">⛓ <b>${S.catena}</b>/7</span>
-    <span class="pill gold" title="Borsa della compagnia${t ? ` · tesoriere: ${esc(first(t))}` : ""}">◈ <b>${S.oro}</b> mo${t ? ` · ${esc(first(t))}` : ""}</span>
-    ${S.flags.purifying ? `<span class="pill ok">Purificazione ${S.purify}/3</span>` : S.purified ? `<span class="pill ok">✓ Santuario purificato</span>` : ""}
-    <span class="pill">${esc(dif().n)}</span>
-    ${S.phase === "boss" ? `<span class="pill warn">Azioni leggendarie ${S.leg}/${legMax()}</span>` : `<span class="pill">Obiettivo: il Cuore della Selva</span>`}`;
+// L'orologio del capitolo: il pericolo che avanza, grande e al centro della barra
+const LANT = '<svg viewBox="0 0 16 20" aria-hidden="true"><path d="M5 1h6v2H5zM3 4h10l-1 12H4zM5 18h6v2H5z"/></svg>';
+function clockHTML() {
+  const ck = (cls, lab, segs, txt, tip, warn) => `<div class="clock ${cls} ${warn ? "warn" : ""}" title="${esc(tip)}"><span class="ck-l">${lab}</span>${segs}${txt ? `<span class="ck-t">${txt}</span>` : ""}</div>`;
+  const giri = n => `${n} ${n === 1 ? "giro" : "giri"}`, play = S.phase === "play";
+  if (S.ch === 5) return ck("lan", "Lanterne", `<span class="ck-lan">${Array.from({ length: S.lanterneMax }, (_, i) => `<i class="${i < S.lanterne ? "on" : ""}">${LANT}</i>`).join("")}</span>`,
+    play && S.lanterne ? `prossima tra <b>${giri(lanEvery() - (S.lanTick || 0))}</b>` : S.lanterne ? "" : "<b>la valle è al buio</b>", `Le lanterne della valle si spengono una ogni ${lanEvery()} giri. Quando si spegne l'ultima, Nemesh viene a cercarvi.`, S.lanterne <= 2);
+  if (S.ch === 4) return ck("camp", "Campane", `<span class="seg5">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= S.campane ? "on" : ""}"></i>`).join("")}</span>`,
+    play && S.campane < 5 ? `rintocco tra <b>${giri(campEvery() - (S.campTick || 0))}</b>` : "", `Le campane del Verdetto suonano ogni ${campEvery()} giri. Al quinto rintocco comincia il processo.`, S.campane >= 4);
+  if (S.ch === 3) { const left = MAREA_EVERY - (S.mareaTick || 0);
+    return ck("gor", "Gorgo", `<span class="seg5 gor">${Array.from({ length: GORGO_MAX }, (_, i) => `<i class="${i < S.gorgo ? "on" : ""}"></i>`).join("")}</span>`,
+      `${S.marea === "alta" ? "≋ <b>alta marea</b>" : "≈ bassa marea"}${play ? ` · cambia tra <b>${giri(left)}</b>` : ""}`, `Il Gorgo sale a ogni cambio di marea. A ${GORGO_MAX} il Leviatano emerge dove si trova la compagnia. Con l'alta marea le zone basse vanno sott'acqua.`, S.gorgo >= GORGO_MAX - 1); }
+  if (S.ch === 2) return ck("rot", "Marciume", `<span class="seg5 rot">${[1, 2, 3, 4].map(i => `<i class="${i <= S.rot ? "on" : ""}"></i>`).join("")}</span>`,
+    S.rot >= 4 ? "" : S.rotHold ? "fermo" : `avanza tra <b>${giri(rotEvery() - S.rotTick)}</b>`, `Il marciume avanza di una zona ogni ${rotEvery()} giri. Se raggiunge il Limitare, il Cervo vi trova.`, S.rot >= 3);
+  if (S.phase === "boss") return ck("brace", "Resistete", `<span class="seg5">${[1, 2].map(i => `<i class="${i <= S.bossGiri ? "on" : ""}"></i>`).join("")}</span>`, `giro <b>${S.bossGiri + 1}</b> di 2`, "Resistete due giri contro Vorgath.", true);
+  return ck("brace", "Brace", `<span class="seg5">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= S.brace ? "on" : ""}"></i>`).join("")}</span>`,
+    S.brace ? `cala tra <b>${giri(BRACE_EVERY - (S.braceTick || 0))}</b>` : "", `La brace della lanterna perde una tacca ogni ${BRACE_EVERY} giri: quando si spegne, la fame vi trova.`, S.brace <= 2);
 }
+// Le piccole icone con un numero: frammenti, Catena, borsa, missioni e lo stato del capitolo
+function chipsHTML() {
+  const t = S.tesoriere && hero(S.tesoriere), c = (k, v, tip, cls = "") => `<span class="chip ${cls}" title="${esc(tip)}"><i>${k}</i>${v}</span>`, out = [];
+  if (S.ch === 5) out.push(c("✦", (S.camp || {}).frammenti || 0, "Frammenti del nome cancellato: con 3 lo potete pronunciare contro Nemesh"));
+  if (S.ch === 5) { const dim = GRID.flat().filter(k => S.tiles[k].oblio).length; if (dim) out.push(c("◌", dim, "Zone dimenticate: Nemesh se ne nutre", "warn")); }
+  if (S.ch === 4) out.push(c("⚖", `${S.colpe}<small>·</small>${S.meriti}`, "Colpe · Meriti: al processo decidono la sorte di Seraphel", S.meriti > S.colpe ? "ok" : S.colpe > S.meriti ? "warn" : ""));
+  out.push(c("⛓", `${S.catena}/7`, "Tenuta della Catena"));
+  if (S.ch >= 2) out.push(c("◈", S.oro, `Borsa della compagnia${t ? ` · tesoriere: ${first(t)}` : ""}`, "gold"));
+  if (S.ch >= 4) { const m = Object.values(S.missioni || {}), f = m.filter(x => x === "fatta").length; out.push(`<button class="chip mis" data-act="missioni" title="Diario delle missioni"><i>✎</i>${f}/${m.length}</button>`); }
+  if (S.ch === 1) out.push(`<span class="chip ${S.cittadini ? "ok" : ""}" title="I cittadini del Ponte Vecchio">${S.cittadini ? "✓ Cittadini salvi" : "Cittadini in pericolo"}</span>`);
+  if (S.ch === 2 || S.ch === 3) out.push(S.flags.purifying ? `<span class="chip ok">${S.ch === 2 ? "Purificazione" : "Giardino"} ${S.purify}/${S.ch === 2 ? 3 : 2}</span>` : S.purified ? `<span class="chip ok">✓ ${S.ch === 2 ? "Santuario" : "Corallo"} purificato</span>` : "");
+  if (S.ch === 3 && S.flags.thessa) out.push(`<span class="chip ok" title="Thessa vede in anticipo le isole che si spostano">Thessa</span>`);
+  if (S.ch === 4) { if (S.flags.lirio === "scorta") out.push(c("♥", S.lirioV, "Scortate Lirio alla Porta d'Oro", "warn")); out.push(S.flags.lanzeri ? `<span class="chip ok">Lanzeri è con voi</span>` : S.flags.sorvegliato ? `<span class="chip warn" title="Ogni scontro in strada aggiunge una Colpa">Sorvegliati</span>` : ""); }
+  if (S.phase === "boss" && S.ch >= 2) out.push(`<span class="chip warn" title="Azioni leggendarie del boss in questo giro">Leggendarie ${S.leg}/${legMax()}</span>`);
+  return out.join("");
+}
+// Le sette Reliquie: un puntino per dio, si accende quando la compagnia ne conquista una
 // ---------- Il Tavolo: la scena al centro, le carte dell'iniziativa sopra la scena, la cronaca a destra ----------
 const UI = { menu: false, tvacts: false };
 const nomeDi = id => { id = String(id); if (id[0] === "h") { const x = hero(id); return x ? first(x) : ""; } const f = foe(id); return f ? FOES[f.type].n.split(",")[0] : ""; };
@@ -4794,7 +4925,7 @@ function initCards() {
     return `<button class="ic ${sz} ${e.isH ? "h" : "f"} ${F && F.boss ? "boss" : ""} ${e.done ? "done" : ""} ${e.isH && x.ko ? "ko" : ""} ${pk ? "pick" : ""}" ${tgt} data-fx="${e.id}" data-id="${e.id}" title="${esc(nm)}${e.cnt > 1 ? ` ×${e.cnt}` : ""} · ${e.isH && x.ko ? "a terra" : `${x.hp}/${x.max} Vita`}${e.done ? " · ha già agito" : ""}">
       <img src="${img}" alt="${esc(nm)}">${e.act && S.init[e.id] != null ? `<i class="ini">${S.init[e.id]}</i>` : ""}${sz === "mid" ? `<em class="poi">Poi</em>` : ""}${e.cnt > 1 ? `<i class="cnt">×${e.cnt}</i>` : ""}
       <span class="icn"><b>${esc(nm)}</b>${hpBar(x.hp, x.max, e.isH ? (x.hp <= x.max / 2 ? "warn" : "") : "red")}${sz !== "sm" ? `<small>${e.isH && x.ko ? "A terra" : `${x.hp}/${x.max}`}</small>` : ""}</span>
-      ${pk ? `<span class="pickhint">${e.isH ? (x.ko ? "Rialza" : S.mode === "help" ? "Sostieni" : "Cura") : "Colpisci"}</span>` : ""}</button>`;
+      ${pk ? `<span class="pickhint">${e.isH ? (x.ko ? "Rialza" : S.mode === "help" ? "Sostieni" : "Cura") : cur() ? hitNeed(cur(), x).p + "%" : "Colpisci"}</span>` : ""}</button>`;
   }).join("");
 }
 function turnTag() {
@@ -4826,10 +4957,10 @@ function renderTV() {
       ${giroHTML()}
       <div class="tools">
         <button class="tb" id="bUndo" ${HIST.length && !BUSY && !ended ? "" : "disabled"}>Annulla</button>
-        <button class="tb ${PREF.music ? "on" : ""}" id="bMusic">Musica</button>
         <button class="tb ${PREF.ritmo !== "normale" ? "on" : ""}" id="bPace" title="Ritmo della lotta: calmo lascia il tempo di leggere, rapido accorcia attese e animazioni">${RITMO_N[PREF.ritmo] || "Ritmo"}</button>
         <button class="tb ${UI.menu ? "on" : ""}" id="bMenu" aria-expanded="${UI.menu}">Altro ▾</button>
         ${UI.menu ? `<div class="tmenu">
+          <button class="tb ${PREF.music ? "on" : ""}" id="bMusic">Musica</button>
           <button class="tb ${PREF.d3 ? "on" : ""}" id="b3d" title="Vista 3D delle zone">${PREF.d3 ? "Vista 3D" : "Mappa 2D"}</button>
           <button class="tb ${PREF.voice ? "on" : ""}" id="bVoice">Narratore</button>
           <button class="tb ${PREF.timer ? "on" : ""}" id="bTimer">Clessidra</button>
@@ -4847,7 +4978,7 @@ function renderTV() {
       <aside class="side">
         ${turnHTML}
         <div class="panel room"><div class="roomhead"><img src="${IMG[T.img]}" alt=""><div><div class="lab">Siete qui${rotten(S.pos) ? ` · <span class="rotw">zona marcia</span>` : ""}${submerged(S.pos) ? ` · <span class="seaw">sott'acqua</span>` : ""}</div><h3>${esc(T.n)}</h3>${fs.length ? "" : `<p>${esc(S.ch === 1 && T.boss && S.phase !== "play" ? "Il Braciere Eterno è spento. Restano buio e cenere." : T.txt)}</p>`}</div></div>
-          ${fs.length ? fs.map(f => { const F = FOES[f.type]; return `<button class="foe ${fs.length > 2 ? "cmp" : ""} ${S.mode === "attack" ? "pick" : ""} ${F.boss ? "boss" : ""} ${F.elite ? "elite" : ""}" data-foe="${f.uid}" data-fx="${f.uid}"><img src="${IMG[F.img]}" alt=""><div class="fi"><div class="fn">${esc(F.n)} <small>${F.elite ? "★ élite · " : ""}liv ${F.lvl}</small>${f.skip ? ` <span class="stun">fermo</span>` : ""}${f.weak ? ` <span class="stun">sgomento</span>` : ""}${f.colpo && f.colpo.g === S.giro ? ` <span class="stun coord" title="Chi lo colpisce dopo un compagno, in questo giro, ha +2">ferito · +2 ai compagni</span>` : ""}</div>${f.carica_on ? `<div class="carica">⚠ Prepara ${esc(F.carica)} · spezzala con ${Math.max(0, caricaNeed(f) - (f.cdmg || 0))} danni, o mettetevi in guardia</div>` : ""}${hpBar(f.hp, f.max, "red")}<div class="fm">${f.hp}/${f.max} Vita · CA ${defOf(f)} · danni d${F.die}${F.plus ? (F.plus > 0 ? "+" : "") + F.plus : ""}</div>${F.sp && (fs.length <= 2 || F.boss || F.elite) ? `<div class="fsp">${esc(F.sp)}</div>` : ""}</div>${S.mode === "attack" ? `<span class="pickhint">Colpisci</span>` : ""}</button>`; }).join("") : `<p class="calm">${ended ? "Il silenzio dopo la tempesta." : T.shop ? "Zona sicura. Sbrindello ha aperto bottega accanto al suo carretto." : S.flags.purifying && S.pos === "sylsant" ? "Il santuario si purifica: restate qui fino a fine giro." : "Nessun nemico. Potete muovervi o cercare."}</p>`}
+          ${fs.length ? fs.map(f => { const F = FOES[f.type]; return `<button class="foe ${fs.length > 2 ? "cmp" : ""} ${S.mode === "attack" ? "pick" : ""} ${F.boss ? "boss" : ""} ${F.elite ? "elite" : ""}" data-foe="${f.uid}" data-fx="${f.uid}"><img src="${IMG[F.img]}" alt=""><div class="fi"><div class="fn">${esc(F.n)} <small>${F.elite ? "★ élite · " : ""}liv ${F.lvl}</small>${f.skip ? ` <span class="stun">fermo</span>` : ""}${f.weak ? ` <span class="stun">sgomento</span>` : ""}${f.colpo && f.colpo.g === S.giro ? ` <span class="stun coord" title="Chi lo colpisce dopo un compagno, in questo giro, ha +2">ferito · +2 ai compagni</span>` : ""}</div>${f.carica_on ? `<div class="carica">⚠ Prepara ${esc(F.carica)} · spezzala con ${Math.max(0, caricaNeed(f) - (f.cdmg || 0))} danni, o mettetevi in guardia</div>` : ""}${hpBar(f.hp, f.max, "red")}<div class="fm">${f.hp}/${f.max} Vita · CA ${defOf(f)} · danni d${F.die}${F.plus ? (F.plus > 0 ? "+" : "") + F.plus : ""}</div>${F.sp && (fs.length <= 2 || F.boss || F.elite) ? `<div class="fsp">${esc(F.sp)}</div>` : ""}</div>${S.mode === "attack" && cur() ? (() => { const x = hitNeed(cur(), f); return `<span class="pickhint hp-${x.cls}">${x.p}% · ${x.need}+</span>`; })() : ""}</button>`; }).join("") : `<p class="calm">${ended ? "Il silenzio dopo la tempesta." : T.shop ? "Zona sicura. Sbrindello ha aperto bottega accanto al suo carretto." : S.flags.purifying && S.pos === "sylsant" ? "Il santuario si purifica: restate qui fino a fine giro." : "Nessun nemico. Potete muovervi o cercare."}</p>`}
         </div>
         ${objQui() && fs.length ? `<div class="panel objbox"><div class="lab">⚑ Obiettivo</div><b>${esc(objQui().n)}</b><p>${esc(objQui().t)}</p><div class="objst">${objQui().k === "difendi" ? `<span class="cuori">${"♥".repeat(objQui().cuori)}<i>${"♥".repeat(Math.max(0, (objQui().giri ? TILES[objQui().tile].obj.cuori : 0) - objQui().cuori))}</i></span>` : ""}<span>${objQui().left} ${objQui().left === 1 ? "giro" : "giri"} ${objQui().k === "recupera" ? "prima che sia perduto" : "da resistere"}</span></div></div>` : ""}
       </aside>
@@ -4877,38 +5008,44 @@ function tileHTML(k) {
     ${pk ? `<div class="pickhint">${sub ? "Nuota (Forza o Agilità)" : st.rev ? "Torna qui" : T.bridge ? "Attraversa (Agilità)" : "Esplora"}</div>` : ""}
   </button>`;
 }
+// Il pannello di chi gioca: Attacca grande (con le probabilità contro ogni nemico), poi le azioni a gruppi, come sul telefono
+const GRUPPI = [["Combattere", ["combo", "ability", "ability2", "special", "bless", "guard", "amb", "obj"]], ["Muoversi e aiutare", ["move", "search", "help"]], ["Oggetti", ["potion", "bomb", "lantern", "seme", "fiala", "congegno", "zona", "shop", "zaino"]]];
+function hitChips(h) { // una probabilità per tipo di nemico (la migliore, se sono più d'uno)
+  const by = {}; here().forEach(f => { const x = hitNeed(h, f), n = FOES[f.type].n.split(",")[0]; if (!by[n] || x.p > by[n].p) by[n] = x; });
+  return Object.entries(by).map(([n, x]) => `<span class="hc-p ${x.cls}">${esc(n)} · ${x.need}+ · ${x.p}%</span>`).join("");
+}
 function heroPanel(h) {
-  const r = R(h.razza), c = CL(h.classe), g = GD(h.dio);
-  const B = (k, t, sub) => { const [ok, why] = canDo(k); return `<button class="act ${S.mode && S.mode === k ? "on" : ""} ${k === "shop" ? "shopact" : ""}" data-act="${k}" ${ok ? "" : "disabled"} title="${esc(ok ? sub : why)}"><b>${t}</b><small>${esc(ok ? sub : why)}</small></button>`; };
+  const g = GD(h.dio), L = [];
+  const add = (k, t, sub) => { const [ok, why] = canDo(k); L.push({ k, t, sub: ok ? sub : why, ok }); };
   const nb = h.items.filter(x => x === "bomba").length, np = h.items.filter(x => x === "pozione").length;
+  { const C = here().length ? comboOf(h) : null; if (C) add("combo", `Mossa di coppia: ${C.n}`, `Con ${first(C.p)} · +${C.hit} al tiro, +d6${C.plus ? "+" + C.plus : ""} danni${C.cura ? ", cura d4 a entrambi" : ""}`); }
+  add("ability", abilN(h), `${breveAbil(h)} · una volta per scontro`);
+  if (h.lvl >= 2) add("ability2", ABIL2[h.classe].n, `${BREVE.ab2[h.classe] || ABIL2[h.classe].t} · una volta per scontro`);
+  if (h.lvl >= 6) add("special", SPEC[h.classe].n, `${BREVE.spec[h.classe] || SPEC[h.classe].t} · una volta per capitolo`);
+  add("bless", g.benedizione.n, `${breveDio(g)} · benedizione di ${g.n}`);
+  if (here().length) add("guard", "In guardia", "Dimezzi i danni fino al tuo turno · se il nemico fa 1, contrattacchi");
+  if (TILES[S.pos].amb && here().length) add("amb", TILES[S.pos].amb.n, `${TILES[S.pos].amb.t} · una volta`);
+  if (objQui() && objQui().k === "recupera") add("obj", `Afferra: ${objQui().n}`, `Agilità CD ${9 + S.ch}`);
+  add("move", "Muovi", "Proponi una strada: decide il voto"); add("search", "Cerca", "Fruga la zona"); add("help", "Aiuta", "Rialza o sostieni un compagno");
+  if (np) add("potion", `Pozione ×${np}`, "Cura d6"); if (nb) add("bomb", `Bomba ×${nb}`, "d6 a tutti i nemici");
+  if (S.lanterna) add("lantern", "Lanterna di Seraphel", "Una brace: d8 di fuoco");
+  if (S.ch >= 3 && (S.camp || {}).seme === "verde") add("seme", "Seme del Primo Albero", "Cura d8 · una volta nel capitolo");
+  if (has(h, "fiala")) add("fiala", "Fiala di spore", "Nemici −1 al prossimo attacco");
+  if (h.congegno) add("congegno", CONGEGNI[h.congegno].n, "Congegno arcano · " + CONGEGNI[h.congegno].t);
+  if (TILES[S.pos].shop) add("shop", "Mercante", "Gratis · compra il tesoriere");
+  if (S.ch === 4 && zona4()) add("zona", zona4().n, zona4().sub);
+  add("zaino", `Zaino${h.bag.length ? ` · ${h.bag.length} nuovi` : ""}`, here().length ? "Cambiare costa 1 azione" : "Equipaggiamento gratis");
+  const B = x => `<button class="act ${S.mode === x.k ? "on" : ""} ${x.k === "bless" ? "god" : ""}" data-act="${x.k}" ${x.ok ? "" : "disabled"} title="${esc(x.sub)}">${aIco(x.k)}<span><b>${esc(x.t)}</b><small>${esc(x.sub)}</small></span></button>`;
+  const [aok, awhy] = canDo("attack"), used = new Set();
+  const groups = GRUPPI.map(([n, ks]) => { const G = L.filter(x => ks.includes(x.k)); G.forEach(x => used.add(x.k)); return G.length ? `<div class="agl">${n}</div><div class="actgrid">${G.map(B).join("")}</div>` : ""; }).join("");
+  const rest = L.filter(x => !used.has(x.k));
   return `<div class="panel turnbox">
     <div class="hh">${ptImg(h)}<div class="hhi"><div class="lab">Turno di</div><h3>${esc(h.nome)}</h3><div class="sub">${esc(stirpeS(h.razza, genOf(h)))} · ${esc(classeN(h.classe, genOf(h)))} · liv ${h.lvl} · <span class="gsym">${g.simbolo}</span> ${esc(g.n)}${S.tesoriere === h.id ? " · ◈ tesoriere" : ""}</div>
       <div class="hpline">${hpBar(h.hp, h.max)} <b>${h.hp}/${h.max}</b> <span class="ca" title="Classe Armatura">CA ${h.ca}</span></div></div>
       <div class="acts"><span class="lab">Azioni</span><div>${[0, 1].map(i => `<i class="${i < h.acts ? "on" : ""}"></i>`).join("")}</div>${PREF.timer ? `<div class="timer">⏳ <span id="tleft">${TL}</span>s</div>` : ""}</div></div>
-    ${S.mode ? `<div class="modebar">${S.mode === "attack" ? "Tocca un nemico da colpire" : S.mode === "move" ? "La compagnia si muove" : S.mode === "potion" ? "Chi beve la pozione? Tocca un eroe nella barra in basso (anche te stesso)" : S.mode === "seme" ? "Chi riceve la luce del Seme? Tocca un eroe nella barra in basso" : "Tocca un compagno nella barra in basso"} <button class="linkbtn" id="bCancel">Annulla</button></div>` : ""}
-    <div class="actgrid">
-      ${B("attack", maxAtk(h) > 1 ? `Attacca (${maxAtk(h) - h.atks} rimasti)` : "Attacca", `d20 + ${STATS.find(s => s.k === ATK[h.classe]).n}, danni d6`)}
-      ${(() => { const C = here().length ? comboOf(h) : null; return C ? B("combo", `Mossa di coppia: ${C.n}`, `Con ${first(C.p)} · +${C.hit} al tiro, +d6${C.plus ? "+" + C.plus : ""} danni${C.cura ? ", cura d4 a entrambi" : ""}`) : ""; })()}
-      ${B("ability", abilN(h), `${breveAbil(h)} · una volta per scontro`)}
-      ${h.lvl >= 2 ? B("ability2", ABIL2[h.classe].n, `${BREVE.ab2[h.classe] || ABIL2[h.classe].t} · una volta per scontro`) : ""}
-      ${h.lvl >= 6 ? B("special", SPEC[h.classe].n, `${BREVE.spec[h.classe] || SPEC[h.classe].t} · una volta per capitolo`) : ""}
-      ${B("bless", g.benedizione.n, `${breveDio(g)} · benedizione di ${g.n}`)}
-      ${here().length ? B("guard", "In guardia", "Dimezzi i danni fino al tuo turno · se il nemico fa 1, contrattacchi") : ""}
-      ${TILES[S.pos].amb && here().length ? B("amb", TILES[S.pos].amb.n, `${TILES[S.pos].amb.t} · una volta`) : ""}
-      ${objQui() && objQui().k === "recupera" ? B("obj", `Afferra: ${objQui().n}`, `Agilità CD ${9 + S.ch}`) : ""}
-      ${B("move", "Muovi", "Proponi una strada: decide il voto")}
-      ${B("search", "Cerca", "Fruga la zona")}
-      ${B("help", "Aiuta", "Rialza o sostieni un compagno")}
-      ${np ? B("potion", `Pozione ×${np}`, "Cura d6") : ""}
-      ${nb ? B("bomb", `Bomba ×${nb}`, "d6 a tutti i nemici") : ""}
-      ${S.lanterna ? B("lantern", "Lanterna di Seraphel", "Una brace: d8 di fuoco") : ""}
-      ${S.ch >= 3 && (S.camp || {}).seme === "verde" ? B("seme", "Seme del Primo Albero", "Cura d8 · una volta nel capitolo") : ""}
-      ${has(h, "fiala") ? B("fiala", "Fiala di spore", "Nemici −1 al prossimo attacco") : ""}
-      ${h.congegno ? B("congegno", CONGEGNI[h.congegno].n, "Congegno arcano · " + CONGEGNI[h.congegno].t) : ""}
-      ${TILES[S.pos].shop ? B("shop", "Mercante", "Gratis · compra il tesoriere") : ""}
-      ${S.ch === 4 && zona4() ? B("zona", zona4().n, zona4().sub) : ""}
-      ${B("zaino", `Zaino${h.bag.length ? ` · ${h.bag.length} nuovi` : ""}`, here().length ? "Cambiare costa 1 azione" : "Equipaggiamento gratis")}
-    </div>
+    ${S.mode ? `<div class="modebar">${S.mode === "attack" ? "Tocca un nemico da colpire" : S.mode === "move" ? "La compagnia si muove" : S.mode === "potion" ? "Chi beve la pozione? Tocca un eroe nelle carte in basso (anche te stesso)" : S.mode === "seme" ? "Chi riceve la luce del Seme? Tocca un eroe nelle carte in basso" : "Tocca un compagno nelle carte in basso"} <button class="linkbtn" id="bCancel">Annulla</button></div>` : ""}
+    <button class="act prim ${S.mode === "attack" ? "on" : ""}" data-act="attack" ${aok ? "" : "disabled"}>${aIco("attack")}<span><b>${maxAtk(h) > 1 ? `Attacca (${maxAtk(h) - h.atks} rimasti)` : "Attacca"}</b>${aok && here().length ? `<span class="hcs">${hitChips(h)}</span>` : `<small>${esc(aok ? `d20 + ${STATS.find(s => s.k === ATK[h.classe]).n}, danni d6` : awhy)}</small>`}</span></button>
+    ${groups}${rest.length ? `<div class="actgrid">${rest.map(B).join("")}</div>` : ""}
     <div class="endrow"><button class="btn ghost sm" id="bEnd">Fine turno</button></div>
   </div>`;
 }
@@ -5279,10 +5416,25 @@ async function levelUp() {
   if (FAST) return;
   if (S.ch >= 3) {
     await overlay(`<div class="ovk">La compagnia cresce</div><h3>Livello ${S.ch}</h3><div class="lvup">${S.heroes.map(h => { const extra = h.lvl > S.ch; return `<div class="lvrow ${extra ? "l3" : ""}"><img src="${ritratto(h.razza, h.genere)}" alt=""><b>${esc(first(h))}</b><span>Livello ${h.lvl} · +${LV2[h.classe] * (extra ? 2 : 1)} Vita · ${esc(STATS.find(s => s.k === ATK[h.classe]).n)} +${extra ? 2 : 1}${nuovi(h)}</span></div>`; }).join("")}</div>${S.topWhy ? `<p class="small">Un livello in più per chi ha inflitto più danni nel capitolo precedente. ${esc(S.topWhy)}</p>` : ""}<p class="small">${S.heroes.some(h => h.lvl >= 5) ? "Al livello 5 la prima abilità evolve; al livello 6 arriva l'attacco speciale della classe, una volta per capitolo." : "Al livello 5 la prima abilità di ogni classe evolverà in una versione più forte."}</p><button class="btn main" data-v="ok">Avanti</button>`, "cut");
+    await sceltaDoni();
     return;
   }
   const t = S.heroes.find(h => h.lvl === 3);
   await overlay(`<div class="ovk">La compagnia cresce</div><h3>Livello 2</h3><div class="lvup">${S.heroes.map(h => `<div class="lvrow ${h.lvl === 3 ? "l3" : ""}"><img src="${ritratto(h.razza, h.genere)}" alt=""><b>${esc(first(h))}</b><span>${esc(ABIL2[h.classe].n)} · ${h.lvl === 3 ? `Livello 3 · +${LV2[h.classe] * 2} Vita · ${esc(STATS.find(s => s.k === ATK[h.classe]).n)} +2` : `+${LV2[h.classe]} Vita · ${esc(STATS.find(s => s.k === ATK[h.classe]).n)} +1`}</span><em>${h.max} Vita</em></div>`).join("")}</div>${t ? `<p class="small"><b>${esc(first(t))}</b> sale al livello 3 solo per questo capitolo. ${esc(S.topWhy)}</p>` : ""}${NP("c2_livello")}<button class="btn main" data-v="ok">Avanti</button>`, "cut", "c2_livello");
+  await sceltaDoni();
+}
+// Il dono del livello: ognuno ne sceglie uno tra due (nelle serate dal proprio telefono, in segreto; al Tavolo uno alla volta)
+async function sceltaDoni() {
+  if (FAST || S.ch < 2) return;
+  const offers = Object.fromEntries(S.heroes.map(h => [h.id, offerDoni()]));
+  let res = window.DONO_HOOK ? await DONO_HOOK(S.heroes, offers) : null;
+  if (!res) { res = {};
+    for (const h of S.heroes) { const [a, b] = offers[h.id], g = GD(h.dio);
+      const card = k => { const D = LVD[k]; return `<button class="dono" data-v="${k}">${aIco(D.ico)}<b>${esc(D.n)}</b><small>${esc(D.t)}</small></button>`; };
+      res[h.id] = await overlay(`<div class="donohead"><img src="${ritratto(h.razza, h.genere)}" alt=""><div><div class="ovk">Livello ${h.lvl} · il dono di ${esc(first(h))}</div><h3>Scegli il tuo dono</h3></div></div>
+        <p class="small">${esc(g.n)} ti guarda crescere. Uno dei due resta tuo per sempre.${(h.doniL || []).length ? ` Doni finora: ${h.doniL.map(k => LVD[k].n).join(", ")}.` : ""}</p><div class="donirow">${card(a)}${card(b)}</div>`, "doni"); } }
+  S.heroes.forEach(h => addDono(h, LVD[res[h.id]] ? res[h.id] : offers[h.id][0]));
+  log("Ognuno ha scelto il dono del nuovo livello.");
 }
 const INTRO = {
   5: { img: "loc_approdo", k: "Capitolo 5", t: "Il Nome Cancellato", p: "A est di Aurea, nelle Terre Senza Nome, la Valle delle Lanterne custodisce i ricordi dei morti. Lì Oruun, il Traghettatore, nasconde il suo Remo, e un nome che gli dei hanno voluto dimenticare.", s: "Gli eroi sono al livello 5. Le lanterne della valle si spengono una ogni due giri e i luoghi visitati vengono dimenticati: quando si spegne l'ultima, Nemesh viene a cercarvi." },
@@ -6298,6 +6450,24 @@ const SERATE = (() => {
       draw(); publishNow();
     });
   };
+  // Il dono del livello: ognuno sceglie dal proprio telefono, in segreto; la TV mostra solo chi ha già scelto
+  let DONI = null;
+  window.DONO_HOOK = (H, offers) => {
+    if (mode !== "game" || demo || !MP.db) return null;
+    const umani = H.filter(h => h.user && !compagno(h)); if (!umani.length) return null;
+    return new Promise(res => {
+      const seq = String(Date.now()), pick = {};
+      H.filter(h => !umani.includes(h)).forEach(h => pick[h.id] = offers[h.id][0]); // i compagni automatici prendono il primo
+      const box = document.createElement("div"); box.className = "ov prova pwait"; document.body.appendChild(box);
+      const draw = () => { box.innerHTML = `<div class="ovbox"><div class="pv-veil">✦</div><div class="ovk">Il dono del livello</div><h3>Scegliete dal telefono</h3><p>Ognuno sceglie in segreto il suo dono tra due. Sulla TV si vede solo chi ha già scelto.</p>
+        <div class="vt-done">${H.map(h => `<span class="${pick[h.id] ? "on" : ""}"><img src="${ritratto(h.razza, h.genere)}" alt="">${esc(first(h))}${pick[h.id] ? " ✓" : ""}</span>`).join("")}</div></div>`; };
+      const done = () => { if (!DONI || DONI.seq !== seq) return; clearTimeout(t); DONI = null; box.remove(); publishNow(); res(pick); };
+      DONI = { seq, offers: Object.fromEntries(umani.map(h => [h.id, offers[h.id]])), get fatti() { return Object.keys(pick); },
+        add(user, k) { const h = umani.find(x => x.user === user); if (!h || pick[h.id] || !offers[h.id].includes(k)) return; pick[h.id] = k; tone(660, .06, "triangle", .03); if (Object.keys(pick).length >= H.length) done(); else { draw(); publishNow(); } } };
+      const t = setTimeout(() => { H.forEach(h => { if (!pick[h.id]) pick[h.id] = offers[h.id][0]; }); done(); }, 180000);
+      draw(); publishNow();
+    });
+  };
   // Il voto pubblico (strada, eventi, prove): ognuno vota dal telefono, la TV mostra chi ha votato cosa
   let PV = null;
   window.PVOTO_HOOK = {
@@ -6313,6 +6483,7 @@ const SERATE = (() => {
   const EMO = ["Coraggio!", "Aiuto!", "Pessima idea…", "Gran colpo!"], emoT = {};
   async function runCommand(user, c) {
     if (c.t === "iniz") { if (INIZ && INIZ.seq === String(c.s)) { const h = S && S.heroes.find(x => x.user === user); if (h && INIZ.wait.includes(h.id)) INIZ.cb(h.id, +c.v); } return; }
+    if (c.t === "dono") { const [sq, k] = String(c.v).split(":"); if (DONI && DONI.seq === sq) DONI.add(user, k); return; }
     if (c.t === "voto") { const [sq, id] = String(c.v).split(":"); if (VOTO && VOTO.seq === sq) VOTO.add(user, id); return; }
     if (c.t === "pvoto") { const i = String(c.v).indexOf(":"), sq = String(c.v).slice(0, i), v = String(c.v).slice(i + 1); if (PV && PV.seq === sq) { const h = S && S.heroes.find(x => x.user === user); if (h && PV.all.includes(h.id)) PV.cb(h.id, v); } return; }
     if (c.t === "prova") { const [sq, v] = String(c.v).split(":"); if (PDIO && PDIO.user === user && PDIO.seq === sq) PDIO.done(v === "si" ? "si" : "no"); return; }
@@ -6351,10 +6522,11 @@ const SERATE = (() => {
       ...(here().length ? [["guard", "In guardia", "Dimezzi i danni fino al tuo turno · se il nemico fa 1, contrattacchi"]] : []), ...(TILES[S.pos].amb && here().length ? [["amb", TILES[S.pos].amb.n, TILES[S.pos].amb.t + " · una volta"]] : []), ...(objQui() && objQui().k === "recupera" ? [["obj", `Afferra: ${objQui().n}`, `Agilità CD ${9 + S.ch}`]] : []),
       ["bless", g.benedizione.n, `${breveDio(g)} · benedizione di ${g.n}`], ["move", "Muovi", "Proponi una strada: decide il voto"], ["search", "Cerca", "Fruga la zona"], ["help", "Aiuta", "Rialza o sostieni un compagno"],
       ...(np ? [["potion", `Pozione ×${np}`, "Cura d6"]] : []), ...(nb ? [["bomb", `Bomba ×${nb}`, "d6 a tutti i nemici"]] : []), ...(S.lanterna ? [["lantern", "Lanterna di Seraphel", "d8 di fuoco"]] : []), ...(S.ch === 4 && zona4() ? [["zona", zona4().n, zona4().sub]] : []), ...(S.ch >= 3 && (S.camp || {}).seme === "verde" ? [["seme", "Seme del Primo Albero", "Cura d8 · una volta nel capitolo"]] : []), ...(has(h, "fiala") ? [["fiala", "Fiala di spore", "Nemici −1 al prossimo attacco"]] : []), ...(h.congegno ? [["congegno", CONGEGNI[h.congegno].n, "Congegno arcano · " + CONGEGNI[h.congegno].t]] : [])];
-    return L2.map(([k, t, sub]) => { const [ok, why] = canDo(k); return { k, t, sub: ok ? sub : why, ok: !!ok }; });
+    const chips = () => { const by = {}; here().forEach(f => { const x = hitNeed(h, f), n = FOES[f.type].n.split(",")[0]; if (!by[n] || x.p > by[n].p) by[n] = { n, ...x }; }); return Object.values(by); };
+    return L2.map(([k, t, sub]) => { const [ok, why] = canDo(k); return { k, t, sub: ok ? sub : why, ok: !!ok, ...(k === "attack" && ok && here().length ? { chips: chips() } : {}) }; });
   }
   function bersagli(h) {
-    if (S.mode === "attack") return here().map(f => ({ t: "foe", v: String(f.uid), n: FOES[f.type].n.split(",")[0], s: `${f.hp}/${f.max} Vita · CA ${defOf(f)}` }));
+    if (S.mode === "attack") return here().map(f => { const x = hitNeed(h, f); return { t: "foe", v: String(f.uid), n: FOES[f.type].n.split(",")[0], s: `${f.hp}/${f.max} Vita · CA ${defOf(f)}`, p: x.p, need: x.need, cls: x.cls }; });
     if (S.mode === "move") return GRID.flat().filter(k => adj(S.pos, k)).map(k => ({ t: "tile", v: k, n: S.tiles[k].rev || S.tiles[k].peek ? TILES[k].n : "Zona inesplorata", s: submerged(k) ? "Nuota (Forza o Agilità)" : S.tiles[k].rev ? "Torna qui" : TILES[k].bridge ? "Attraversa (Agilità)" : "Esplora" }));
     if (S.mode === "help") return S.heroes.filter(x => x !== h).map(x => ({ t: "hero", v: x.id, n: first(x), s: x.ko ? "Rialza (d6 Vita)" : "Sostieni: +1 al suo prossimo tiro" }));
     if (S.mode === "seme") return S.heroes.filter(x => x.ko || x.hp < x.max).map(x => ({ t: "hero", v: x.id, n: x === h ? `${first(x)} (tu)` : first(x), s: x.ko ? "A terra · rialza" : `${x.hp}/${x.max} Vita` }));
@@ -6406,11 +6578,12 @@ const SERATE = (() => {
       nemici: here().map(f => { const F = FOES[f.type]; return { uid: f.uid, n: F.n.split(",")[0], img: F.img, hp: f.hp, max: f.max, ca: defOf(f), boss: !!F.boss, elite: !!F.elite, sp: F.sp || "", carica: f.carica_on ? `${F.carica} · spezzala con ${Math.max(0, caricaNeed(f) - (f.cdmg || 0))} danni, o mettiti in guardia` : "", coord: !!(f.colpo && f.colpo.g === S.giro) }; }),
       ordine: S.order.map(id => { id = String(id); if (id[0] === "h") { const x = hero(id); return x ? { id, n: first(x), h: 1, ko: !!x.ko } : null; } const f = foe(id); return f && f.hp > 0 ? { id, n: FOES[f.type].n.split(",")[0], h: 0, img: FOES[f.type].img, boss: !!FOES[f.type].boss } : null; }).filter(Boolean),
       eroi: S.heroes.map(h => ({ id: h.id, user: h.user || "", nome: h.nome, genere: h.genere || "", razza: h.razza, classe: h.classe, dio: h.dio, hp: h.hp, max: h.max, lvl: h.lvl, ca: h.ca, st: h.st,
-        congegno: h.congegno || "", abil: !!h.abil, abil2: !!h.abil2, spec: !!h.spec, bless: !!h.bless, items: h.items || [], oro: h.oro || 0, ko: !!h.ko, acts: h.acts || 0, eq: h.eq || {}, bag: h.bag || [] })), msg: MSG,
+        congegno: h.congegno || "", abil: !!h.abil, abil2: !!h.abil2, spec: !!h.spec, bless: !!h.bless, items: h.items || [], oro: h.oro || 0, ko: !!h.ko, acts: h.acts || 0, eq: h.eq || {}, bag: h.bag || [], doni: h.doniL || [] })), msg: MSG,
       lotta: here().length > 0 && S.phase !== "end", esito: S.result || "", diff: S.diff || "",
       prova: PDIO ? { seq: PDIO.seq, hid: PDIO.hid, dio: PDIO.dio, n: PDIO.n, sim: PDIO.sim, t: PDIO.t, q: PDIO.q, costo: PDIO.costo, dono: PDIO.dono, si: PDIO.si, no: PDIO.no } : null,
       smascherati: (S.camp && S.camp.smascherati) || {},
       voto: VOTO ? { seq: VOTO.seq, ids: VOTO.ids, cands: VOTO.cands } : null,
+      doniScelta: DONI ? { seq: DONI.seq, offers: DONI.offers, fatti: DONI.fatti } : null,
       pvoto: PV ? { seq: PV.seq, ids: PV.ids, k: PV.k, t: PV.t, testo: PV.testo, primo: PV.primo, opts: PV.opts, voti: PV.voti } : null,
       obiettivo: objQui() && here().length ? { n: objQui().n, t: objQui().t, k: objQui().k, giri: objQui().left, cuori: objQui().cuori } : null };
     if (S.ch === 5) Object.assign(body, { lanterne: S.lanterne || 0, lanterneMax: S.lanterneMax || 7, frammenti: (S.camp || {}).frammenti || 0, nome: !!(S.flags && S.flags.nome), buio: !!(S.flags && S.flags.buio),
@@ -6505,6 +6678,7 @@ const SERATE = (() => {
       ${h.lvl >= 6 ? `<div class="pcard"><div class="lab">Attacco speciale · ${h.spec ? "usato nel capitolo" : "pronto"}</div><b>${esc(SPEC[h.classe].n)}</b><p>${esc(SPEC[h.classe].t)}</p></div>` : ""}
       ${h.lvl >= 2 ? `<div class="pcard"><div class="lab">Abilità di livello 2 · ${h.abil2 ? "usata" : "pronta"}</div><b>${esc(ABIL2[h.classe].n)}</b><p>${esc(ABIL2[h.classe].t)}</p></div>` : ""}
       <div class="pcard"><div class="lab">Benedizione di ${esc(g.n)} · ${h.bless ? "usata" : "1 carica"}</div><b>${esc(g.benedizione.n)}</b><p>${esc(g.benedizione.t)}</p></div>
+      ${(h.doni || []).length ? `<div class="pcard"><div class="lab">Doni del livello</div><p>${h.doni.map(k => LVD[k] ? `<b>${esc(LVD[k].n)}</b> · ${esc(LVD[k].t)}` : "").join("<br>")}</p></div>` : ""}
       <div class="pcard"><div class="lab">Passiva</div><b>${esc(c.pas.n)}</b><p>${esc(c.pas.t)}</p></div>
       ${trattiCards(h)}
       <div class="pcard"><div class="lab">Zaino · monete tue ${h.oro} mo${T.ch >= 2 ? ` · borsa della compagnia ◈ ${T.oro} mo` : ""}</div><p>${[...c.zaino, ...h.items.map(i => ITEMS[i] ? ITEMS[i].n : i)].map(esc).join(" · ")}</p></div>
@@ -6575,7 +6749,7 @@ const SERATE = (() => {
   }
   function wireLive() {
     document.querySelectorAll("[data-cmd]").forEach(b => b.onclick = () => send(b.dataset.cmd, b.dataset.v));
-    provaPhone(); votoPhone(); pvotoPhone();
+    provaPhone(); votoPhone(); pvotoPhone(); donoPhone();
     ["pParere", "pParere2"].forEach(id => { const b = document.getElementById(id); if (b) b.onclick = () => { const T = LIVE.t, me = CR.S.sess && CR.S.sess.user; parere(T, T && (T.eroi || []).find(x => x.user === me)); }; });
     document.querySelectorAll("[data-tab]").forEach(b => b.onclick = () => { TAB = b.dataset.tab; try { SFX.click ? SFX.click() : 0; } catch (e) {} renderLive(); scrollTo(0, 0); });
   }
@@ -6607,6 +6781,21 @@ const SERATE = (() => {
     document.body.appendChild(m);
     m.querySelectorAll("[data-vt]").forEach(b => b.onclick = () => { LIVE.votoRisp = V.seq; m.remove(); send("voto", V.seq + ":" + b.dataset.vt); toast("Voto inviato. Guarda la TV."); });
   }
+  // Il dono del livello sul telefono: due carte, solo per te
+  function donoPhone() {
+    const T = LIVE.t, me = CR.S.sess && CR.S.sess.user, h = T && (T.eroi || []).find(x => x.user === me), D = T && T.doniScelta;
+    let m = document.getElementById("dnPhone");
+    if (!D || !h || !(D.offers || {})[h.id] || (D.fatti || []).includes(h.id) || LIVE.donoRisp === D.seq) { if (m) m.remove(); return; }
+    if (m && m.dataset.seq === D.seq) return;
+    if (m) m.remove(); buzz([60, 40, 60, 40, 160]);
+    m = document.createElement("div"); m.id = "dnPhone"; m.className = "ov prova dnphone"; m.dataset.seq = D.seq;
+    const g = GD(h.dio), mine = h.doni || [];
+    m.innerHTML = `<div class="ovbox"><img class="dn-pt" src="${ritratto(h.razza, h.genere)}" alt=""><div class="ovk">Livello ${h.lvl} · solo per te</div><h3>Scegli il tuo dono</h3><p class="small">${esc(g.n)} ti guarda crescere. Uno dei due resta tuo per sempre.</p>
+      <div class="dn-row">${D.offers[h.id].map(k => { const L = LVD[k]; return `<button class="dono" data-dn="${k}">${aIco(L.ico)}<b>${esc(L.n)}</b><small>${esc(L.t)}</small></button>`; }).join("")}</div>
+      ${mine.length ? `<p class="small">I tuoi doni finora: ${mine.map(k => esc((LVD[k] || {}).n || k)).join(", ")}</p>` : ""}</div>`;
+    document.body.appendChild(m);
+    m.querySelectorAll("[data-dn]").forEach(b => b.onclick = () => { LIVE.donoRisp = D.seq; m.remove(); send("dono", D.seq + ":" + b.dataset.dn); toast(`${LVD[b.dataset.dn].n}: è tuo. Guarda la TV.`); });
+  }
   // Il voto pubblico sul telefono: si sceglie, poi si vede come votano gli altri
   function pvotoPhone() {
     const T = LIVE.t, me = CR.S.sess && CR.S.sess.user, h = T && (T.eroi || []).find(x => x.user === me), V = T && T.pvoto;
@@ -6623,29 +6812,6 @@ const SERATE = (() => {
       <p class="small">${mio ? (V.primo ? "Fatto. Guarda la TV." : "Hai votato. Il voto è pubblico: i risultati sono sulla TV.") : V.primo ? "Il primo che risponde decide." : "Il voto è pubblico: tutti vedranno cosa scegli."}</p></div>`;
     m.querySelectorAll("[data-pvo]").forEach(b => b.onclick = () => { if (mio) return; LIVE.pv = { seq: V.seq, v: b.dataset.pvo }; send("pvoto", V.seq + ":" + b.dataset.pvo); pvotoPhone(); });
   }
-  // Icone delle azioni sul telefono (tratto semplice, come le icone della mappa)
-  const AICO = {
-    attack: '<path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2"/>',
-    combo: '<path d="M5 4l9 9M4 5l1-1M13 14l-2 2M19 4l-9 9M20 5l-1-1M11 14l2 2M8 16l-3 3M16 16l3 3"/>',
-    ability: '<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.3 6L12 16.4 6.6 19.4l1.3-6L3.4 9.3l6-.7z"/>',
-    ability2: '<path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.3 6L12 16.4 6.6 19.4l1.3-6L3.4 9.3l6-.7z"/>',
-    special: '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
-    bless: '<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/>',
-    guard: '<path d="M12 3l8 3v6c0 4.4-3.4 8-8 9-4.6-1-8-4.6-8-9V6z"/>',
-    amb: '<path d="M7 11V6a1.5 1.5 0 0 1 3 0v5M10 10V4.5a1.5 1.5 0 0 1 3 0V10M13 10V5.5a1.5 1.5 0 0 1 3 0V12M16 11a1.5 1.5 0 0 1 3 0v3a7 7 0 0 1-7 7h-1a6 6 0 0 1-5-3l-2.5-4a1.5 1.5 0 0 1 2.5-1.6L7 14"/>',
-    obj: '<path d="M6 21V4M6 4h11l-2.5 4L17 12H6"/>',
-    move: '<path d="M4 12h14M13 6l6 6-6 6"/>',
-    search: '<circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5.5 5.5"/>',
-    help: '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>',
-    potion: '<path d="M9 3h6M10 3v5L5.5 17A3 3 0 0 0 8.2 21h7.6a3 3 0 0 0 2.7-4L14 8V3M7.5 14h9"/>',
-    bomb: '<circle cx="11" cy="14" r="6.5"/><path d="M15.5 9.5L18 7M18 7l1-1M19.5 4.5l.5-.5M20 7h1M18 4V3"/>',
-    lantern: '<path d="M9 4h6M10 4V2.5h4V4M8 7h8l-1 11H9zM12 10v4M9 21h6"/>',
-    seme: '<path d="M6 20c0-8 5-13 13-14-1 8-6 13-13 14zM6 20l7-7"/>',
-    fiala: '<path d="M9 3h6M10 3v6l-4 9a2 2 0 0 0 1.8 3h8.4a2 2 0 0 0 1.8-3l-4-9V3"/>',
-    congegno: '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>',
-    zona: '<path d="M12 21s-6-5.6-6-11a6 6 0 0 1 12 0c0 5.4-6 11-6 11z"/><circle cx="12" cy="10" r="2"/>',
-  };
-  const aIco = k => `<svg class="aico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${AICO[k] || AICO.ability}</svg>`;
   const AGRP = [["Combattere", ["combo", "ability", "ability2", "special", "bless", "guard", "amb", "obj"]], ["Muoversi e aiutare", ["move", "search", "help"]], ["Oggetti", ["potion", "bomb", "lantern", "seme", "fiala", "congegno", "zona"]]];
   // La plancia sul telefono: prima quello che serve adesso (le tue azioni, o a chi tocca e cosa succede), poi nemici, compagnia e mappa
   function plancia(T, h, myTurn) {
@@ -6660,7 +6826,7 @@ const SERATE = (() => {
       return `<button class="mz ${z.qui ? "qui" : ""} ${z.rev ? "" : "fog"} ${z.rot ? "rot" : ""} ${z.sub ? "sub" : ""} ${b ? "pick" : ""}" ${b ? `data-cmd="tile" data-v="${esc(z.k)}"` : "disabled"}>
         ${z.img && IMG[z.img] ? `<img src="${IMG[z.img]}" alt="">` : ""}${z.tipo ? `<i class="mzico t-${z.tipo}">${icon(z.tipo)}</i>` : ""}<span>${esc(z.n || z.tl || "?")}</span>${z.qui ? `<em>◆ voi</em>` : z.nem ? `<em class="nm">nemici</em>` : b ? `<em>${esc(b.s)}</em>` : ""}</button>`; }).join("")}</div></div>`;
     const foes = (T.nemici || []).length ? `<div class="psec"><div class="lab">Nemici qui</div><div class="pfoes">${T.nemici.map(f => { const b = tg["foe:" + f.uid];
-      return `<button class="pf ${b ? "pick" : ""} ${f.boss ? "boss" : f.elite ? "elite" : ""} ${f.uid === T.turno ? "cur" : ""}" ${b ? `data-cmd="foe" data-v="${esc(f.uid)}"` : "disabled"}><img src="${IMG[f.img]}" alt=""><div><b>${esc(f.n)}</b>${hpBar(f.hp, f.max, "red")}<small>${f.hp}/${f.max} · CA ${f.ca}${f.sp ? " · " + esc(f.sp) : ""}${f.coord ? " · ferito: +2 ai compagni" : ""}</small>${f.carica ? `<span class="pcar">⚠ ${esc(f.carica)}</span>` : ""}</div>${b ? `<span class="pfhit">Colpisci</span>` : ""}</button>`; }).join("")}</div></div>` : "";
+      return `<button class="pf ${b ? "pick" : ""} ${f.boss ? "boss" : f.elite ? "elite" : ""} ${f.uid === T.turno ? "cur" : ""}" ${b ? `data-cmd="foe" data-v="${esc(f.uid)}"` : "disabled"}><img src="${IMG[f.img]}" alt=""><div><b>${esc(f.n)}</b>${hpBar(f.hp, f.max, "red")}<small>${f.hp}/${f.max} · CA ${f.ca}${f.sp ? " · " + esc(f.sp) : ""}${f.coord ? " · ferito: +2 ai compagni" : ""}</small>${f.carica ? `<span class="pcar">⚠ ${esc(f.carica)}</span>` : ""}</div>${b ? `<span class="pfhit ${b.cls ? "hp-" + b.cls : ""}">${b.p != null ? `<b>${b.p}%</b><small>serve ${b.need}+</small>` : "Colpisci"}</span>` : ""}</button>`; }).join("")}</div></div>` : "";
     const party = `<div class="psec"><div class="lab">Compagnia</div><div class="pparty">${(T.eroi || []).map(x => { const b = tg["hero:" + x.id];
       return `<button class="pp ${x.id === T.turno ? "cur" : ""} ${x.ko ? "ko" : ""} ${b ? "pick" : ""}" ${b ? `data-cmd="hero" data-v="${esc(x.id)}"` : "disabled"}><img src="${ritratto(x.razza, x.genere)}" alt=""><b>${esc(x.nome.split(" ")[0])}${x.id === h.id ? " (tu)" : ""}</b>${hpBar(x.hp, x.max)}<small>${x.ko ? "A terra" : `${x.hp}/${x.max}`}</small></button>`; }).join("")}</div></div>`;
     // l'ordine del giro, a partire da chi gioca adesso
@@ -6675,7 +6841,7 @@ const SERATE = (() => {
       else if (T.modo) top = `<div class="cmdbox modeh"><b>${esc(hint || "Scegli")}</b><button class="linkbtn" data-cmd="cancel">Annulla</button></div>`;
       else {
         const A = T.azioni || [], by = k => A.find(a => a.k === k), atk = by("attack");
-        const btn = a => `<button class="act3 ${a.k === "attack" ? "prim" : ""} ${a.k === "bless" ? "god" : ""}" data-cmd="act" data-v="${a.k}" ${a.ok ? "" : "disabled"}>${aIco(a.k)}<span><b>${esc(a.t)}</b><small>${esc(a.sub)}</small></span></button>`;
+        const btn = a => `<button class="act3 ${a.k === "attack" ? "prim" : ""} ${a.k === "bless" ? "god" : ""}" data-cmd="act" data-v="${a.k}" ${a.ok ? "" : "disabled"}>${aIco(a.k)}<span><b>${esc(a.t)}</b>${a.chips ? `<span class="hcs">${a.chips.map(c => `<span class="hc-p ${c.cls}">${esc(c.n)} · ${c.p}%</span>`).join("")}</span>` : `<small>${esc(a.sub)}</small>`}</span></button>`;
         const used = new Set(["attack"]);
         const groups = AGRP.map(([n, ks]) => { const L = ks.map(by).filter(Boolean); L.forEach(a => used.add(a.k)); return L.length ? `<div class="agl">${n}</div><div class="agrid3">${L.map(btn).join("")}</div>` : ""; }).join("");
         const rest = A.filter(a => !used.has(a.k));
@@ -6985,6 +7151,15 @@ function show(k) {
   fire.position.set(k === "locanda" ? -1.2 : -1.6, 1.2, k === "locanda" ? -1.2 : -1.6);
   const ar = ARENA.has(k); if (ar !== B.arenaCam) { B.arenaCam = ar; // nelle arene la telecamera si allontana: il boss e tutta la compagnia restano in quadro
     const d = camera.position.clone().sub(controls.target), want = ar ? 8.2 : 7.0; camera.position.copy(controls.target).add(d.setLength(want)); controls.maxDistance = ar ? 18 : 14; }
+  B.home = { t: controls.target.clone(), d: camera.position.distanceTo(controls.target) }; B.cid = null; B.focus = null;
+}
+// La telecamera segue il turno: si avvicina un po' a chi gioca (0,8 s), poi lascia libere le dita
+function seguiTurno(cid) {
+  if (!B.home) B.home = { t: controls.target.clone(), d: camera.position.distanceTo(controls.target) };
+  const m = cid && B.minis[cid], toT = B.home.t.clone(); let dist = B.home.d;
+  if (m && !m.userData.enemy) { const p = (m.userData.goal || m.position); toT.lerp(new THREE.Vector3(p.x, B.home.t.y, p.z), .38); dist *= .86; }
+  else if (m) { const p = (m.userData.goal || m.position); toT.lerp(new THREE.Vector3(p.x, B.home.t.y, p.z), .18); dist *= .95; }
+  B.focus = { t0: clock.elapsedTime, fromT: controls.target.clone(), toT, fromD: camera.position.distanceTo(controls.target), toD: dist };
 }
 function resize() { const w = canvas.clientWidth, h = canvas.clientHeight; if (!w || !h) return; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix(); }
 function tex(src) { if (!texCache[src]) { const t = tl.load(src); t.colorSpace = THREE.SRGBColorSpace; texCache[src] = t; } return texCache[src]; }
@@ -7022,12 +7197,13 @@ function sync() {
   if (AS) { hp.splice(0, hp.length, ...AS.hp); fp.splice(0, fp.length, ...AS.fp); }
   hs.forEach((id, i) => place(id, want[id], hp[i]));
   fs.forEach((id, i) => place(id, want[id], fp[i]));
-  const cid = typeof curId === "function" ? curId() : null;
-  Object.entries(B.minis).forEach(([id, m]) => { m.userData.rim.material.emissive.setHex(id === cid ? (m.userData.enemy ? 0x802010 : 0x806020) : 0x000000); });
+  const cid = typeof curId === "function" && S.phase !== "end" ? curId() || null : null;
+  Object.entries(B.minis).forEach(([id, m]) => { m.userData.rim.material.emissive.setHex(id === cid ? (m.userData.enemy ? 0x802010 : 0x806020) : 0x000000); m.userData.turno = id === cid; });
+  if (cid !== B.cid) { B.cid = cid; seguiTurno(cid); }
 }
 function place(id, w, xz) {
   let m = B.minis[id];
-  if (!m || m.userData.dying) { if (m) scene.remove(m); m = standee(w.img, w.enemy, w.boss); m.userData.id = id; m.userData.enemy = w.enemy; scene.add(m); B.minis[id] = m; m.position.set(xz[0], hAt(xz[0], xz[1]), xz[1]);
+  if (!m || m.userData.dying) { if (m) scene.remove(m); m = standee(w.img, w.enemy, w.boss); m.userData.id = id; m.userData.enemy = w.enemy; m.userData.boss = !!w.boss; scene.add(m); B.minis[id] = m; m.position.set(xz[0], hAt(xz[0], xz[1]), xz[1]);
     if (w.key && HAVE_MINI.has(w.key)) attachModel(m, w); if (w.boss) gust(); }
   const u0 = m.userData;
   if (w.ko && !u0.ko) anim(m, "caduta"); else if (!w.ko && u0.ko) anim(m, "idle");
@@ -7071,6 +7247,9 @@ function loop() {
     if (u.charge) { if (!u.ring) { u.ring = new THREE.Mesh(new THREE.RingGeometry(.2, .27, 40), new THREE.MeshBasicMaterial({ color: 0xff4020, transparent: true, side: THREE.DoubleSide, depthWrite: false })); u.ring.rotation.x = -Math.PI / 2; u.ring.position.y = .02; m.add(u.ring); }
       u.ring.visible = true; const s2 = (u.body ? u.rim.scale.x : 1) * (1.1 + Math.sin(t * 8) * .12); u.ring.scale.setScalar(s2); u.ring.material.opacity = .55 + Math.sin(t * 8) * .3; }
     else if (u.ring) u.ring.visible = false;
+    if (u.turno && !u.ko) { if (!u.tring) { u.tring = new THREE.Mesh(new THREE.RingGeometry(.25, .34, 48), new THREE.MeshBasicMaterial({ color: u.enemy ? 0xff5a3a : 0xffd56a, transparent: true, side: THREE.DoubleSide, depthWrite: false, blending: THREE.AdditiveBlending })); u.tring.rotation.x = -Math.PI / 2; u.tring.position.y = .015; m.add(u.tring); }
+      u.tring.visible = true; const kk = u.rim.scale.x * (u.boss ? 1.9 : 1) * (1.05 + Math.sin(t * 3.2) * .07); u.tring.scale.setScalar(kk); u.tring.material.opacity = .55 + Math.sin(t * 3.2) * .25; }
+    else if (u.tring) u.tring.visible = false;
     stati(m, u, t);
     if (u.goal) m.position.lerp(u.goal, Math.min(1, dt * 5));
     const born = Math.min(1, (t - u.born) / .5); if (born < 1) m.scale.setScalar(.2 + .8 * born);
@@ -7080,6 +7259,9 @@ function loop() {
     const hk = u.hit != null ? (t - u.hit) : 9; u.card.position.x = hk < .45 ? Math.sin(hk * 50) * 0.04 * (1 - hk / .45) : 0;
   });
   stepFx(dt, t);
+  if (B.focus) { const k = Math.min(1, (t - B.focus.t0) / .8), e = k * k * (3 - 2 * k), F = B.focus;
+    const off = camera.position.clone().sub(controls.target); controls.target.copy(F.fromT).lerp(F.toT, e);
+    off.setLength(F.fromD + (F.toD - F.fromD) * e); camera.position.copy(controls.target).add(off); if (k >= 1) B.focus = null; }
   controls.update();
   const sk = B.shake != null ? t - B.shake : 9, off = sk < .35 ? (1 - sk / .35) * .05 : 0;
   if (off) { camera.position.x += (Math.random() - .5) * off; camera.position.y += (Math.random() - .5) * off; }
@@ -7135,7 +7317,16 @@ function attack(aId, tId, crit, kind) {
   const a = B.minis[aId], t = B.minis[tId]; if (!B.ok || !a) return;
   a.userData.aim = t ? t.position.clone() : null; a.userData.aimT = clock.elapsedTime;
   anim(a, "attacco");
+  if (t) scia(a.position, t.position, a.userData.enemy, kind === "miss");
   if (t && kind !== "miss") setTimeout(() => { slash(t.position, a.userData.enemy); burst(t.position, a.userData.enemy ? 0xff5a3a : 0xffd27a, crit ? 70 : 30); if (crit) B.shake = clock.elapsedTime; }, 320);
+}
+function scia(p0, p1, enemy, miss) {
+  const h = MINI_H * .55, a = p0.clone().add(new THREE.Vector3(0, h, 0)), b = p1.clone().add(new THREE.Vector3(0, h, 0)), mid = a.clone().lerp(b, .5).add(new THREE.Vector3(0, .55 + a.distanceTo(b) * .12, 0));
+  const curve = new THREE.QuadraticBezierCurve3(a, mid, b), geo = new THREE.TubeGeometry(curve, 40, .022, 6, false);
+  const mat = new THREE.MeshBasicMaterial({ color: enemy ? 0xff6a4a : 0xffe08a, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending });
+  const mesh = new THREE.Mesh(geo, mat); mesh.renderOrder = 18; scene.add(mesh); geo.setDrawRange(0, 0);
+  const n = geo.index ? geo.index.count : 0;
+  pops.push({ fx: mesh, dur: .9, t0: clock.elapsedTime, step(k) { const grow = Math.min(1, k / .45); geo.setDrawRange(0, Math.floor(n * grow / 6) * 6); mat.opacity = (miss ? .45 : .9) * (k < .6 ? 1 : 1 - (k - .6) / .4); } });
 }
 function slash(p, enemy) {
   const c = document.createElement("canvas"); c.width = c.height = 128; const x = c.getContext("2d");
