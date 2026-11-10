@@ -2,7 +2,7 @@
 <html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0a0d16"><link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text y='52' font-size='52'>⚔</text></svg>">
 <style>html,body{margin:0;background:#0a0d16}:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}img{max-width:100%}[hidden]{display:none!important}</style>
-<script>window.VID_PARTS={"boss1_vorgath": 4, "boss2_cervo": 4, "boss3_vasthor": 5, "intro_vesperia": 6};</script>
+<script>window.VID_PARTS={"boss1_vorgath": 4, "boss2_cervo": 4, "boss3_vasthor": 5, "boss5_nemesh": 5, "intro_vesperia": 6};</script>
 </head><body>
 <title>Tavolo di Vesperia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -3669,6 +3669,7 @@ async function invitoPatto(h) {
 }
 // Il boss: Nemesh, il Divoratore di Nomi
 async function nemeshArrives(forced, fromRound) {
+  if (!forced) await filmato("boss5_nemesh");   // la cut scene: la Soglia nella nebbia, il Remo, le lanterne si spengono, il cerchio, Nemesh si alza
   SFX.boss(); S.phase = "boss"; S.flags.forzato = !!forced; S.flags.nemeshDue = false; await bossCard("nemesh");
   if (forced) { S.foes.filter(f => f.tile === S.pos && f.hp > 0).forEach(f => f.hp = 0); S.order = S.order.filter(id => id[0] === "h"); }
   const f = addFoe("nemesh", S.pos), dim = GRID.flat().filter(k => S.tiles[k].oblio).length;
