@@ -2407,7 +2407,7 @@ function musicWanted() {
 }
 async function syncMusic() {
   ambient();
-  if (FAST || AUD.talking) return;
+  if (FAST || AUD.talking || AUD.film) return;
   const k = musicWanted();
   if (k === AUD.musKey) { const a = AUD.mus; if (a && k && (a.paused || a._stop)) { a._stop = false; a.play().catch(() => {}); fadeTo(a, MUSVOL, 900); } return; }
   const old = AUD.mus; if (old) { old._stop = true; fadeTo(old, 0, 900); }
@@ -2486,8 +2486,8 @@ function filmato(name) {
       : `<video playsinline preload="auto"><source src="vid/${name}.mp4" type="video/mp4"></video><button type="button" class="salta">Salta ›</button>`;
     document.body.appendChild(ov);
     const v = ov.querySelector("video"), btn = ov.querySelector(".salta"), gu = ov.querySelector(".guarda"), at = ov.querySelector(".fattesa");
-    const mus = AUD.mus; if (mus && !mus.paused) mus.pause(); try { stopVoice(true); } catch (e) {} try { MUSICA.stop(600); } catch (e) {}
-    const fine = () => { if (fatto) return; fatto = true; try { v.pause(); } catch (e) {} document.removeEventListener("keydown", tasto); ov.classList.add("via"); setTimeout(() => ov.remove(), 700); if (mus && AUD.mus === mus) { mus.play().catch(() => {}); } done(); };
+    const mus = AUD.mus; AUD.film = true; if (mus && !mus.paused) mus.pause(); try { stopVoice(true); } catch (e) {} try { MUSICA.stop(600); } catch (e) {}
+    const fine = () => { if (fatto) return; fatto = true; AUD.film = false; try { v.pause(); } catch (e) {} document.removeEventListener("keydown", tasto); ov.classList.add("via"); setTimeout(() => ov.remove(), 700); if (mus && AUD.mus === mus) { mus.play().catch(() => {}); } done(); };
     const tasto = e => { if (e.key === "Escape" || (["Enter", " "].includes(e.key) && !(gu && !gu.hidden))) { e.preventDefault(); fine(); } };
     btn.onclick = fine; v.onended = fine; v.onerror = fine; const ls = ov.querySelector("source:last-of-type"); if (ls) ls.onerror = fine;
     document.addEventListener("keydown", tasto);
@@ -4405,12 +4405,15 @@ async function votoPubblico(o) {
         H.filter(isAuto).forEach(h => { if (votes[h.id] == null) votes[h.id] = best; }); }
       if (force || o.primo || H.every(h => votes[h.id] != null)) end(); else draw();
     };
-    const end = () => { if (finished) return; finished = true; if (window.PVOTO_HOOK) PVOTO_HOOK.stop(); setTimeout(() => { m.remove(); res(); }, o.primo ? 300 : 900); draw2(); };
+    let lettura = Promise.resolve();
+    const end = () => { if (finished) return; finished = true; if (window.PVOTO_HOOK) PVOTO_HOOK.stop(); draw2();
+      if (o.narr && AUD.talking && !AUD.quip) { const box = m.querySelector(".ovbox"); if (box && !box.querySelector(".ovskip")) { const sk = document.createElement("button"); sk.className = "linkbtn ovskip"; sk.textContent = "Il narratore finisce di leggere · salta"; sk.onclick = () => stopVoice(); box.appendChild(sk); } }
+      lettura.then(() => setTimeout(() => { m.remove(); res(); }, o.primo ? 300 : 900)); };
     const draw2 = () => { const box = m.querySelector(".ovbox"); if (box) box.classList.add("pvdone"); };
     const remote = window.PVOTO_HOOK && PVOTO_HOOK.start(o, H.map(h => h.id), (id, v) => vote(id, v));
     if (remote) tvMode = false;
     if (H.every(h => window.AUTO_INIT && AUTO_INIT(h))) H.forEach((h, i) => setTimeout(() => vote(h.id, auto(h)), 700 + i * 400)); // solo compagni automatici: votano da soli
-    if (o.narr) voice(o.narr);
+    if (o.narr) lettura = voice(o.narr);
     draw();
   });
   BUSY = wasBusy;
@@ -5555,12 +5558,15 @@ window.MUSICA = (() => {
   const url = async n => { if (!(n in cache)) cache[n] = (async () => { try { const r = await fetch(`aud/${n}.mp3`); return r.ok ? URL.createObjectURL(await r.blob()) : null; } catch (e) { return null; } })(); return cache[n]; };
   const fade = (a, to, ms, end) => { clearInterval(a._f); const v0 = a.volume, t0 = performance.now(); a._f = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / ms); a.volume = Math.max(0, Math.min(1, v0 + (to - v0) * k)); if (k >= 1) { clearInterval(a._f); end && end(); } }, 40); };
   const target = () => (muted ? 0 : (cur && cur._vol || .5) * duck);
+  let pend = null; // una traccia che sta ancora arrivando: una seconda chiamata non ne avvia una copia
   async function play(n, vol = .5) {
     if (key === n && cur) { cur._vol = vol; if (cur.paused) cur.play().catch(() => {}); fade(cur, target(), 900); return; }
-    stop(900); key = n; const u = await url(n); if (key !== n || !u) return;
+    if (key === n && pend === n) return;
+    stop(900); key = n; pend = n; const u = await url(n); if (pend === n) pend = null; if (key !== n || !u) return;
+    if (cur) { const o = cur; fade(o, 0, 600, () => o.pause()); }
     const a = typeof lettore === "function" ? lettore("menu") : new Audio(); a.src = u; a.loop = true; a.volume = 0; a._vol = vol; cur = a; a.play().catch(() => {}); fade(a, target(), 1600);
   }
-  function stop(ms = 1200) { const a = cur; cur = null; key = null; if (a) fade(a, 0, ms, () => a.pause()); }
+  function stop(ms = 1200) { const a = cur; cur = null; key = null; pend = null; if (a) fade(a, 0, ms, () => a.pause()); }
   function setDuck(on) { duck = on ? 0 : 1; if (cur) { if (!on && cur.paused) cur.play().catch(() => {}); fade(cur, target(), on ? 350 : 1200, on ? () => { if (duck === 0 && cur) cur.pause(); } : null); } } // mentre parla una voce la musica si ferma, poi riprende
   function mute(on) { muted = !!on; if (cur) fade(cur, target(), 300); }
   return { play, stop, duck: setDuck, mute, get key() { return key; } };
