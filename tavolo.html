@@ -2,7 +2,7 @@
 <html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0a0d16"><link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text y='52' font-size='52'>⚔</text></svg>">
 <style>html,body{margin:0;background:#0a0d16}:root{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}img{max-width:100%}[hidden]{display:none!important}</style>
-<script>window.VID_PARTS={"boss1_vorgath": 4, "boss2_cervo": 4, "boss3_vasthor": 5, "boss5_nemesh": 5, "intro_vesperia": 6};</script>
+<script>window.VID_PARTS={"boss1_vorgath": 4, "boss2_cervo": 4, "boss3_vasthor": 5, "boss4_aurelio": 4, "boss5_nemesh": 5, "intro_vesperia": 6};</script>
 </head><body>
 <title>Tavolo di Vesperia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -3422,6 +3422,7 @@ async function processo() {
 // Il Giudice Ingordo
 async function aurelioArrives(forced, fromRound) {
   if (!S.flags.processo) await processo();
+  if (!forced) await filmato("boss4_aurelio");   // la cut scene: la sala del Giudizio, la bilancia di Varenna, l'Ago trema e indica il Giudice, Aurelio lo ingoia, l'oro e la statua
   SFX.boss(); await bossCard("aurelio"); S.phase = "boss"; S.flags.forzato = !!forced; S.flags.bossG = S.giro; S.flags.bossHp = alive().reduce((a, h) => a + h.hp, 0) + "/" + S.heroes.reduce((a, h) => a + h.max, 0);
   S.flags.pende = S.meriti > S.colpe ? "meriti" : S.colpe > S.meriti ? "colpe" : "";
   addFoe("aurelio", S.pos); const ng = S.flags.ospiti ? 0 : 2; for (let i = 0; i < ng; i++) addFoe("guardiad", S.pos);
