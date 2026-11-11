@@ -911,7 +911,7 @@ button.chip{cursor:pointer}button.chip:hover{border-color:var(--gold-lo)}
 
 <div id="app"></div>
 <script>
-const IMG={"npc_nella": "img/npc_nella.webp", "loc_locanda": "img/loc_locanda.webp", "mappa_mondo": "img/mappa_mondo.webp", "loc_palude": "img/loc_palude.webp", "loc_lunargento": "img/loc_lunargento.webp", "npc_lanzeri": "img/npc_lanzeri.webp", "npc_maral": "img/npc_maral.webp", "mon_custode": "img/mon_custode.webp", "mon_banchiere": "img/mon_banchiere.webp", "mon_radice": "img/mon_radice.webp", "mon_sussurro": "img/mon_sussurro.webp", "mon_mangiaossa": "img/mon_mangiaossa.webp", "npc_aurelio": "img/npc_aurelio.webp", "loc_gorgo": "img/loc_gorgo.webp", "mon_aurelio": "img/mon_aurelio.webp", "loc_villaggio": "img/loc_villaggio.webp", "npc_thessa": "img/npc_thessa.webp", "loc_santuario": "img/loc_santuario.webp", "orco": "img/orco.webp", "mon_famelico": "img/mon_famelico.webp", "npc_traghettatore": "img/npc_traghettatore.webp", "mon_spirito": "img/mon_spirito.webp", "nhazgor": "img/nhazgor.webp", "loc_spiaggia": "img/loc_spiaggia.webp", "mon_tagliaborse": "img/mon_tagliaborse.webp", "mon_vasthor": "img/mon_vasthor.webp", "pyrath": "img/pyrath.webp", "umano_m": "img/umano_m.webp", "mon_fungo": "img/mon_fungo.webp", "mon_nemesh": "img/mon_nemesh.webp", "key_remo": "img/key_remo.webp", "mon_annegato": "img/mon_annegato.webp", "loc_vicoli": "img/loc_vicoli.webp", "mezzuomo_m": "img/mezzuomo_m.webp", "kaoth": "img/kaoth.webp", "npc_seraphel": "img/npc_seraphel.webp", "mon_capitana": "img/mon_capitana.webp", "npc_perla": "img/npc_perla.webp", "loc_funghi": "img/loc_funghi.webp", "loc_portorelitto": "img/loc_portorelitto.webp", "loc_thalassar": "img/loc_thalassar.webp", "npc_albecorno": "img/npc_albecorno.webp", "loc_nido": "img/loc_nido.webp", "varenna": "img/varenna.webp", "loc_ponte": "img/loc_ponte.webp", "loc_tempio": "img/loc_tempio.webp", "loc_ossario": "img/loc_ossario.webp", "loc_limitare": "img/loc_limitare.webp", "loc_portaoro": "img/loc_portaoro.webp", "elfo_m": "img/elfo_m.webp", "loc_campo": "img/loc_campo.webp", "mon_locuste": "img/mon_locuste.webp", "nano": "img/nano.webp", "loc_porta": "img/loc_porta.webp", "loc_prigioni": "img/loc_prigioni.webp", "npc_tibbo": "img/npc_tibbo.webp", "loc_moli": "img/loc_moli.webp", "acquatici_m": "img/acquatici_m.webp", "loc_scogliera": "img/loc_scogliera.webp", "mon_cervo": "img/mon_cervo.webp", "gnomo_m": "img/gnomo_m.webp", "mon_vorgath": "img/mon_vorgath.webp", "mon_tentacolo": "img/mon_tentacolo.webp", "loc_cerchio": "img/loc_cerchio.webp", "loc_liane": "img/loc_liane.webp", "key_ago": "img/key_ago.webp", "elfo": "img/elfo.webp", "loc_giardinorosa": "img/loc_giardinorosa.webp", "mon_lupo": "img/mon_lupo.webp", "gnomo": "img/gnomo.webp", "loc_sabbiaoro": "img/loc_sabbiaoro.webp", "felinidi": "img/felinidi.webp", "loc_banco": "img/loc_banco.webp", "orco_f": "img/orco_f.webp", "loc_cuore": "img/loc_cuore.webp", "zarek": "img/zarek.webp", "loc_palazzo": "img/loc_palazzo.webp", "loc_fonderie": "img/loc_fonderie.webp", "isthara": "img/isthara.webp", "acquatici": "img/acquatici.webp", "mon_guardiadorata": "img/mon_guardiadorata.webp", "loc_soglia": "img/loc_soglia.webp", "key_wide": "img/key_wide.webp", "loc_fiume": "img/loc_fiume.webp", "oruun": "img/oruun.webp", "loc_biblioteca": "img/loc_biblioteca.webp", "loc_mercato": "img/loc_mercato.webp", "npc_sbrindello": "img/npc_sbrindello.webp", "loc_faro": "img/loc_faro.webp", "mezzuomo": "img/mezzuomo.webp", "loc_giardini": "img/loc_giardini.webp", "mon_affogato": "img/mon_affogato.webp", "loc_piazza": "img/loc_piazza.webp", "loc_piatti": "img/loc_piatti.webp", "key_tall": "img/key_tall.webp", "nano_f": "img/nano_f.webp", "npc_eilith": "img/npc_eilith.webp", "loc_relitto": "img/loc_relitto.webp", "mon_guardia": "img/mon_guardia.webp", "mon_predone": "img/mon_predone.webp", "felinidi_m": "img/felinidi_m.webp", "loc_bosco": "img/loc_bosco.webp", "loc_giardino": "img/loc_giardino.webp", "loc_sylsant": "img/loc_sylsant.webp", "loc_archivio": "img/loc_archivio.webp", "mon_anguilla": "img/mon_anguilla.webp", "mon_granchio": "img/mon_granchio.webp", "sylvara": "img/sylvara.webp", "npc_oruun": "img/npc_oruun.webp", "mon_smemorato": "img/mon_smemorato.webp", "npc_lirio": "img/npc_lirio.webp", "loc_approdo": "img/loc_approdo.webp", "loc_sottobosco": "img/loc_sottobosco.webp", "mon_famelico4": "img/mon_famelico4.webp", "mon_ingordo": "img/mon_ingordo.webp", "umano": "img/umano.webp", "mon_nella": "img/mon_nella.webp"};
+const IMG={"npc_nella": "img/npc_nella.webp", "loc_locanda": "img/loc_locanda.webp", "mappa_mondo": "img/mappa_mondo.webp", "loc_palude": "img/loc_palude.webp", "loc_lunargento": "img/loc_lunargento.webp", "npc_lanzeri": "img/npc_lanzeri.webp", "npc_maral": "img/npc_maral.webp", "mon_custode": "img/mon_custode.webp", "mon_banchiere": "img/mon_banchiere.webp", "mon_radice": "img/mon_radice.webp", "mon_sussurro": "img/mon_sussurro.webp", "bg_cacciatore": "img/bg_cacciatore.webp", "mon_mangiaossa": "img/mon_mangiaossa.webp", "npc_aurelio": "img/npc_aurelio.webp", "bg_contrabbandiere": "img/bg_contrabbandiere.webp", "loc_gorgo": "img/loc_gorgo.webp", "mon_aurelio": "img/mon_aurelio.webp", "loc_villaggio": "img/loc_villaggio.webp", "npc_thessa": "img/npc_thessa.webp", "loc_santuario": "img/loc_santuario.webp", "orco": "img/orco.webp", "mon_famelico": "img/mon_famelico.webp", "npc_traghettatore": "img/npc_traghettatore.webp", "mon_spirito": "img/mon_spirito.webp", "nhazgor": "img/nhazgor.webp", "loc_spiaggia": "img/loc_spiaggia.webp", "mon_tagliaborse": "img/mon_tagliaborse.webp", "mon_vasthor": "img/mon_vasthor.webp", "pyrath": "img/pyrath.webp", "bg_guardia": "img/bg_guardia.webp", "umano_m": "img/umano_m.webp", "mon_fungo": "img/mon_fungo.webp", "mon_nemesh": "img/mon_nemesh.webp", "key_remo": "img/key_remo.webp", "mon_annegato": "img/mon_annegato.webp", "loc_vicoli": "img/loc_vicoli.webp", "mezzuomo_m": "img/mezzuomo_m.webp", "kaoth": "img/kaoth.webp", "npc_seraphel": "img/npc_seraphel.webp", "mon_capitana": "img/mon_capitana.webp", "npc_perla": "img/npc_perla.webp", "loc_funghi": "img/loc_funghi.webp", "loc_portorelitto": "img/loc_portorelitto.webp", "loc_thalassar": "img/loc_thalassar.webp", "npc_albecorno": "img/npc_albecorno.webp", "loc_nido": "img/loc_nido.webp", "bg_nobile": "img/bg_nobile.webp", "varenna": "img/varenna.webp", "loc_ponte": "img/loc_ponte.webp", "loc_tempio": "img/loc_tempio.webp", "loc_ossario": "img/loc_ossario.webp", "loc_limitare": "img/loc_limitare.webp", "loc_portaoro": "img/loc_portaoro.webp", "elfo_m": "img/elfo_m.webp", "loc_campo": "img/loc_campo.webp", "mon_locuste": "img/mon_locuste.webp", "nano": "img/nano.webp", "loc_porta": "img/loc_porta.webp", "loc_prigioni": "img/loc_prigioni.webp", "npc_tibbo": "img/npc_tibbo.webp", "loc_moli": "img/loc_moli.webp", "acquatici_m": "img/acquatici_m.webp", "loc_scogliera": "img/loc_scogliera.webp", "bg_naufrago": "img/bg_naufrago.webp", "mon_cervo": "img/mon_cervo.webp", "gnomo_m": "img/gnomo_m.webp", "mon_vorgath": "img/mon_vorgath.webp", "mon_tentacolo": "img/mon_tentacolo.webp", "loc_cerchio": "img/loc_cerchio.webp", "loc_liane": "img/loc_liane.webp", "key_ago": "img/key_ago.webp", "elfo": "img/elfo.webp", "loc_giardinorosa": "img/loc_giardinorosa.webp", "mon_lupo": "img/mon_lupo.webp", "gnomo": "img/gnomo.webp", "loc_sabbiaoro": "img/loc_sabbiaoro.webp", "felinidi": "img/felinidi.webp", "loc_banco": "img/loc_banco.webp", "orco_f": "img/orco_f.webp", "bg_eremita": "img/bg_eremita.webp", "loc_cuore": "img/loc_cuore.webp", "zarek": "img/zarek.webp", "loc_palazzo": "img/loc_palazzo.webp", "loc_fonderie": "img/loc_fonderie.webp", "isthara": "img/isthara.webp", "acquatici": "img/acquatici.webp", "mon_guardiadorata": "img/mon_guardiadorata.webp", "loc_soglia": "img/loc_soglia.webp", "key_wide": "img/key_wide.webp", "loc_fiume": "img/loc_fiume.webp", "oruun": "img/oruun.webp", "loc_biblioteca": "img/loc_biblioteca.webp", "loc_mercato": "img/loc_mercato.webp", "npc_sbrindello": "img/npc_sbrindello.webp", "loc_faro": "img/loc_faro.webp", "mezzuomo": "img/mezzuomo.webp", "bg_mercenario": "img/bg_mercenario.webp", "loc_giardini": "img/loc_giardini.webp", "mon_affogato": "img/mon_affogato.webp", "loc_piazza": "img/loc_piazza.webp", "bg_carestia": "img/bg_carestia.webp", "loc_piatti": "img/loc_piatti.webp", "key_tall": "img/key_tall.webp", "nano_f": "img/nano_f.webp", "npc_eilith": "img/npc_eilith.webp", "loc_relitto": "img/loc_relitto.webp", "mon_guardia": "img/mon_guardia.webp", "mon_predone": "img/mon_predone.webp", "felinidi_m": "img/felinidi_m.webp", "loc_bosco": "img/loc_bosco.webp", "loc_giardino": "img/loc_giardino.webp", "loc_sylsant": "img/loc_sylsant.webp", "loc_archivio": "img/loc_archivio.webp", "mon_anguilla": "img/mon_anguilla.webp", "mon_granchio": "img/mon_granchio.webp", "sylvara": "img/sylvara.webp", "npc_oruun": "img/npc_oruun.webp", "mon_smemorato": "img/mon_smemorato.webp", "npc_lirio": "img/npc_lirio.webp", "loc_approdo": "img/loc_approdo.webp", "bg_pellegrino": "img/bg_pellegrino.webp", "bg_scrivano": "img/bg_scrivano.webp", "loc_sottobosco": "img/loc_sottobosco.webp", "mon_famelico4": "img/mon_famelico4.webp", "mon_ingordo": "img/mon_ingordo.webp", "umano": "img/umano.webp", "mon_nella": "img/mon_nella.webp"};
 // ===== Dati: statistiche, razze, classi =====
 const STATS = [
   { k: "for", n: "Forza",   i: "⚔" },
@@ -1096,6 +1096,45 @@ const S_F = { umano: "Umana", nano: "Nana", elfo: "Elfa", orco: "Orchessa", mezz
 const C_F = { guerriero: "Guerriera", barbaro: "Barbara", mago: "Maga", ladro: "Furfante", chierico: "Chierica", ranger: "Ranger", bardo: "Barda", paladino: "Paladina", druido: "Druida" };
 const stirpeS = (razza, genere) => (genere === "f" && S_F[razza]) || RACES.find(r => r.id === razza).s;
 const classeN = (classe, genere) => (genere === "f" && C_F[classe]) || CLASSES.find(c => c.id === classe).n;
+
+// ===== Background: la storia dell'eroe prima del sogno (+1 alla caratteristica nelle prove fuori dal combattimento) =====
+const BACKGROUNDS = [
+  { id: "guardia", n: "Guardia dei Ponti", f: "Guardia dei Ponti", st: "for", img: "bg_guardia",
+    t: "Hai sorvegliato i ponti di Crocevento per anni. La notte in cui il fiume si è fermato, tu non eri al tuo posto.",
+    tf: "Hai sorvegliato i ponti di Crocevento per anni. La notte in cui il fiume si è fermato, tu non eri al tuo posto." },
+  { id: "mercenario", n: "Mercenario senza bandiera", f: "Mercenaria senza bandiera", st: "for", img: "bg_mercenario",
+    t: "Hai venduto la spada a chi pagava di più, sotto tre bandiere diverse. Ora non ne porti nessuna, e qualcuno ti cerca ancora.",
+    tf: "Hai venduto la spada a chi pagava di più, sotto tre bandiere diverse. Ora non ne porti nessuna, e qualcuno ti cerca ancora." },
+  { id: "contrabbandiere", n: "Contrabbandiere di Aurea", f: "Contrabbandiera di Aurea", st: "agi", img: "bg_contrabbandiere",
+    t: "Ad Aurea ogni cosa paga un dazio. Tu conoscevi le strade dove non lo pagava nessuno, finché una cassa sbagliata non ti ha costretto a fuggire.",
+    tf: "Ad Aurea ogni cosa paga un dazio. Tu conoscevi le strade dove non lo pagava nessuno, finché una cassa sbagliata non ti ha costretta a fuggire." },
+  { id: "cacciatore", n: "Cacciatore della Selva", f: "Cacciatrice della Selva", st: "agi", img: "bg_cacciatore",
+    t: "Sei cresciuto tra gli alberi della Selva Antica. Le prede hanno cominciato a sparire prima ancora del marciume, e tu vuoi sapere perché.",
+    tf: "Sei cresciuta tra gli alberi della Selva Antica. Le prede hanno cominciato a sparire prima ancora del marciume, e tu vuoi sapere perché." },
+  { id: "scrivano", n: "Scrivano dell'Archivio", f: "Scrivana dell'Archivio", st: "ing", img: "bg_scrivano",
+    t: "Hai copiato registri e mappe per tutta la vita. Un giorno hai trovato una pagina con un nome raschiato via, e da allora non dormi più bene.",
+    tf: "Hai copiato registri e mappe per tutta la vita. Un giorno hai trovato una pagina con un nome raschiato via, e da allora non dormi più bene." },
+  { id: "eremita", n: "Eremita delle Terre Senza Nome", f: "Eremita delle Terre Senza Nome", st: "ing", img: "bg_eremita",
+    t: "Hai vissuto da solo dove le strade perdono i cartelli e i villaggi il nome. Hai imparato ad ascoltare quello che gli altri dimenticano.",
+    tf: "Hai vissuto da sola dove le strade perdono i cartelli e i villaggi il nome. Hai imparato ad ascoltare quello che gli altri dimenticano." },
+  { id: "pellegrino", n: "Pellegrino del Sole", f: "Pellegrina del Sole", st: "fas", img: "bg_pellegrino",
+    t: "Hai camminato da un santuario all'altro portando preghiere non tue. L'ultimo dio a cui hai bussato non ti ha risposto.",
+    tf: "Hai camminato da un santuario all'altro portando preghiere non tue. L'ultimo dio a cui hai bussato non ti ha risposto." },
+  { id: "nobile", n: "Nobile decaduto", f: "Nobile decaduta", st: "fas", img: "bg_nobile",
+    t: "La tua famiglia aveva un palazzo, un nome e troppi debiti. Ora ti restano solo il nome e le buone maniere per usarlo.",
+    tf: "La tua famiglia aveva un palazzo, un nome e troppi debiti. Ora ti restano solo il nome e le buone maniere per usarlo." },
+  { id: "carestia", n: "Figlio della carestia", f: "Figlia della carestia", st: "sor", img: "bg_carestia",
+    t: "Sei nato negli anni della grande fame. Sei sopravvissuto quando molti non ce l'hanno fatta, e non hai mai capito perché proprio tu.",
+    tf: "Sei nata negli anni della grande fame. Sei sopravvissuta quando molti non ce l'hanno fatta, e non hai mai capito perché proprio tu." },
+  { id: "naufrago", n: "Naufrago di Thalassar", f: "Naufraga di Thalassar", st: "sor", img: "bg_naufrago",
+    t: "Il mare ti ha preso tutto, vicino a Thalassar, tranne la vita. Da allora conti ogni giorno come un regalo, o come un debito.",
+    tf: "Il mare ti ha preso tutto, vicino a Thalassar, tranne la vita. Da allora conti ogni giorno come un regalo, o come un debito." },
+];
+const MOTIVI = { debito: { n: "Un debito", ph: "Con chi hai un debito, e cosa devi?" }, caccia: { n: "Una caccia", ph: "Chi o cosa stai cercando?" }, preghiera: { n: "Una preghiera", ph: "Quale preghiera è rimasta senza risposta?" } };
+const BG = id => BACKGROUNDS.find(b => b.id === id) || null;
+const bgNome = (id, genere) => { const b = BG(id); return b ? (genere === "f" ? b.f : b.n) : ""; };
+const bgTesto = (id, genere) => { const b = BG(id); return b ? (genere === "f" ? b.tf : b.t) : ""; };
+const BG_ST = { for: "Forza", agi: "Agilità", ing: "Ingegno", fas: "Fascino", sor: "Sorte" };
 
 // ===== Schermata iniziale e colonna sonora dei menu (comune a Tavolo, Creazione e Serate) =====
 // MUSICA: una traccia alla volta per i menu, con dissolvenze; il gioco vero usa il suo sistema e la spegne.
@@ -1325,10 +1364,10 @@ const ITEMS = {
   collana: { n: "Collana del Respiro", t: "Si respira sott'acqua. Per chi si unisce alla compagnia dopo la spiaggia.", price: 8 },
 };
 const PARTY = [
-  { id: "h1", nome: "Shirra Passodombra", genere: "f", razza: "felinidi", classe: "ladro", dio: "zarek" },
-  { id: "h2", nome: "Durgan Forgiaferro", genere: "m", razza: "nano", classe: "guerriero", dio: "pyrath" },
-  { id: "h3", nome: "Aelindra Venthiel", genere: "f", razza: "elfo", classe: "mago", dio: "oruun" },
-  { id: "h4", nome: "Grosh Zannarotta", genere: "m", razza: "orco", classe: "barbaro", dio: "sylvara", traditore: true },
+  { id: "h1", nome: "Shirra Passodombra", genere: "f", razza: "felinidi", classe: "ladro", dio: "zarek", bg: "contrabbandiere" },
+  { id: "h2", nome: "Durgan Forgiaferro", genere: "m", razza: "nano", classe: "guerriero", dio: "pyrath", bg: "mercenario" },
+  { id: "h3", nome: "Aelindra Venthiel", genere: "f", razza: "elfo", classe: "mago", dio: "oruun", bg: "scrivano" },
+  { id: "h4", nome: "Grosh Zannarotta", genere: "m", razza: "orco", classe: "barbaro", dio: "sylvara", bg: "cacciatore", traditore: true },
 ];
 
 // ---------- Armeria: equipaggiamento raro e mitico ----------
@@ -1995,6 +2034,8 @@ const inCitta = () => S.ch === 1 || S.ch === 4;
 const DUE_MANI = ["mannaia", "martello", "balestra"];
 const NON_MORTI = ["annegato", "spirito"], BUIO = ["famelico", "famelico4", "locuste", "anguilla", "tentacolo"], ANIMALI = ["lupo", "granchio", "anguilla"], FERRO = ["guardia", "guardiad"];
 const razza = (h, id) => !!h && h.razza === id;
+// Il dono della storia (background): +1 alla sua caratteristica nelle prove fuori dal combattimento
+const bgB = (h, st) => { const b = h && typeof BG === "function" ? BG(h.bg) : null; return b && b.st === st ? 1 : 0; };
 // Modificatori di stirpe e classe alle prove (eventi, prove di gruppo, scontri evitati, nuoto)
 function trattiProva(h, st, ctx) {
   let m = 0;
@@ -2369,7 +2410,7 @@ async function pickTile(k) {
   if (first_) await zonaTitolo(k);
   if (first_ && NARR["z_" + k] && !T.social) { BUSY = true; render(); await narrate("z_" + k); BUSY = false; }
   if (T.bridge && first_) { // Ponte di Liane: prova di Agilità, o si perde tempo
-    BUSY = true; const r = (await rampino("il ponte di liane è assicurato")) ? { ok: true } : await check(first(h), "Attraversare il Ponte di Liane", 12, mod(h.st.agi) + rollBonus(h) - (has(h, "corazza") ? 1 : 0) - (has(h, "toga") ? 1 : 0)); BUSY = false;
+    BUSY = true; const r = (await rampino("il ponte di liane è assicurato")) ? { ok: true } : await check(first(h), "Attraversare il Ponte di Liane", 12, mod(h.st.agi) + bgB(h, "agi") + rollBonus(h) - (has(h, "corazza") ? 1 : 0) - (has(h, "toga") ? 1 : 0)); BUSY = false;
     if (!r.ok) { log(`${first(h)} scivola: le corde reggono, ma la compagnia perde tempo prezioso.`); S.rotTick++; if (S.rotTick >= rotEvery()) { S.rotTick = 0; await rotAdvance(); } }
     else log(`${first(h)} guida la compagnia sul ponte senza un passo falso.`);
   }
@@ -2796,7 +2837,7 @@ async function seraphelCongedo() {
 async function lunargento(h) {
   const best = [...alive()].sort((a, b) => b.st.fas - a.st.fas)[0];
   await overlay(`<img class="ovimg" src="${IMG.npc_eilith}" alt=""><div class="ovk">Lunargento</div><h3>Eilith, l'Anziana</h3>${NP("z_lunargento")}<p class="small">Prova di Fascino (CD 13) per ${esc(first(best))}${["bardo", "paladino"].includes(best.classe) ? ", con vantaggio" : ""}.</p><button class="btn main" data-v="ok">Parla</button>`, "cut", "z_lunargento");
-  const m = mod(best.st.fas) + rollBonus(best);
+  const m = mod(best.st.fas) + bgB(best, "fas") + rollBonus(best);
   let r = await check(first(best), "Convincere gli elfi", 13, m);
   if (!r.ok && ["bardo", "paladino"].includes(best.classe)) r = await check(first(best), "Vantaggio · secondo tiro", 13, m);
   if (r.ok) {
@@ -2913,7 +2954,7 @@ async function swimIn(h, k) {
   else if (await rampino(`la compagnia si tira lungo la fune verso ${T.n}`)) log("Il rampino tiene: nessuna corrente vi trascina.");
   else {
     const guida = alive().some(acquatico) ? 2 : 0;
-    const m = Math.max(mod(h.st.for), mod(h.st.agi)) + rollBonus(h) + guida + (S.flags.thessa ? 1 : 0) - (has(h, "corazza") ? 1 : 0) - (has(h, "toga") ? 1 : 0) + trattiProva(h, "agi", "nuoto");
+    const m = Math.max(mod(h.st.for) + bgB(h, "for"), mod(h.st.agi) + bgB(h, "agi")) + rollBonus(h) + guida + (S.flags.thessa ? 1 : 0) - (has(h, "corazza") ? 1 : 0) - (has(h, "toga") ? 1 : 0) + trattiProva(h, "agi", "nuoto");
     const r = await check(first(h), `Nuotare verso ${T.n}${guida ? " (guida acquatica +2)" : ""}`, 12, m);
     if (!r.ok) {
       const who = alive().filter(x => !acquatico(x));
@@ -2968,7 +3009,7 @@ async function thessa() {
   S.flags.thessaVista = true;
   const best = [...alive()].sort((a, b) => b.st.ing - a.st.ing)[0];
   await overlay(`<img class="ovimg" src="${IMG.npc_thessa}" alt=""><div class="ovk">Porto del Relitto</div><h3>Thessa Spumanera</h3>${NP("thessa")}<p class="small">Prova di Ingegno (CD 13) per ${esc(first(best))}.</p><button class="btn main" data-v="ok">Convincetela</button>`, "cut", "thessa");
-  const r = await check(first(best), "Convincere Thessa", 13, mod(best.st.ing) + rollBonus(best));
+  const r = await check(first(best), "Convincere Thessa", 13, mod(best.st.ing) + bgB(best, "ing") + rollBonus(best));
   if (r.ok) {
     S.flags.thessa = true; GRID.flat().forEach(k => S.tiles[k].peek = true);
     await overlay(`<img class="ovimg" src="${IMG.npc_thessa}" alt=""><div class="ovk">La carta che cambia</div><h3>Thessa vi guida</h3>${NP("thessa_si")}<p class="small">La mappa è svelata e Thessa vede in anticipo le isole che si spostano. +1 alle prove per nuotare e per uscire dal gorgo.</p><button class="btn main" data-v="ok">Avanti</button>`, "cut", "thessa_si");
@@ -2990,7 +3031,7 @@ async function nidoArrivo() {
   const best = [...alive()].sort((a, b) => b.st.sor - a.st.sor)[0];
   const v = await overlay(`<img class="ovimg" src="${IMG.mon_capitana}" alt=""><div class="ovk">Nido dei Predoni</div><h3>La Capitana Velanera</h3>${NP("capitana_dadi")}<p class="small">Una sola sfida: prova di Sorte (CD 14) per ${esc(first(best))}. Lo scontro ci sarà comunque.</p><div class="choicerow"><button class="btn ghost" data-v="no">Niente dadi</button><button class="btn main" data-v="dadi">Accettate la sfida</button></div>`, "cut", "capitana_dadi");
   if (v !== "dadi") return;
-  const r = await check(first(best), "Dadi con la Capitana", 14, mod(best.st.sor) + rollBonus(best));
+  const r = await check(first(best), "Dadi con la Capitana", 14, mod(best.st.sor) + bgB(best, "sor") + rollBonus(best));
   if (r.ok) { S.flags.moneta = best.id; best.items.push("destino"); SFX.coin(); banner(`${first(best)} vince la Moneta del Destino`, "good"); log(`${first(best)} vince a dadi la Moneta del Destino di Zarek.`); }
   else log("I dadi della Capitana rotolano meglio: la Moneta resta al suo collo.");
 }
@@ -3095,7 +3136,7 @@ async function vortice() {
   banner(`Il Gorgo risucchia ${first(t)}`, "bad"); SFX.wave();
   hurtHero(t, Math.max(1, Math.round(d6() * partyDmg())), "Il Gorgo"); render();
   if (t.ko) return;
-  const r = await check(first(t), "Uscire dal vortice", 13, mod(t.st.for) + (S.flags.thessa ? 1 : 0) + (acquatico(t) ? 1 : 0));
+  const r = await check(first(t), "Uscire dal vortice", 13, mod(t.st.for) + bgB(t, "for") + (S.flags.thessa ? 1 : 0) + (acquatico(t) ? 1 : 0));
   if (r.ok) log(`${first(t)} si libera dal vortice.`); else { t.fx.stun = true; t.fx.stunMsg = gx(t, "è prigioniero del vortice", "è prigioniera del vortice"); log(`${first(t)} ${gx(t, "è trascinato", "è trascinata")} giù: salterà il prossimo turno.`); }
 }
 // La Goccia Primordiale: 3 successi di Forza o Agilità prima di 3 fallimenti, mentre il gorgo si chiude
@@ -3110,7 +3151,7 @@ async function gocciaScene() {
   let ok = 0, ko = 0, i = 0;
   while (ok < 3 && ko < 3 && alive().length) {
     const h = alive()[i++ % alive().length];
-    const r = await check(first(h), `Afferrare la Goccia (${ok}/3 · ${ko}/3)`, dif().pur, Math.max(mod(h.st.for), mod(h.st.agi)) + rollBonus(h) + (S.flags.thessa ? 1 : 0));
+    const r = await check(first(h), `Afferrare la Goccia (${ok}/3 · ${ko}/3)`, dif().pur, Math.max(mod(h.st.for) + bgB(h, "for"), mod(h.st.agi) + bgB(h, "agi")) + rollBonus(h) + (S.flags.thessa ? 1 : 0));
     let good = r.ok;
     if (good && S.sabota && !S.flags.sabotato && !S.flags.acqua && S.heroes.some(x => x.traditore)) { S.flags.sabotato = true; good = false; log("La perla scivola tra le dita, come se qualcuno l'avesse spinta."); }
     if (good) { ok++; S.flags.lastGrab = h.id; SFX.heal(); log(`${first(h)} avvicina la Goccia alla superficie (${ok}/3).`); }
@@ -3192,7 +3233,7 @@ async function dazio() {
   const v = await overlay(`<img class="ovimg" src="${IMG.npc_sbrindello}" alt=""><div class="ovk">La dogana</div><h3>Il dazio di Sbrindello</h3>${NP("c4_dazio")}
     <div class="choicerow"><button class="btn main" data-v="parla">${esc(first(best))} parla al doganiere</button><button class="btn ghost" data-v="paga" ${S.oro >= 15 ? "" : "disabled"}>Pagate 15 monete</button><button class="btn ghost" data-v="no">Lasciate stare</button></div>`, "cut", "c4_dazio");
   let ok = false;
-  if (v === "parla") ok = (await check(first(best), "Convincere il doganiere", 13, mod(best.st.fas) + rollBonus(best))).ok;
+  if (v === "parla") ok = (await check(first(best), "Convincere il doganiere", 13, mod(best.st.fas) + bgB(best, "fas") + rollBonus(best))).ok;
   else if (v === "paga") { S.oro -= 15; ok = true; SFX.coin(); }
   if (ok) { S.flags.dazio = true; missione("dazio", "fatta"); await narrate("dazio_ok"); }
   else if (v === "parla") { missione("dazio", "fallita"); log("Il doganiere non alza nemmeno gli occhi. Il trenta per cento resta."); }
@@ -3271,7 +3312,7 @@ async function lirioScene() {
   S.flags.lirio = "scorta"; missione("lirio", "attiva");
   const best = [...alive()].sort((a, b) => b.st.fas - a.st.fas)[0];
   await overlay(`<img class="ovimg" src="${IMG.npc_lirio}" alt=""><div class="ovk">I Giardini Pensili</div><h3>Lirio, poeta di corte</h3>${NP("lirio_chiede")}<p class="small">Prova di Fascino (CD 13) per ${esc(first(best))}: la rosa nera ha ancora qualcosa da dire. Poi scortate Lirio alla Porta d'Oro: in ogni scontro può essere colpito, e ha 3 cuori.</p><button class="btn main" data-v="ok">Parlategli</button>`, "cut", "lirio_chiede");
-  const r = await check(first(best), "La rosa nera", 13, mod(best.st.fas) + rollBonus(best) + (best.dio === "isthara" ? 2 : 0));
+  const r = await check(first(best), "La rosa nera", 13, mod(best.st.fas) + bgB(best, "fas") + rollBonus(best) + (best.dio === "isthara" ? 2 : 0));
   if (r.ok) { S.camp.rosa = (S.camp.rosa || 0) + 1; log("Lirio racconta della Valle delle Lanterne, dove la Rosa Nera cresce da sola: il secondo indizio di Isthara."); }
   else log("Lirio stringe le labbra: della rosa non vuole parlare, non qui.");
 }
@@ -3302,7 +3343,7 @@ async function zonaAct(h) {
     const v = await overlay(`<img class="ovimg" src="${IMG.zarek}" alt=""><div class="ovk">Sabbiaoro</div><h3>La seconda Moneta del Destino</h3>${NP("moneta_zarek")}<p class="small">Prova di Sorte (CD 14) per ${esc(first(h))}. Se perde, perde tutte le monete che ha in tasca (${h.oro} mo).</p><div class="choicerow"><button class="btn main" data-v="si">Giocate</button><button class="btn ghost" data-v="no">Niente dadi</button></div>`, "cut", "moneta_zarek");
     if (v !== "si") { S.flags.zarekDadi = false; return; }
     spend(h);
-    const r = await check(first(h), "Dadi a Sabbiaoro", 14, mod(h.st.sor) + rollBonus(h) + (h.dio === "zarek" ? 2 : 0));
+    const r = await check(first(h), "Dadi a Sabbiaoro", 14, mod(h.st.sor) + bgB(h, "sor") + rollBonus(h) + (h.dio === "zarek" ? 2 : 0));
     if (r.ok) { h.items.push("destino"); S.flags.secondaMoneta = true; SFX.coin(); banner(`${first(h)} vince la seconda Moneta del Destino`, "good"); log(`${first(h)} vince a dadi la seconda Moneta del Destino.`); }
     else { const p = h.oro; h.oro = 0; log(`Zarek ride: ${first(h)} perde ${p} monete sul tavolo di Sabbiaoro.`); }
   } else if (k === "prigioni") {
@@ -3850,7 +3891,7 @@ const cdCap = () => 11 + S.ch; // 12, 13, 14, 15
 const bonusClasse = (h, st) => (st === "agi" && h.classe === "ladro") || (st === "fas" && h.classe === "bardo") || (st === "ing" && h.classe === "mago") || (st === "for" && h.classe === "barbaro") ? 2 : 0;
 async function prova1(h, st, label, cd = cdCap(), ctx) {
   if (st === "agi" && await rampino(label)) return { r: 0, tot: cd, ok: true, crit: false, total: 0 };
-  return check(first(h), label, cd, mod(h.st[st]) + rollBonus(h) + bonusClasse(h, st) + trattiProva(h, st, ctx)); }
+  return check(first(h), label, cd, mod(h.st[st]) + bgB(h, st) + rollBonus(h) + bonusClasse(h, st) + trattiProva(h, st, ctx)); }
 function rivela(n) { const cov = GRID.flat().filter(k => !S.tiles[k].rev && !S.tiles[k].peek && !TILES[k].boss); cov.sort(() => Math.random() - .5).slice(0, n).forEach(k => S.tiles[k].peek = true); }
 function dona(it, n = 1, h = chiTiene()) { for (let i = 0; i < n; i++) h.items.push(it); return h; }
 async function esito(img, kicker, titolo, k, small) {
@@ -4615,7 +4656,7 @@ function renderPhone() {
   $("#app").innerHTML = `<div class="phonewrap">
     <div class="phtabs">${S.heroes.map(x => `<button class="${x.id === h.id ? "on" : ""}" data-ph="${x.id}"><img src="${ritratto(x.razza, x.genere)}" alt="">${esc(first(x))}</button>`).join("")}</div>
     <div class="phone"><div class="screen">
-      <div class="phhead">${ptImg(h)}<div><h3>${esc(h.nome)}</h3><div class="sub">${esc(stirpeS(h.razza, genOf(h)))} · ${esc(classeN(h.classe, genOf(h)))} · Livello ${h.lvl}${S.tesoriere === h.id ? " · ◈ Tesoriere" : ""}</div>
+      <div class="phhead">${ptImg(h)}<div><h3>${esc(h.nome)}</h3><div class="sub">${esc(stirpeS(h.razza, genOf(h)))} · ${esc(classeN(h.classe, genOf(h)))} · Livello ${h.lvl}${S.tesoriere === h.id ? " · ◈ Tesoriere" : ""}${h.bg && typeof bgNome === "function" ? ` · ${esc(bgNome(h.bg, genOf(h)))}` : ""}</div>
         <div class="hpline">${hpBar(h.hp, h.max)} <b>${h.hp}/${h.max}</b></div></div></div>
       ${cur() === h && S.phase !== "end" ? `<div class="yourturn">È il tuo turno · ${h.acts} azioni</div>` : ""}
       <div class="pdice"><button class="btn main" data-roll="20">d20</button><button class="btn main" data-roll="6">d6</button><button class="btn main" data-roll="8">d8</button></div><div class="dicehelp">d20 per riuscire · d6 per i danni delle armi · d8 per magia e cure</div><div class="pdie" id="pDie"></div>
