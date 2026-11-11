@@ -4053,6 +4053,8 @@ const EV = {
       if (v === "denuncia") { merito(1, "La truffa denunciata"); S.flags.rancore = true; return ["ev_cert_denuncia", "Per questo capitolo le merci di Sbrindello costano 2 monete in più."]; }
       return ["ev_cert_via", ""]; } },
 };
+// Le scelte coraggiose degli eventi: +1 Ispirazione (al massimo una per capitolo), anche se poi il tiro fallisce
+const CORAGGIO = { rete: "libera", ladruncolo: "insegui", cerbiatto: "libera", carretto: "spingi", sirene: "ascolta", naufrago: "salva", esattore: "rifiuta", certificato: "denuncia" };
 const CARTE = { 1: ["fornaio", "campana1", "ladruncolo"], 2: ["carretto", "cerbiatto", "nebbia"], 3: ["naufrago", "polizza", "pane3"], 4: ["esattore", "ciotola", "certificato"] };
 async function eventoScena(id, carta) {
   const E = EV[id], keys = [].concat(E.k);
@@ -4063,6 +4065,7 @@ async function eventoScena(id, carta) {
   log(`${E.t}: la compagnia sceglie «${E.opts.find(x => x[0] === v)[1]}».`);
   const [k, small] = await E.res(v);
   if (k || small) await esito(E.img, carta ? "Lungo la strada" : E.t, E.opts.find(x => x[0] === v)[1], k, small);
+  if (CORAGGIO[id] === v && !S.flags.coraggio) { S.flags.coraggio = true; ispira("il coraggio della compagnia"); } // nascosto: si scopre solo dopo, una volta per capitolo
   render();
 }
 async function cartaEvento(k) {
